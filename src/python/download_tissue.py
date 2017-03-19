@@ -75,16 +75,6 @@ with open('data/aperio-downloader/gtex-sampid.txt','r') as f:
     # 22642 images
     # 868 unique image donors
 
-tissue_sample_counts = list(zip(phenotype_df['SMTSD'].value_counts().index, phenotype_df['SMTSD'].value_counts().tolist()))
-
-# unique image donors U unique genotype donors = 447 
-len(set(unique_donor_image_IDs).intersection(unique_donor_genotype_IDs))
-# unique image donors U unique phenotype donors = 567
-len(set(unique_donor_image_IDs).intersection(unique_donor_phenotype_IDs))
-# unique genotype donors U unique phenotype donors = 449
-len(set(unique_donor_genotype_IDs).intersection(unique_donor_phenotype_IDs))
-# # unique genotype donors U unique phenotype donors U unique image donors  = 447
-len(set(unique_donor_genotype_IDs).intersection(unique_donor_phenotype_IDs).intersection(set(unique_donor_image_IDs)))
 
 # Define tissue types of interest
 tissue_types = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
@@ -95,8 +85,8 @@ tissue_image_IDs = [list(set(['-'.join(x.split('-')[:3]) for x in tissue_IDs]).i
 tissue_ID_lookup = dict((tissue_types[i], tissue_image_IDs[i]) for i in range(len(tissue_image_IDs)))
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Description of your program')
-    parser.add_argument('-t','--tissue', help='Description for foo argument', required=True)
+    parser = argparse.ArgumentParser(description='Program to download all image IDs for a tissue. Downloads to data/raw.')
+    parser.add_argument('-t','--tissue', help='Tissue to download', required=True)
     args = vars(parser.parse_args())
     tissue = args['tissue']
     single_tissue_lookup = {tissue: tissue_ID_lookup[tissue]}

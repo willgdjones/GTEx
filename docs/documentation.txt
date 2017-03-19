@@ -1,0 +1,12 @@
+download_tissue.py -t TISSUE
+
+This function downloads all GTEX images corresponding to a particular TISSUE. We find all IDs corresponding to a particular tissue via the Phenotype dataframe. We then choose only IDs for which we have images. Finally, we download all the images. 
+
+generate_random_patches.py -n TILE_NUMBER -l TILE_LEVEL_INDEX
+
+This function generates the patches that is fed into the tissue classfier. The function chooses 100 images of each tissue. Next, it extracts TILE_NUMBER patches from each image, at a TILE_LEVEL_INDEX. A TILE_LEVEL_INDEX of -1 corresponds to 128x128 pixel patches. -2 corresponds to 256x256 pixel patches. During the patch sampling process, patches taken from the white background are rejected. A patches is deemed to be white space if its mean pixel values is above 230.
+
+generate_covering_patches.py -i INFORMATION
+
+This function generates patches which cover a tissue image. The input information takes the form ‘ID TISSUE’, the image ID, and the corresponding tissue. It slides a patch window of size 128x128 pixels across every available space in the image. It rejects whitespace patches by asking whether the mean pixel intensity of a patch is greater than 230. It saves the data in chunks of size 2000 valid tissue patches.
+

@@ -8,7 +8,6 @@ import pickle
 import gzip
 import pandas as pd
 import requests
-print ('program starts')
 import openslide
 from openslide.deepzoom import DeepZoomGenerator
 from openslide import open_slide
@@ -19,7 +18,6 @@ GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 import mahotas
 import sys
 import argparse
-
 
 def main():
     image_path = os.path.join(GTEx_directory,'data','raw',tissue,ID + '.svs')
@@ -41,7 +39,7 @@ def main():
             if np.mean(tile.flatten()) < 230:
                 tile_stack.append(tile)
                 if k % 2000 == 0 and k > 0:
-                    pickle.dump(tile_stack,open(os.path.join('../data','processed','covering_patches',tissue,ID,'{}_{}'.format(ID,k)), 'wb'))
+                    pickle.dump(tile_stack,open(os.path.join('data','processed','covering_patches',tissue,ID,'{}_{}'.format(ID,k)), 'wb'))
                     tile_stack = []
                 print (k, i, j)                
                 k += 1
@@ -49,8 +47,8 @@ def main():
             #Otherwise we are in whitespace
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Description of your program')
-    parser.add_argument('-i','--information', help='Description for foo argument', required=True)
+    parser = argparse.ArgumentParser(description='Generate the covering patches for an image.')
+    parser.add_argument('-i','--information', help='Takes the form "ID TISSUE". ', required=True)
     args = vars(parser.parse_args())
     information = args['information'].split(' ')
     ID = information[0]
