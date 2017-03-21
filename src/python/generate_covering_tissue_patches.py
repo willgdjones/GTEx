@@ -32,19 +32,25 @@ def main():
     tile_stack = []
     k = 0
     os.makedirs(os.path.join('data','processed','covering_patches',tissue,ID), exist_ok = True)
-    for i in range(tile_dims[0]):
-        for j in range(tile_dims[1]):
-            tile = np.array(tiles.get_tile(tile_level, (i, j)))
-            #If mean pixel > 0
-            if np.mean(tile.flatten()) < 230:
-                tile_stack.append(tile)
-                if k % 2000 == 0 and k > 0:
-                    pickle.dump(tile_stack,open(os.path.join('data','processed','covering_patches',tissue,ID,'{}_{}'.format(ID,k)), 'wb'))
-                    tile_stack = []
-                print (k, i, j)                
-                k += 1
-                
-            #Otherwise we are in whitespace
+    if os.listdir(os.path.join('data','processed','covering_patches',tissue,ID)) == []: 
+        for i in range(tile_dims[0]):
+            for j in range(tile_dims[1]):
+                tile = np.array(tiles.get_tile(tile_level, (i, j)))
+                #If mean pixel > 0
+                if np.mean(tile.flatten()) < 230:
+                    tile_stack.append(tile)
+                    if k % 2000 == 0 and k > 0:
+                        pickle.dump(tile_stack,open(os.path.join('data','processed','covering_patches',tissue,ID,'{}_{}'.format(ID,k)), 'wb'))
+                        tile_stack = []
+                    print (k, i, j)                
+                    k += 1
+                else:
+                    #Otherwise we are in whitespace
+                    continue
+    else:
+        print ("Already generated data for {} {}".format(tissue, ID))
+
+                    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate the covering patches for an image.')

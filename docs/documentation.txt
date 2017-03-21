@@ -10,3 +10,9 @@ generate_covering_patches.py -i INFORMATION
 
 This function generates patches which cover a tissue image. The input information takes the form ‘ID TISSUE’, the image ID, and the corresponding tissue. It slides a patch window of size 128x128 pixels across every available space in the image. It rejects whitespace patches by asking whether the mean pixel intensity of a patch is greater than 230. It saves the data in chunks of size 2000 valid tissue patches.
 
+generate_covering_representations.py -t TISSUE -m MODEL_PATH
+This function generates representations from covering patches. The covering patches need to be downloaded already. It uses the MODEL located at MODEL_PATH to calculate these representations. 
+
+
+
+

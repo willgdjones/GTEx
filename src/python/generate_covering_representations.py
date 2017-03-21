@@ -16,15 +16,7 @@ from keras.models import load_model
 from keras import backend as K
 import argparse
 
-parser = argparse.ArgumentParser(description='Description of your program')
-parser.add_argument('-i','--ID', help='Description for foo argument', required=True)
 
-args = vars(parser.parse_args())
-ID = args['ID']
-
-# IDs = os.listdir('../data/processed/covering_patches')
-# ID = 'GTEX-12WSN-0626'
-# x = pickle.load(open('../data/processed/covering_patches/GTEX-12WSN-0626/GTEX-12WSN-0626_10000','rb'))
 
 tissue_types = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
 genotypes_filepath = '/nfs/research2/stegle/stegle_secure/GTEx/download/49139/PhenoGenotypeFiles/RootStudyConsentSet_phs000424.GTEx.v6.p1.c1.GRU/GenotypeFiles/phg000520.v2.GTEx_MidPoint_Imputation.genotype-calls-vcf.c1/parse_data/GTEx_Analysis_20150112_OMNI_2.5M_5M_450Indiv_chr1to22_genot_imput_info04_maf01_HWEp1E6_ConstrVarIDs_all_chrom_filered_maf_subset_individuals_44_tissues.hdf5'
@@ -41,16 +33,43 @@ def build_empty_model():
     model = Model(input=inception_model.input, output=predictions)
     return model
 
-model = build_empty_model()
-model.load_weights('models/inception_50_-1_gs1.h5')
+def main():
+    model = build_empty_model()
+    model.load_weights(model_path)
 
-final_layer_model = Model(model.input, model.layers[-2].output)
+    final_layer_model = Model(model.input, model.layers[-2].output)
 
 
-os.makedirs('data/processed/representations/{}'.format(ID), exist_ok=True)
-for batch in os.listdir('data/processed/covering_patches/{}/'.format(ID)):
-    print (batch)
-    x = np.array(pickle.load(open('data/processed/covering_patches/{}/{}'.format(ID, batch), 'rb')))
-    x_reps = final_layer_model.predict(x)
-    pickle.dump(x, open('data/processed/representations/{}/{}'.format(ID, batch),'wb'))
+    for ID in os.listdir('data/processed/covering_patches/{}'.format(tissue)):
+        os.makedirs('data/processed/assembled_representations/{}/{}'.format(model_name,tissue), exist_ok=True)
+        if ID not in os.listdir('data/processed/assembled_representations/{}/{}/'.format(model_name,tissue)):
+            for batch in os.listdir('data/processed/covering_patches/{}/{}'.format(tissue, ID)):
+                print (batch)
+                reps = []
+                try:
+                    x = np.array(pickle.load(open('data/processed/covering_patches/{}/{}/{}'.format(tissue,ID, batch), 'rb')))
+                    x_reps = final_layer_model.predict(x)
+                    reps.append(x_reps)
+                    # pickle.dump(x, open('data/processed/representations/{}/{}/{}/{}'.format(model_name,tissue,ID, batch),'wb'))
+                except ValueError:
+                    continue
+                reps = np.vstack(reps)
+                pickle.dump(reps, open('data/processed/assembled_representations/{}/{}/{}'.format(model_name,tissue, ID),'wb')) 
+            
+                
+        else:
+            print ("Representations already exist")
+            continue
     
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='This model 1. Creates representations given a model and a tissue. 2. Assembled and saves these representations')
+    parser.add_argument('-t','--tissue', help='The tissue', required=True)
+    parser.add_argument('-m','--model_path', help='Path to the model used to generate the representations', required=True)
+    args = vars(parser.parse_args())
+    tissue = args['tissue'] 
+    model_path = args['model_path']
+    model_name = model_path.split('/')[-1]
+    print (model_path, model_name)
+    main()
+

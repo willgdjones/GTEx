@@ -47,7 +47,7 @@ def main():
     pickle.dump([idx,p_values], open('data/processed/associations/{}_pvalues/{}_pvalues_shuffle{}_filterlimit{}.py'.format(filename,component,shuffle,filter_limit),'wb'))
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Generate pvalues')
+    parser = argparse.ArgumentParser(description='Generate assocation p-values for expression matrix X and image representation matrix y')
     parser.add_argument('-f','--assoc_filepath', help='Path to X-y association data file', required=True)
     parser.add_argument('-s','--shuffle', help='Toggle shuffle', required=True)
     parser.add_argument('-c','--component', help='Component of y matrix to take', required=True)
