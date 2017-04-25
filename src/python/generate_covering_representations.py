@@ -2,7 +2,7 @@ import pickle
 import matplotlib.pyplot as plt
 import os
 import numpy as np
-
+import pdb
 import sys
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
 
@@ -35,26 +35,29 @@ def build_empty_model():
 
 def main():
     model = build_empty_model()
-    model.load_weights(model_path)
+    model.load_weights(os.path.join('models',model_name))
 
     final_layer_model = Model(model.input, model.layers[-2].output)
 
 
-    for ID in os.listdir('data/processed/covering_patches/{}'.format(tissue)):
-        os.makedirs('data/processed/assembled_representations/{}/{}'.format(model_name,tissue), exist_ok=True)
-        if ID not in os.listdir('data/processed/assembled_representations/{}/{}/'.format(model_name,tissue)):
-            for batch in os.listdir('data/processed/covering_patches/{}/{}'.format(tissue, ID)):
+    for ID in os.listdir('data/processed/covering_patches/{}/{}'.format(tile_size,tissue)):
+        os.makedirs('data/processed/assembled_representations/{}/{}/{}'.format(model_name,tile_size,tissue), exist_ok=True)
+        if ID not in os.listdir('data/processed/assembled_representations/{}/{}/{}/'.format(model_name,tile_size, tissue)) or regenerate == '1':
+            os.makedirs('data/processed/representations/{}/{}/{}/{}'.format(model_name,tile_size,tissue,ID), exist_ok=True)
+            for batch in os.listdir('data/processed/covering_patches/{}/{}/{}'.format(tile_size,tissue, ID)):
                 print (batch)
                 reps = []
                 try:
-                    x = np.array(pickle.load(open('data/processed/covering_patches/{}/{}/{}'.format(tissue,ID, batch), 'rb')))
+                    x = np.array(pickle.load(open('data/processed/covering_patches/{}/{}/{}/{}'.format(tile_size,tissue,ID, batch), 'rb')))
                     x_reps = final_layer_model.predict(x)
+                    assert x_reps.shape[1] == 1024
+
                     reps.append(x_reps)
-                    # pickle.dump(x, open('data/processed/representations/{}/{}/{}/{}'.format(model_name,tissue,ID, batch),'wb'))
+                    pickle.dump(x_reps, open('data/processed/representations/{}/{}/{}/{}/{}'.format(model_name,tile_size,tissue, ID, batch),'wb')) 
                 except ValueError:
                     continue
                 reps = np.vstack(reps)
-                pickle.dump(reps, open('data/processed/assembled_representations/{}/{}/{}'.format(model_name,tissue, ID),'wb')) 
+                pickle.dump(reps, open('data/processed/assembled_representations/{}/{}/{}/{}'.format(model_name,tile_size,tissue, ID),'wb')) 
             
                 
         else:
@@ -63,13 +66,25 @@ def main():
     
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='This model 1. Creates representations given a model and a tissue. 2. Assembled and saves these representations')
+    parser = argparse.ArgumentParser(description='This model 1. Creates representations given a model and a tissue. 2. Assembles and saves these representations')
     parser.add_argument('-t','--tissue', help='The tissue', required=True)
-    parser.add_argument('-m','--model_path', help='Path to the model used to generate the representations', required=True)
+    parser.add_argument('-m','--model_name', help='model used to generate the representations', required=True)
+    parser.add_argument('-s','--tile_size', help='The tile index where patches were sampled from', default='small')
+    parser.add_argument('-r','--regenerate', help='Regenerate the data', default='small')
     args = vars(parser.parse_args())
     tissue = args['tissue'] 
-    model_path = args['model_path']
-    model_name = model_path.split('/')[-1]
-    print (model_path, model_name)
+    model_name = args['model_name']
+    tile_size = args['tile_size']
+    regenerate = args['regenerate']
+    assert tile_size == 'small' or tile_size == 'medium' or tile_size == 'large'
+    if tile_size == 'small':
+        tile_level_index = -1
+    elif tile_size == 'medium':
+        tile_level_index = -2
+    elif tile_size == 'large':
+        tile_level_index = -3
+    else:
+        raise Exception 
+    print (model_name)
     main()
 
