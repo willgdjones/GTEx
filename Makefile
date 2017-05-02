@@ -65,3 +65,18 @@ all-graphs:
 
 monitor:
 	python src/python/monitor.py
+
+sample_lung_patches:
+	for ID in `cat textfiles/lung_IDs.txt`; \
+		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 50000 -R 'rusage[mem=50000]' "python src/python/sample_lung_patches.py -i $$ID -f test.hdf5"; \
+   	done; \
+
+generate_lung_representations:
+	for ID in `cat textfiles/lung_IDs.txt`; \
+		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_better_lung_features.py -i $$ID"; \
+   	done; \
+
+generate_lung_raw_inception_representations:
+	for ID in `cat textfiles/lung_IDs.txt`; \
+		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_features.py -i $$ID"; \
+   	done; \
