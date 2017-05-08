@@ -31,7 +31,7 @@ def download(samples_list, directory):
 
     # Do download
     for i in range(0, len(samples_list)):
-        
+
         output_filename = os.path.join(directory,samples_list[i]+".svs")
         if not os.path.isfile(output_filename):
             print("Downloading "+str(i+1)+"/"+str(len(samples_list))+": "+samples_list[i])
@@ -45,7 +45,7 @@ def download(samples_list, directory):
                     outfile.write(response.content)
         else:
             print(str(i+1)+"/"+str(len(samples_list))+": "+samples_list[i] +" already Downloaded")
-    return 
+    return
 
 
 genotypes_filepath = '/nfs/research2/stegle/stegle_secure/GTEx/download/49139/PhenoGenotypeFiles/RootStudyConsentSet_phs000424.GTEx.v6.p1.c1.GRU/GenotypeFiles/phg000520.v2.GTEx_MidPoint_Imputation.genotype-calls-vcf.c1/parse_data/GTEx_Analysis_20150112_OMNI_2.5M_5M_450Indiv_chr1to22_genot_imput_info04_maf01_HWEp1E6_ConstrVarIDs_all_chrom_filered_maf_subset_individuals_44_tissues.hdf5'
@@ -63,9 +63,9 @@ with gzip.open(phenotype_filepath, 'rb') as f:
     phenotype_IDs = ['-'.join(x.split('-')[0:3]) for x in list(phenotype_df['SAMPID']) if x.startswith('GTEX')]
     donor_phenotype_IDs = get_donor_IDs(phenotype_IDs)
     unique_donor_phenotype_IDs = np.unique(donor_phenotype_IDs)
-    # 11983 phenotype IDs. 
+    # 11983 phenotype IDs.
     # 571 unique phenotype donors
-    
+
 
 #Images
 with open('data/aperio-downloader/gtex-sampid.txt','r') as f:
