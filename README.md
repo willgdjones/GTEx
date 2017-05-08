@@ -1,10 +1,16 @@
-This directory contains the files and folders for my PhD project. I am looking to extract features from images using neural networks and then associate these the genetic information.
+# Deep Learning for biomedical image feature extraction.
 
-This repository is designed to be executable by anyone at the EBI, or who uses LSF at their research institute.
+This directory contains the files and folders for my PhD project.
 
-To download the data, use:
-`make download`
+## Aim
+ I am aiming to extract features from images using neural networks and  associate these the genetic information.
 
-to generate covering patches of the tissues, use:
+ This repository is designed to be executable by anyone at the EBI, or who uses LSF at their research institute.
 
-`make covering_patches`
+## Instructions
+To replicate this research, you must follow three steps:
+- Download the data
+- Train the classifier
+
+## Downloading the data
+I have 277 digital images of lung slices. in

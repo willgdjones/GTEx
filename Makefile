@@ -80,3 +80,21 @@ generate_lung_raw_inception_representations:
 	for ID in `cat textfiles/lung_IDs.txt`; \
 		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_features.py -i $$ID"; \
    	done; \
+
+generate_lung_raw_inception_association:
+	for size in `echo 128 256 512 1024 2048`; do \
+		for f in `seq 0 1023`; do \
+			for sh in `echo real 1 2 3 4 5`; do \
+				for agg in `echo mean median`; do \
+					echo $$size $$f $$sh $$agg; \
+					bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 500 -R 'rusage[mem=500]' "python src/python/generate-association-tests-from-hdf5.py -f $$f -s $$size -l $$sh -a $$agg"; \
+				done; \
+			done; \
+		done; \
+	done;
+				
+				
+			   #do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 10000 -R 'rusage[mem=10000]' \
+			#"python src/python/generate-association-tests-from-hdf5.py -f $$f -s "; \
+		#done;
+	#done;	
