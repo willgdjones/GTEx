@@ -5,6 +5,7 @@ import h5py
 import pdb
 from scipy.misc import imresize
 import matplotlib.pyplot as plt
+
 patch_sizes = [128, 256, 512, 1024, 2048]
 
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
@@ -78,12 +79,11 @@ for ps in patch_sizes:
             continue
         batch_features = final_layer_model.predict(batch_tiles)
         image_features.append(batch_features)
-        
+
     image_features = np.array(image_features)
     image_features = np.vstack(image_features)
-    
+
     assert np.array(image_features).shape[1] == 1024
     feature_path = GTEx_directory + '/data/better_image_features/{}_{}.hdf5'.format(ID,ps)
     with h5py.File(feature_path,'w') as h:
         h.create_dataset(ID, data=image_features)
-
