@@ -6,8 +6,7 @@ import pdb
 from scipy.misc import imresize
 import matplotlib.pyplot as plt
 
-# patch_sizes = [128, 256, 512, 1024, 2048]
-patch_sizes = [4096]
+patch_sizes = [128, 256, 512, 1024, 2048, 4096]
 
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -25,13 +24,8 @@ ID = args['ID']
 
 
 def build_empty_model():
-    inception_model = InceptionV3(weights='imagenet', include_top=False)
-    x = inception_model.output
-    x = GlobalAveragePooling2D()(x)
-    x = Dense(1024, activation='relu')(x)
-    predictions = Dense(10, activation='softmax')(x)
-
-    model = Model(input=inception_model.input, output=predictions)
+    inceptionet = InceptionV3(weights='imagenet', include_top=True)
+    model = Model(inceptionet.input, inceptionet.layers[-2].output)
     return model
 
 len(os.listdir(os.path.join(GTEx_directory, 'data/better_covering_patches')))
@@ -43,16 +37,10 @@ lung_IDs = [x.split('.')[0] for x in lung_images]
 
 
 model = build_empty_model()
-model.load_weights(os.path.join(GTEx_directory, 'models','inception_50_-1.h5'))
 
 final_layer_model = Model(model.input, model.layers[-2].output)
 
 
-
-# donorID = str(ID).split('-')[1]
-# ID_idx = individual_tissue_expression_donor_IDs.index(donorID)
-# expression_row = expression_matrix[:,ID_idx]
-# expression.create_dataset(ID, data=expression_row)
 print (ID)
 
 for ps in patch_sizes:
@@ -76,7 +64,7 @@ for ps in patch_sizes:
     image_features = np.array(image_features)
     image_features = np.vstack(image_features)
 
-    assert np.array(image_features).shape[1] == 1024
-    feature_path = GTEx_directory + '/data/retrained_inceptionet_features/{}_{}.hdf5'.format(ID,ps)
+    assert np.array(image_features).shape[1] == 2048
+    feature_path = GTEx_directory + '/data/raw_inceptionet_features/{}_{}.hdf5'.format(ID,ps)
     with h5py.File(feature_path,'w') as h:
         h.create_dataset(ID, data=image_features)

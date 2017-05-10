@@ -48,19 +48,13 @@ model.load_weights(os.path.join(GTEx_directory, 'models','inception_50_-1.h5'))
 final_layer_model = Model(model.input, model.layers[-2].output)
 
 
-
-# donorID = str(ID).split('-')[1]
-# ID_idx = individual_tissue_expression_donor_IDs.index(donorID)
-# expression_row = expression_matrix[:,ID_idx]
-# expression.create_dataset(ID, data=expression_row)
 print (ID)
 
 for ps in patch_sizes:
-    # size = features[str(ps)]
+
     patch_path = GTEx_directory + '/data/better_covering_patches/{}_{}.hdf5'.format(ID,ps)
     g = h5py.File(patch_path, 'r')
     patches = g['patches']
-#             g.close()
     patches = np.array([imresize(x, (299,299)) for x in patches])
     print (len(patches))
     image_features = []
