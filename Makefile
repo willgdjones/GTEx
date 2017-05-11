@@ -42,8 +42,8 @@ all-tissue-associations:
 	#Very long. Run overnight
 	while IFS= read -r tissue; do \
 		for i in `seq 0 1023`; do \
-			bsub -M 10000 -o "log/${i}.out" -e "log/${i}.err" -R 'rusage[mem=10000]' "python src/python/run_tissue_expression_association_tests.py -f 0 -c $$i -u 1 -m inception_50_-1.h5 -t \"$$tissue\" -a $(aggregation) -s $(size)"; \
-			bsub -M 10000 -o "log/${i}.out" -e "log/${i}.err" -R 'rusage[mem=10000]' "python src/python/run_tissue_expression_association_tests.py -f 1 -c $$i -u 1 -m inception_50_-1.h5 -t \"$$tissue\" -a $(aggregation) -s $(size)"; \
+			bsub -M 10000 -o "log/$${i}.out" -e "log/$${i}.err" -R 'rusage[mem=10000]' "python src/python/run_tissue_expression_association_tests.py -f 0 -c $$i -u 1 -m inception_50_-1.h5 -t \"$$tissue\" -a $(aggregation) -s $(size)"; \
+			bsub -M 10000 -o "log/$${i}.out" -e "log/$${i}.err" -R 'rusage[mem=10000]' "python src/python/run_tissue_expression_association_tests.py -f 1 -c $$i -u 1 -m inception_50_-1.h5 -t \"$$tissue\" -a $(aggregation) -s $(size)"; \
 		done; \
 	done < textfiles/tissue_types.txt;
 
@@ -68,15 +68,17 @@ monitor:
 
 sample_lung_patches:
 	for ID in `cat textfiles/lung_IDs.txt`; \
-		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 10000 -R 'rusage[mem=10000]' "python src/python/sample_lung_patches.py -i $$ID -f test.hdf5"; \
+		do bsub -o "log/$${ID}.out" -e "log/$${ID}.err" -M 10000 -R 'rusage[mem=10000]' "python src/python/sample_lung_patches.py -i $$ID -f test.hdf5"; \
    	done; \
 
 generate_lung_finetuned_inception_representations:
 	for ID in `cat textfiles/lung_IDs.txt`; \
-		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_finetuned_inceptionet_lung_features.py -i $$ID"; \
+		do bsub -o "log/$${ID}.out" -e "log/$${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_finetuned_inceptionet_lung_features.py -i $$ID"; \
    	done; \
 
+# bsub -Is -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_finetuned_inceptionet_lung_features.py -i GTEX-13VXU-2726"
 generate_lung_raw_inception_representations:
 	for ID in `cat textfiles/lung_IDs.txt`; \
-		do bsub -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_lung_features.py -i $$ID"; \
+		do bsub -o "log/$${ID}.out" -e "log/$${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_lung_features.py -i $$ID"; \
    	done; \
+# bsub -Is -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_lung_features.py -i GTEX-13VXU-2726"
