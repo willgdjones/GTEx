@@ -6,7 +6,8 @@ import pdb
 from scipy.misc import imresize
 import matplotlib.pyplot as plt
 
-patch_sizes = [4096]
+# patch_sizes = [4096]
+patch_sizes = [128, 256, 512, 1024, 2048]
 
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'

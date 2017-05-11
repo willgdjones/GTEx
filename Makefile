@@ -73,12 +73,12 @@ sample_lung_patches:
 
 generate_lung_finetuned_inception_representations:
 	for ID in `cat textfiles/lung_IDs.txt`; \
-		do bsub -o "log/$${ID}.out" -e "log/$${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_finetuned_inceptionet_lung_features.py -i $$ID"; \
+		do bsub -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_finetuned_inceptionet_lung_features.py -i $$ID"; \
    	done; \
 
 # bsub -Is -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_finetuned_inceptionet_lung_features.py -i GTEX-13VXU-2726"
 generate_lung_raw_inception_representations:
 	for ID in `cat textfiles/lung_IDs.txt`; \
-		do bsub -o "log/$${ID}.out" -e "log/$${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_lung_features.py -i $$ID"; \
+		do bsub -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_lung_features.py -i $$ID"; \
    	done; \
 # bsub -Is -o "log/${ID}.out" -e "log/${ID}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_raw_inceptionet_lung_features.py -i GTEX-13VXU-2726"
