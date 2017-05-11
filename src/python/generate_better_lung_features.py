@@ -6,7 +6,8 @@ import pdb
 from scipy.misc import imresize
 import matplotlib.pyplot as plt
 
-patch_sizes = [128, 256, 512, 1024, 2048]
+# patch_sizes = [128, 256, 512, 1024, 2048]
+patch_sizes = [4096]
 
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -39,14 +40,6 @@ lung_filepath = os.path.join(GTEx_directory,'data','raw','Lung')
 lung_images = os.listdir(lung_filepath)
 
 lung_IDs = [x.split('.')[0] for x in lung_images]
-
-# tissue = 'Lung'
-# tissue_expression_filepath = '/nfs/research2/stegle/stegle_secure/GTEx/download/49139/PhenoGenotypeFiles/RootStudyConsentSet_phs000424.GTEx.v6.p1.c1.GRU/ExpressionFiles/phe000006.v2.GTEx_RNAseq.expression-data-matrixfmt.c1/parse_data/44_tissues/GTEx_Data_20150112_RNAseq_RNASeQCv1.1.8_gene_rpkm_{}_normalised_without_inverse_gene_expression.txt'.format(tissue)
-# with open(tissue_expression_filepath, 'r') as f:
-    # expression_table = np.array([x.split('\t') for x in f.read().splitlines()])
-    # expression_matrix = expression_table[1:,1:].astype(np.float32)
-
-# individual_tissue_expression_donor_IDs = [x.split('-')[1] for x in expression_table[0,:][1:]]
 
 
 model = build_empty_model()
@@ -84,6 +77,6 @@ for ps in patch_sizes:
     image_features = np.vstack(image_features)
 
     assert np.array(image_features).shape[1] == 1024
-    feature_path = GTEx_directory + '/data/better_image_features/{}_{}.hdf5'.format(ID,ps)
+    feature_path = GTEx_directory + '/data/retrained_inceptionet_features/{}_{}.hdf5'.format(ID,ps)
     with h5py.File(feature_path,'w') as h:
         h.create_dataset(ID, data=image_features)
