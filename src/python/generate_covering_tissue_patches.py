@@ -32,7 +32,7 @@ def main():
     tile_stack = []
     k = 0
     os.makedirs(os.path.join(GTEx_directory, 'data','processed','covering_patches',tile_size ,tissue,ID), exist_ok = True)
-    if os.listdir(os.path.join(GTEx_directory, 'data','processed','covering_patches',tile_size, tissue,ID)) == [] or regenerate == '1': 
+    if os.listdir(os.path.join(GTEx_directory, 'data','processed','covering_patches',tile_size, tissue,ID)) == [] or regenerate == '1':
         for i in range(tile_dims[0]):
             for j in range(tile_dims[1]):
                 tile = np.array(tiles.get_tile(tile_level, (i, j)))
@@ -42,7 +42,7 @@ def main():
                     if k % 100 == 0 and k > 0:
                         pickle.dump(tile_stack,open(os.path.join(GTEx_directory,'data','processed','covering_patches',tile_size, tissue,ID,'{}_{}'.format(ID,k)), 'wb'))
                         tile_stack = []
-                    print (k, i, j)                
+                    print (k, i, j)
                     k += 1
                 else:
                     #Otherwise we are in whitespace
@@ -50,7 +50,7 @@ def main():
     else:
         print ("Already generated data for {} {}".format(tissue, ID))
 
-                    
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Generate the covering patches for an image.')
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     elif tile_size == 'large':
         tile_level_index = -3
     else:
-        raise Exception 
-        
+        raise Exception
+
     print (ID, tissue, tile_size)
     main()

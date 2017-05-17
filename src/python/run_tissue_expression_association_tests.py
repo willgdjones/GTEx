@@ -17,7 +17,7 @@ lim_logging = logging.getLogger('lim')
 lim_logging.setLevel(logging.CRITICAL)
 
 def main():
-    
+
     [X_matrix, y_pheno] = pickle.load(open('data/processed/association_data/expression/{}/{}/{}/X_y_{}'.format(model_name,tile_size,tissue,agg_method),'rb'))
 
     if tissue == 'Artery - Tibial':
@@ -47,7 +47,7 @@ def main():
             # gene_functions.append('NA')
         # if i % 1000 == 0:
             # print (i)
-            
+
     # protein_coding_IDs = np.array(transcript_IDs)[np.array(gene_functions) == 'protein_coding']
     # protein_coding_indexes = np.array([transcript_IDs.index(x) for x in protein_coding_IDs])
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     elif tile_size == 'large':
         tile_level_index = -3
     else:
-        raise Exception 
+        raise Exception
 
     assert agg_method == 'median' or agg_method == 'mean', "Aggregation method needs to be either the mean or median"
     if not os.path.isfile('data/processed/association_results/expression/{}/{}/{}/pvalues/component{}_sh{}_fl{}.py'.format(model_name,tissue,agg_method,component,shuffle,filter_limit)):

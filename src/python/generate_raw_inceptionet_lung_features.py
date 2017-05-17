@@ -7,7 +7,8 @@ from scipy.misc import imresize
 import matplotlib.pyplot as plt
 
 # patch_sizes = [4096]
-patch_sizes = [128, 256, 512, 1024, 2048]
+patch_sizes = [128, 256, 512, 1024, 2048, 4096]
+# patch_sizes = [512, 1024, 2048]
 
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -59,6 +60,7 @@ for ps in patch_sizes:
         batch_tiles = patches[i*100:(i+1)*100,:,:,:].astype(np.float16) / 255
         if len(batch_tiles) == 0:
             continue
+    
         batch_features = final_layer_model.predict(batch_tiles)
         image_features.append(batch_features)
 

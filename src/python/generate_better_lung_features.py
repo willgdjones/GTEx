@@ -32,6 +32,7 @@ def build_empty_model():
     predictions = Dense(10, activation='softmax')(x)
 
     model = Model(input=inception_model.input, output=predictions)
+    model.load_weights(os.path.join(GTEx_directory, 'models','inception_50_-1.h5'))
     return model
 
 len(os.listdir(os.path.join(GTEx_directory, 'data/better_covering_patches')))
@@ -43,7 +44,7 @@ lung_IDs = [x.split('.')[0] for x in lung_images]
 
 
 model = build_empty_model()
-model.load_weights(os.path.join(GTEx_directory, 'models','inception_50_-1.h5'))
+
 
 final_layer_model = Model(model.input, model.layers[-2].output)
 

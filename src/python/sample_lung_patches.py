@@ -13,21 +13,21 @@ import mahotas
 import pdb
 import argparse
 
+patch_sizes = [128, 256, 512, 1024, 2048,4096]
+
 parser = argparse.ArgumentParser(description='')
 parser.add_argument('-f','--data_filename', help='Name of the filename to save to', required=True)
 parser.add_argument('-i','--ID', help='GTEx ID', required=True)
 args = vars(parser.parse_args())
 data_filename = args['data_filename']
 ID = args['ID']
+tissue = args['tissue']
 
-pdb.set_trace()
+tissue_filepath = os.path.join(GTEx_directory,'data','raw',tissue)
+tissue_images = os.listdir(tissue_filepath)
+tissue_IDs = [x.split('.')[0] for x in tissue_images]
 
-lung_filepath = os.path.join(GTEx_directory,'data','raw','Lung')
-lung_images = os.listdir(lung_filepath)
-lung_IDs = [x.split('.')[0] for x in lung_images]
 
-pdb.set_trace()
-tissue = 'Lung'
 tissue_expression_filepath = '/nfs/research2/stegle/stegle_secure/GTEx/download/49139/PhenoGenotypeFiles/RootStudyConsentSet_phs000424.GTEx.v6.p1.c1.GRU/ExpressionFiles/phe000006.v2.GTEx_RNAseq.expression-data-matrixfmt.c1/parse_data/44_tissues/GTEx_Data_20150112_RNAseq_RNASeQCv1.1.8_gene_rpkm_{}_normalised_without_inverse_gene_expression.txt'.format(tissue)
 with open(tissue_expression_filepath, 'r') as f:
     expression_table = np.array([x.split('\t') for x in f.read().splitlines()])
@@ -36,19 +36,10 @@ with open(tissue_expression_filepath, 'r') as f:
 individual_tissue_expression_donor_IDs = [x.split('-')[1] for x in expression_table[0,:][1:]]
 pdb.set_trace()
 
-def build_empty_model():
-    inception_model = InceptionV3(weights='imagenet', include_top=False)
-    x = inception_model.output
-    x = GlobalAveragePooling2D()(x)
-    x = Dense(1024, activation='relu')(x)
-    predictions = Dense(10, activation='softmax')(x)
-
-    model = Model(input=inception_model.input, output=predictions)
-    return model
 
 def sample_patches(ID,patchsize):
 
-    image_filepath = os.path.join(GTEx_directory,'data','raw','Lung', ID + '.svs')
+    image_filepath = os.path.join(GTEx_directory,'data','raw',tissue, ID + '.svs')
 
     image_slide = open_slide(image_filepath)
     toplevel = image_slide.level_count - 1
@@ -127,7 +118,7 @@ def sample_patches(ID,patchsize):
 
 
 
-patch_sizes = [4096]
+
 
 #Check that we have expression data
 donorID = str(ID).split('-')[1]
@@ -141,6 +132,6 @@ for patch_size in patch_sizes:
 
     covering_tiles = sample_patches(ID, patch_size)
 
-    f = h5py.File('data/better_covering_patches/{}_{}.hdf5'.format(ID,patch_size), 'w')
+    f = h5py.File('data/covering_patches/{tissue}/{ID}_{patch_size}.hdf5'.format(tissue=tissue,ID=ID,patch_size=patch_size), 'w')
     f.create_dataset('patches', data=covering_tiles)
     f.close()
