@@ -13,10 +13,11 @@ import ipdb
 
 sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
-patch_sizes = [128, 256, 512, 1024, 2048,4096]
-lung_filepath = os.path.join(GTEx_directory,'data','raw','Lung')
-lung_images = os.listdir(lung_filepath)
-lung_IDs = [x.split('.')[0] for x in lung_images]
+patch_sizes = [128, 256, 512, 1024, 2048, 4096]
+
+tissue_filepath = os.path.join(GTEx_directory,'data','raw',tissue)
+tissue_images = os.listdir(tissue_filepath)
+tissue_IDs = [x.split('.')[0] for x in tissue_images]
 
 def retrained_inception_model():
     inception_model = InceptionV3(weights='imagenet', include_top=False)
@@ -52,13 +53,12 @@ elif model_choic == 'retrained':
 print ('ID: {}, model: {}'.format(ID,aggregation))
 
 for ps in patch_sizes:
-    # size = features[str(ps)]
-    patch_path = GTEx_directory + '/data/better_covering_patches/{}_{}.hdf5'.format(ID,ps)
+    patch_path = GTEx_directory + '/data/patches/{tissue}/{tissue}_{patch_size}.hdf5'.format(tissue=tissue,ID=ID,patch_size=ps)
     g = h5py.File(patch_path, 'r')
     patches = g['patches']
-#             g.close()
     patches = np.array([imresize(x, (299,299)) for x in patches])
     print (len(patches))
+
     image_features = []
     upper_limit = int(len(patches)/100)
     for i in range(upper_limit + 1):
@@ -73,7 +73,20 @@ for ps in patch_sizes:
     image_features = np.array(image_features)
     image_features = np.vstack(image_features)
 
-    assert np.array(image_features).shape[1] == 2048
-    feature_path = GTEx_directory + '/data/better_raw_inceptionet_features/{}_{}.hdf5'.format(ID,ps)
+
+    if model_choice == 'retrained':
+        assert np.array(image_features).shape[1] == 1024
+    elif model_choice == 'raw':
+        assert np.array(image_features).shape[1] == 2048
+
+    mean_features = np.mean(image_features,axis=0)
+    median_features = np.median(image_features,axis=0)
+    max_features = np.max(image_features,axis=0)
+
+    feature_path = GTEx_directory + '/data/features/{tissue}/{model_choice}_{ID}_{patch_size}.hdf5'.format(model_choice=model_choice,ID=ID,patch_size=ps)
+
     with h5py.File(feature_path,'w') as h:
-        h.create_dataset(ID, data=image_features)
+        h.create_dataset('features', data=image_features)
+        h.create_dataset('max', data=max_features)
+        h.create_dataset('mean', data=mean_features)
+        h.create_dataset('median', data=median_features)

@@ -1,7 +1,5 @@
 import os
 import sys
-sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
-GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 import openslide
 from openslide.deepzoom import DeepZoomGenerator
 from openslide import open_slide
@@ -13,28 +11,22 @@ import mahotas
 import pdb
 import argparse
 
-patch_sizes = [128, 256, 512, 1024, 2048,4096]
+sys.path = ['/nfs/gns/homes/willj/anaconda3/envs/GTEx/lib/python3.5/site-packages'] + sys.path
+GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
+
+patch_sizes = [128, 256, 512, 1024, 2048, 4096]
+
 
 parser = argparse.ArgumentParser(description='')
-parser.add_argument('-f','--data_filename', help='Name of the filename to save to', required=True)
-parser.add_argument('-i','--ID', help='GTEx ID', required=True)
+parser.add_argument('-p','--pair', help='GTEx ID, Tissue pair', required=True)
 args = vars(parser.parse_args())
-data_filename = args['data_filename']
-ID = args['ID']
-tissue = args['tissue']
+pair = args['pair'].split(' ')
+tissue = ' '.join(pair[1:])
+ID = pair[0]
 
 tissue_filepath = os.path.join(GTEx_directory,'data','raw',tissue)
 tissue_images = os.listdir(tissue_filepath)
-tissue_IDs = [x.split('.')[0] for x in tissue_images]
 
-
-tissue_expression_filepath = '/nfs/research2/stegle/stegle_secure/GTEx/download/49139/PhenoGenotypeFiles/RootStudyConsentSet_phs000424.GTEx.v6.p1.c1.GRU/ExpressionFiles/phe000006.v2.GTEx_RNAseq.expression-data-matrixfmt.c1/parse_data/44_tissues/GTEx_Data_20150112_RNAseq_RNASeQCv1.1.8_gene_rpkm_{}_normalised_without_inverse_gene_expression.txt'.format(tissue)
-with open(tissue_expression_filepath, 'r') as f:
-    expression_table = np.array([x.split('\t') for x in f.read().splitlines()])
-    expression_matrix = expression_table[1:,1:].astype(np.float32)
-
-individual_tissue_expression_donor_IDs = [x.split('-')[1] for x in expression_table[0,:][1:]]
-pdb.set_trace()
 
 
 def sample_patches(ID,patchsize):
@@ -117,21 +109,17 @@ def sample_patches(ID,patchsize):
     return covering_tiles
 
 
-
-
-
-#Check that we have expression data
-donorID = str(ID).split('-')[1]
-ID_idx = individual_tissue_expression_donor_IDs.index(donorID)
-expression_row = expression_matrix[:,ID_idx]
-
 for patch_size in patch_sizes:
-    print (ID)
+    filepath = os.path.join('data/patches',tissue)
+    filename = '{ID}_{patch_size}.hdf5'.format(ID=ID,patch_size=patch_size)
+    os.makedirs(filepath, exist_ok=True)
 
-    print ('sampling patches for {}, {}'.format(ID, patch_size))
 
-    covering_tiles = sample_patches(ID, patch_size)
-
-    f = h5py.File('data/covering_patches/{tissue}/{ID}_{patch_size}.hdf5'.format(tissue=tissue,ID=ID,patch_size=patch_size), 'w')
-    f.create_dataset('patches', data=covering_tiles)
-    f.close()
+    if not os.path.isfile(os.path.join(filepath,filename)):
+        print ('sampling patches for {}, {}'.format(ID, patch_size))
+        covering_tiles = sample_patches(ID, patch_size)
+        f = h5py.File(os.path.join(filepath,filename), 'w')
+        f.create_dataset('patches', data=covering_tiles)
+        f.close()
+    else:
+        print ('File exists')
