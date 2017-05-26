@@ -14,7 +14,7 @@ sample_patches:
 
 generate_features:
 	while IFS= read -r pair; \
-		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 100000 -R 'rusage[mem=100000]' -P gpu "python src/python/generate_features.py -p '$${pair}'"; \
+		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/python/generate_features.py -p '$${pair}'"; \
    	done < textfiles/ID_tissue_list.txt
-#bsub -Is -M 100000 -R 'rusage[mem=100000]' "python src/python/generate_features.py -p 'GTEX-R55G-0826 Lung'"
+#bsub -Is -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/python/generate_features.py -p 'GTEX-R55G-0826 Lung'"
 
