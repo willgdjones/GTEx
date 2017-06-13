@@ -17,13 +17,8 @@ To replicate this research, you must follow three steps:
 ## Downloading the data
 I have digital images from 10 tissues types.
 
-Number of digital images per tissue
+Number of digital images per tissue, vs patch size.
 
-| Tables        | Are           | Cool  |
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
 
 |Tissue     |     Exp  |   128  |   256  |   512  |   1024  |  2048  |  4096
 |-----------|----------|--------|--------|--------|---------|--------|-------   
@@ -37,3 +32,23 @@ Number of digital images per tissue
 |Liver      |     138  |   137  |   137  |   137  |   137   |  137   |  137
 |Ovary      |     107  |   106  |   106  |   106  |   106   |  106   |  106
 |Stomac     |     201  |   200  |   200  |   200  |   200   |  200   |  200
+
+Number of features per tissue, vs patch size.
+
+Tissue      |    Exp   |  128   |  256   |  512   |  1024  |  2048  |  4096
+------------|----------|--------|--------|--------|--------|--------|------
+Lung        |    7502  |  7084  |  7084  |  7084  |  7084  |  7084  |  7084
+Artery      |    7810  |  7788  |  7788  |  7788  |  7788  |  7788  |  6974
+Heart       |    5434  |  4818  |  4796  |  4796  |  4796  |  4796  |  4796
+Breast      |    4796  |  4620  |  4620  |  4620  |  4620  |  4620  |  4576
+Brain       |    3014  |  2805  |  2794  |  2794  |  2794  |  2794  |  2794
+Pancre      |    4246  |  3586  |  3586  |  3586  |  3586  |  3586  |  3586
+Testis      |    4334  |  4026  |  4026  |  4026  |  4026  |  4026  |  4026
+Liver       |    3036  |  2497  |  2464  |  2464  |  2464  |  2464  |  2464
+Ovary       |    2354  |  2079  |  2046  |  2046  |  2046  |  2046  |  2046
+Stomac      |    4422  |  3740  |  3718  |  3718  |  3718  |  3718  |  3718
+
+
+For example, consider the Lung features at patch_size 256
+##Aggregation
+We aggregate these feature
