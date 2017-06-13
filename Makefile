@@ -2,6 +2,9 @@
 rsync:
 	rsync -vr --exclude '.git' --exclude 'notebooks' /Users/fonz/Documents/Projects/GTEx willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj;
 
+monitor:
+	python src/python/monitor.py
+
 download:
 	while IFS= read -r line; do \
 		bsub -M 25000 -R "rusage[mem=20000]" 'python src/python/download_tissue.py -t \"$$line\"'; \
