@@ -1,0 +1,15 @@
+{
+  "uploadOnSave": true,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "ebi-cli-001.ebi.ac.uk",
+  "target": "/hps/nobackup/research/stegle/users/willj",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "willj",
+  "password": "Wick4876",
+  "watch": [],
+  "transport": "scp"
+}

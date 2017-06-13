@@ -1,0 +1,63 @@
+/ebi/lsf/ebi-spool/02/1490132333.9449040: line 8: rusage[mem=5000]: command not found
+/ebi/lsf/ebi-spool/02/1490132333.9449039: line 8: rusage[mem=5000]: command not found
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi6-066>
+Subject: Job 9449040: <rusage[mem=5000] "python src/bash/run_association_tests.py -f  -s 1 -c 1 -u 0 -m inception_50_-1.h5"> in cluster <EBI> Exited
+
+Job <rusage[mem=5000] "python src/bash/run_association_tests.py -f  -s 1 -c 1 -u 0 -m inception_50_-1.h5"> was submitted from host <ebi-cli-001> by user <willj> in cluster <EBI>.
+Job was executed on host(s) <ebi6-066>, in queue <research-rh7>, as user <willj> in cluster <EBI>.
+</homes/willj> was used as the home directory.
+</hps/nobackup/research/stegle/users/willj/GTEx> was used as the working directory.
+Started at Tue Mar 21 21:38:55 2017
+Results reported at Tue Mar 21 21:38:55 2017
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+rusage[mem=5000] "python src/bash/run_association_tests.py -f  -s 1 -c 1 -u 0 -m inception_50_-1.h5"
+------------------------------------------------------------
+
+Exited with exit code 127.
+
+Resource usage summary:
+
+    CPU time :               0.01 sec.
+    Total Requested Memory : 5000.00 MB
+    Delta Memory :           -
+    (Delta: the difference between total requested memory and actual max usage.)
+
+The output (if any) is above this job summary.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi7-017>
+Subject: Job 9449039: <rusage[mem=5000] "python src/bash/run_association_tests.py -f  -s 1 -c 0 -u 0 -m inception_50_-1.h5"> in cluster <EBI> Exited
+
+Job <rusage[mem=5000] "python src/bash/run_association_tests.py -f  -s 1 -c 0 -u 0 -m inception_50_-1.h5"> was submitted from host <ebi-cli-001> by user <willj> in cluster <EBI>.
+Job was executed on host(s) <ebi7-017>, in queue <research-rh7>, as user <willj> in cluster <EBI>.
+</homes/willj> was used as the home directory.
+</hps/nobackup/research/stegle/users/willj/GTEx> was used as the working directory.
+Started at Tue Mar 21 21:38:55 2017
+Results reported at Tue Mar 21 21:38:55 2017
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+rusage[mem=5000] "python src/bash/run_association_tests.py -f  -s 1 -c 0 -u 0 -m inception_50_-1.h5"
+------------------------------------------------------------
+
+Exited with exit code 127.
+
+Resource usage summary:
+
+    CPU time :               0.01 sec.
+    Total Requested Memory : 5000.00 MB
+    Delta Memory :           -
+    (Delta: the difference between total requested memory and actual max usage.)
+
+The output (if any) is above this job summary.
+
+/ebi/lsf/ebi-spool/02/1490132358.9449134: line 8: rusage[mem=5000]: command not found

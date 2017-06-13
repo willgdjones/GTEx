@@ -1,0 +1,10 @@
+data
+.ipynb_checkpoints
+.cache
+models
+deps
+log
+*.swp
+*__pycache__*
+tmp
+

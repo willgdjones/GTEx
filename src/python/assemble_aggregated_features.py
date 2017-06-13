@@ -20,7 +20,7 @@ with h5py.File(genotypes_filepath, 'r') as f:
 	genotype_donorIDs = get_donor_IDs(genotype_IDs)
 	genotype_matrix = np.array(f['genotype']['matrix'].value)
 
-
+  
 
 g = h5py.File(GTEx_directory + '/data/hdf5/aggregated_features.hdf5','w')
 for t in tissue_types:
