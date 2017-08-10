@@ -1,25 +1,42 @@
+graphs:
+	rsync -vr --delete willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx/figures /Users/fonz/Documents/Projects/GTEx
 
 rsync:
-	rsync -vr --exclude '.git' --exclude 'notebooks' /Users/fonz/Documents/Projects/GTEx willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj;
+	rsync -vr --delete /Users/fonz/Documents/Projects/GTEx/src willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr /Users/fonz/Documents/Projects/GTEx/Makefile willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr /Users/fonz/Documents/Projects/GTEx/README.md willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr /Users/fonz/Documents/Projects/GTEx/tests willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+
+results:
+	rsync -vr --delete willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx/results /Users/fonz/Documents/Projects/GTEx
+
 
 monitor:
 	python src/python/monitor.py
 
 download:
 	while IFS= read -r line; do \
-		bsub -M 25000 -R "rusage[mem=20000]" 'python src/python/download_tissue.py -t \"$$line\"'; \
+		bsub -M 25000 -R "rusage[mem=20000]" 'python src/preprocessing/download_tissue.py -t \"$$line\"'; \
 		sh src/bash/download_tissues.sh; \
 	done < textfiles/ID_tissue_list.txt;
 
 
 sample_patches:
 	while IFS= read -r pair; \
-		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 10000 -R 'rusage[mem=10000]' "python src/python/sample_patches.py -p '$${pair}'"; \
+		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 10000 -R 'rusage[mem=10000]' "python src/preprocessing/sample_patches.py -p '$${pair}'"; \
 		 done < textfiles/ID_tissue_list.txt
 #bsub -Is -M 10000 -R 'rusage[mem=10000]' "python src/python/sample_patches.py -p 'GTEX-R55G-0826 Lung'"
 
 generate_features:
 	while IFS= read -r pair; \
-		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/python/generate_features.py -p '$${pair}'"; \
+		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/features/generate_features.py -p '$${pair}'"; \
 		 done < textfiles/ID_tissue_list.txt
-#bsub -Is -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/python/generate_features.py -p 'GTEX-R55G-0826 Lung'"
+#bsub -Is -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/features/generate_features.py -p 'GTEX-QDVN-0726 Lung'"
+#bsub -Is -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/features/generate_features.py -p 'GTEX-S7SF-2226 Artery - Tibial'"
+#8676344
+#8676347
+#8676394
+
+overnight:
+	bsub -Is -M 80000 -R "rusage[mem=80000]" 'python src/features/collect_features.py'
+	bsub -Is -M 80000 -R "rusage[mem=80000]" 'python src/features/aggregate_features.py'
