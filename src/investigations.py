@@ -119,6 +119,57 @@ class PCAFeatureAssociations():
         pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
+    @staticmethod
+    def expression_PCs_vs_image_feature_PCs():
+
+        image_features, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data('Lung', 'retrained', 'median', '256')
+
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
+
+
+        print ("Calculating PCs that explain 95% of image feature variance")
+        pca = PCA(n_components=0.95)
+        pca_image_features = pca.fit_transform(image_features)
+
+
+        print ("Calculating PCs that explain 95% of expression variance")
+        pca = PCA(n_components=0.95)
+        pca_expression = pca.fit_transform(expression)
+
+
+
+        N = pca_expression.shape[1]
+        M = pca_image_features.shape[1]
+        R_matrix = np.zeros(shape=(N,M))
+        pv_matrix = np.zeros(shape=(N,M))
+        for i in range(N):
+            for j in range(M):
+                R, pv = pearsonr(pca_expression[:,i], pca_image_features[:,j])
+                R_matrix[i,j] = R
+                pv_matrix[i,j] = pv
+
+        print ("Extracting data for the top 5 associations")
+        top5_scatter_results = {}
+        sorted_idx = np.argsort((R_matrix**2).flatten())[::-1]
+        top5_scatter_results['sorted_idx'] = sorted_idx
+
+        for k in range(5):
+            idx = sorted_idx[k]
+            image_pc_idx = idx % M
+            exp_pc_idx = int(idx / M)
+            image_pc_vector = pca_image_features[:, image_pc_idx]
+            expression_pc_vector = pca_expression[:, exp_pc_idx]
+            image_feature_pc_number = image_pc_idx + 1
+            expression_pc_number = exp_pc_idx + 1
+            R = R_matrix.flatten()[idx]
+            pv = pv_matrix.flatten()[idx]
+            top5_scatter_results[k] = [expression_pc_number, image_feature_pc_number, expression_pc_vector, image_pc_vector, R, pv]
+
+        results = [R_matrix, pv_matrix, top5_scatter_results]
+
+        pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+
 
 
 

@@ -45,42 +45,47 @@ class PCAFeatureAssociations:
     @staticmethod
     def expression_PCs_vs_TFs():
 
-
         [R_matrix, pv_matrix, top5_scatter_results] = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group,name=name), 'rb'))
         norm = MidPointNorm(midpoint=0)
 
 
-        plt.figure(figsize=(12,10))
-        ax1 = plt.subplot2grid((5,5), (0,0),colspan=5, rowspan=2)
-        ax2 = plt.subplot2grid((5,5), (2,0),colspan=5, rowspan=2)
+        fig = plt.figure(figsize=(8,10))
+        ax1 = plt.subplot2grid((5,3), (0,0),colspan=1, rowspan=5)
+        ax2 = plt.subplot2grid((5,3), (0,1),colspan=1, rowspan=5)
 
 
         divider1 = make_axes_locatable(ax1)
         divider2 = make_axes_locatable(ax2)
-        cax1 = divider1.append_axes('right', size='2%', pad=0.05)
-        cax2 = divider2.append_axes('right', size='2%', pad=0.05)
+        cax1 = divider1.append_axes('right', size='5%', pad=0.05)
+        cax2 = divider2.append_axes('right', size='5%', pad=0.05)
 
-        im1 = ax1.imshow(R_matrix,norm=norm,cmap=PL.get_cmap("coolwarm"))
-        ax1.set_title("Technical factors influence Expression PC1. Pearson R values",size=20)
-        ax1.set_xlabel('Expression PCs',size=20)
-        ax1.set_ylabel('Technical factors',size=20)
-        plt.colorbar(im1,cax=cax1, orientation='vertical')
+        im1 = ax1.imshow(R_matrix[:,0:10], norm=norm, cmap=PL.get_cmap("coolwarm"))
+        ax1.set_title("Pearson R values", size=15)
+        ax1.set_xlabel('Expression PCs', size=15)
+        ax1.set_ylabel('Technical factors', size=15)
+        plt.colorbar(im1, cax=cax1, orientation='vertical')
 
 
-        im2 = ax2.imshow(-np.log10(pv_matrix),cmap=PL.get_cmap("Reds"))
-        ax2.set_title("Technical factors influence Expression PC1. -log10 pvalues",size=20)
-        ax2.set_xlabel('Expression PCs',size=20)
-        ax2.set_ylabel('Technical factors',size=20)
+        im2 = ax2.imshow(-np.log10(pv_matrix[:,0:10]),cmap=PL.get_cmap("Reds"))
+
+        ax2.set_title("-log10 pvalues", size=15)
+        ax2.set_xlabel('Expression PCs', size=15)
+        ax2.set_ylabel('Technical factors', size=15)
         plt.colorbar(im2, cax=cax2, orientation='vertical')
 
-
         import seaborn
+        import matplotlib as mpl
+        label_size = 7
+        mpl.rcParams['xtick.labelsize'] = label_size
+        mpl.rcParams['ytick.labelsize'] = label_size
+
+
         for k in range(5):
             [tf_name, pc_number, tf_vector, pc_vector, R, pv] = top5_scatter_results[k]
-            axk = plt.subplot2grid((5,5), (4,k),colspan=1)
+            axk = plt.subplot2grid((5,3), (k,2),rowspan=1,colspan=1)
             axk.scatter(tf_vector, pc_vector,s=2)
-            axk.set_title('R: {:.2}, pv: {:.1}'.format(R, pv))
-            axk.set_ylabel('Expression PC {}'.format(pc_number))
+            axk.set_title('R: {:.2}, pv: {:.1}'.format(R, pv), size=10)
+            axk.set_ylabel('PC {}'.format(pc_number))
             axk.set_xlabel(tf_name)
 
         plt.tight_layout()
@@ -93,8 +98,6 @@ class PCAFeatureAssociations:
 
     @staticmethod
     def image_feature_PCs_vs_TFs():
-
-
         [R_matrix, pv_matrix, top5_scatter_results] = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group,name=name), 'rb'))
         norm = MidPointNorm(midpoint=0)
 
@@ -106,47 +109,95 @@ class PCAFeatureAssociations:
 
         divider1 = make_axes_locatable(ax1)
         divider2 = make_axes_locatable(ax2)
-        cax1 = divider1.append_axes('right', size='2%', pad=0.05)
-        cax2 = divider2.append_axes('right', size='2%', pad=0.05)
+        cax1 = divider1.append_axes('right', size='5%', pad=0.05)
+        cax2 = divider2.append_axes('right', size='5%', pad=0.05)
 
-        # fig.suptitle("Technical factors influence Image feature PC1", y=1.05, size=20)
-
-        # fig.get_axes()[0].annotate('Technical factors influence Image feature PC1', (0.5, 1.05),
-        #                     xycoords='figure fraction', ha='center',
-        #                     fontsize=24
-        #                     )
 
         im1 = ax1.imshow(R_matrix[:,0:10],norm=norm,cmap=PL.get_cmap("coolwarm"))
-        ax1.set_title("Pearson R values",size=10)
-        ax1.set_xlabel('Expression PCs',size=20)
-        ax1.set_ylabel('Technical factors',size=20)
+        ax1.set_title("Pearson R values",size=15)
+        ax1.set_xlabel('Expression PCs',size=15)
+        ax1.set_ylabel('Technical factors',size=15)
         fig.colorbar(im1,cax=cax1, orientation='vertical')
 
 
         im2 = ax2.imshow(-np.log10(pv_matrix[:,0:10]),cmap=PL.get_cmap("Reds"))
-        ax2.set_title("-log10 pvalues",size=10)
-        ax2.set_xlabel('Image Feature PCs',size=20)
-        ax2.set_ylabel('Technical factors',size=20)
+        ax2.set_title("-log10 pvalues",size=15)
+        ax2.set_xlabel('Image Feature PCs',size=15)
+        ax2.set_ylabel('Technical factors',size=15)
         fig.colorbar(im2, cax=cax2, orientation='vertical')
 
 
         import seaborn
+        import matplotlib as mpl
+        label_size = 7
+        mpl.rcParams['xtick.labelsize'] = label_size
+        mpl.rcParams['ytick.labelsize'] = label_size
         for k in range(5):
             [tf_name, pc_number, tf_vector, pc_vector, R, pv] = top5_scatter_results[k]
             axk = plt.subplot2grid((5,3), (k,2),rowspan=1,colspan=1)
             axk.scatter(tf_vector, pc_vector,s=2)
-            axk.set_title('R: {:.2}, pv: {:.1}'.format(R, pv))
-            axk.set_ylabel('Image Feature PC {}'.format(pc_number))
+            axk.set_title('R: {:.2}, pv: {:.1}'.format(R, pv), size=10)
+            axk.set_ylabel('PC {}'.format(pc_number))
             axk.set_xlabel(tf_name)
 
 
         plt.tight_layout()
-        # plt.subplots_adjust(top=2)
 
         plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
         plt.show()
 
 
+    @staticmethod
+    def expression_PCs_vs_image_feature_PCs():
+
+        [R_matrix, pv_matrix, top5_scatter_results] = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        norm = MidPointNorm(midpoint=0)
+
+
+        fig = plt.figure(figsize=(15,5))
+        ax1 = plt.subplot2grid((2,5), (0,0),colspan=2, rowspan=1)
+        ax2 = plt.subplot2grid((2,5), (0,3),colspan=2, rowspan=1)
+
+
+        divider1 = make_axes_locatable(ax1)
+        divider2 = make_axes_locatable(ax2)
+        cax1 = divider1.append_axes('right', size='5%', pad=0.05)
+        cax2 = divider2.append_axes('right', size='5%', pad=0.05)
+
+        im1 = ax1.imshow(R_matrix[0:10,0:20], norm=norm, cmap=PL.get_cmap("coolwarm"))
+        ax1.set_title("Pearson R values", size=12)
+        ax1.set_xlabel('Image Feature PCs', size=12)
+        ax1.set_ylabel('Expression PCs', size=12)
+        plt.colorbar(im1, cax=cax1, orientation='vertical')
+
+        im2 = ax2.imshow(-np.log10(pv_matrix[0:10,0:20]),cmap=PL.get_cmap("Reds"))
+
+        ax2.set_title("-log10 pvalues", size=12)
+        ax2.set_xlabel('Image Feature PCs', size=12)
+        ax2.set_ylabel('Expression PCs', size=12)
+        plt.colorbar(im2, cax=cax2, orientation='vertical')
+
+        import seaborn
+        import matplotlib as mpl
+        label_size = 7
+        mpl.rcParams['xtick.labelsize'] = label_size
+        mpl.rcParams['ytick.labelsize'] = label_size
+
+
+        for k in range(5):
+            [expression_pc_number, image_feature_pc_number, expression_pc_vector, image_pc_vector, R, pv] = top5_scatter_results[k]
+            axk = plt.subplot2grid((2,5), (1,k),rowspan=1,colspan=1)
+            axk.scatter(expression_pc_vector, image_pc_vector,s=2)
+            axk.set_title('R: {:.2}, pv: {:.1}'.format(R, pv), size=10)
+            axk.set_ylabel('Expression PC {}'.format(expression_pc_number))
+            axk.set_xlabel('Image feature PC {}'.format(image_feature_pc_number))
+
+        plt.tight_layout()
+
+
+        plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
+
+        plt.show()
 
 
 if __name__ == '__main__':
