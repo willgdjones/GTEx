@@ -6,8 +6,9 @@ import numpy as np
 import h5py
 import argparse
 from sklearn.decomposition import PCA
+
 from matplotlib.colors import Normalize
-from scipy.stats import pearsonr
+
 from utils.helpers import *
 
 
@@ -171,9 +172,56 @@ class PCAFeatureAssociations():
 
 
 
+class RawFeatureAssociations():
+
+    @staticmethod
+    def raw_pvalues():
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
+        SIZES = [128, 256, 512, 1024, 2048, 4096]
+        AGGREGATIONS = ['mean', 'median']
+        MODELS = ['raw', 'retrained']
+        N = 500
+        M = 5000
+        k = 1
+
+        association_results = {}
+
+        for a in AGGREGATIONS:
+            for m in MODELS:
+                print ('Filtering features for Lung {} {}'.format(m, a))
+                all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, _, _, _ = filter_features_across_all_patchsizes('Lung', m, a, N)
+                filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
+                for s in SIZES:
+                    filt_features = all_filt_features[s]
+                    print('Computing: Lung', a, m, s)
+                    res = compute_pearsonR(filt_features, filt_expression)
+
+                    association_results['{}_{}_{}_{}'.format('Lung', a, m, s)] = res
+
+        pickle.dump(association_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+
+class FeatureExploration():
+
+    @staticmethod
+    def extracting_tissue_patches():
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
+        ID = 'GTEX-13FH7-1726'
+        tissue = 'Lung'
+        patchsize = 512
+        slide, mask, slidemarkings = create_tissue_boundary(ID, tissue, patchsize)
+
+        results = [slide, mask, slidemarkings]
+
+        pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
+    #
+    #
+    # @staticmethod
+    # def feature_crosscorrelation():
+    #
 
 
 

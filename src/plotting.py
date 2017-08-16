@@ -36,8 +36,8 @@ class Classifier():
         plt.xlabel('Patch size', size=15)
 
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps', format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png', format='png', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
         plt.show()
 
 class PCAFeatureAssociations:
@@ -91,7 +91,10 @@ class PCAFeatureAssociations:
         plt.tight_layout()
 
 
-        plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
+        # plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
 
@@ -143,7 +146,12 @@ class PCAFeatureAssociations:
 
         plt.tight_layout()
 
-        plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
+        # plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+
         plt.show()
 
 
@@ -195,7 +203,37 @@ class PCAFeatureAssociations:
         plt.tight_layout()
 
 
-        plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps',format='eps', dpi=100)
+        # plt.savefig(GTEx_directory + '/figures/associations/technical_factors_vs_pca_expression.eps', format='eps', dpi=100)
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+
+        plt.show()
+
+
+class FeatureExploration():
+    @staticmethod
+    def extracting_tissue_patches():
+
+        [slide, mask, slidemarkings] = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+
+        fig, ax = plt.subplots(1, 2, figsize=(20,10))
+
+        ylim = (500, 1300)
+        xlim = (250, 1100)
+        zoom_slide = slide[ylim[0]:ylim[1], xlim[0]:xlim[1], :]
+        zoom_mask = mask[ylim[0]:ylim[1], xlim[0]:xlim[1]]
+
+        ax[0].imshow(cv2.bitwise_and(zoom_slide, zoom_slide, mask=zoom_mask))
+        ax[0].axis('off')
+
+        ax[1].imshow(slidemarkings[ylim[0]:ylim[1], xlim[0]:xlim[1], :])
+        ax[1].axis('off')
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
 
