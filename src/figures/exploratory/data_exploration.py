@@ -63,16 +63,16 @@ GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 
 
 # Show example of Otsu thresholding
-plt.figure(figsize=(15,15))
-plt.title('Tissue boundary defined by Gaussian blurring followed by Otsu thresholding',size=20)
-plt.axis('off')
-plt.imshow(cv2.bitwise_and(slide,slide,mask=mask))
-plt.savefig('figures/exploratory/tissue_mask.eps', format='eps', dpi=100)
+# plt.figure(figsize=(15,15))
+# plt.title('Tissue boundary defined by Gaussian blurring followed by Otsu thresholding',size=20)
+# plt.axis('off')
+# plt.imshow(cv2.bitwise_and(slide,slide,mask=mask))
+# plt.savefig('figures/exploratory/tissue_mask.eps', format='eps', dpi=100)
 
 # Show patch centers inside tissue contour
-plt.figure(figsize=(15, 15))
-plt.axis('off')
-plt.title('Blue dots represent patch centers that fit inside tissue boundary. Patchsize 256', size=20)
-plt.imshow(slidemarkings)
-plt.savefig(
-    'figures/exploratory/show_patches_inside_mask.eps', format='eps', dpi=100)
+# plt.figure(figsize=(15, 15))
+# plt.axis('off')
+# plt.title('Blue dots represent patch centers that fit inside tissue boundary. Patchsize 256', size=20)
+# plt.imshow(slidemarkings)
+# plt.savefig(
+#     'figures/exploratory/show_patches_inside_mask.eps', format='eps', dpi=100)

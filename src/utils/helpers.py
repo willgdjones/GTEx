@@ -161,7 +161,7 @@ def filter_features_across_all_patchsizes(tissue, model, aggregation, M):
 
     all_image_features = []
     for ps in patch_sizes:
-        image_features, _, _, _, _, _, _ = extract_final_layer_data('Lung', 'retrained', 'median', str(ps))
+        image_features, _, _, _, _, _, _ = extract_final_layer_data(tissue, model, aggregation, str(ps))
         all_image_features.append(image_features)
 
     concat_image_features = np.concatenate(all_image_features)

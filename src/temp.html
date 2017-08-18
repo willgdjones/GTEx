@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Signup</title>
+
+    <link href="static/inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="static/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="static/inspinia/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="static/inspinia/css/animate.css" rel="stylesheet">
+    <link href="static/inspinia/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class='top-navigation'>
+    <div id="wrapper">
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom white-bg">
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <div class="navbar-header">
+                        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                            <i class="fa fa-reorder"></i>
+                        </button>
+                        <a href="#" class="navbar-brand">Heterogeneous</a>
+                    </div>
+                    <div class="navbar-collapse collapse" id="navbar">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a aria-expanded="true" role="button" href="/login">Login</a>
+                            </li>
+                            <li>
+                                <a aria-expanded="true" role="button" href="/signup">Signup</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-title">
+
+                        </div>
+                        <div class="ibox-content">
+                            {% include "flash.html" %}
+                            <h2>
+                                Signup
+                            </h2>
+                            <form id=form action="/signup" method="POST" name="form" class='wizard-big'>
+                            {{ params['form'].hidden_tag() }}
+                            <!-- <form id="form" action="#" class="wizard-big"> -->
+                                <h1>Account</h1>
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <label>Username *</label>
+                                                {{ params['form'].username(class_="form-control required", placeholder='Username') }}
+                                                <!-- <input id="userName" name="userName" type="text" class="form-control required"> -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email *</label>
+                                                <!-- <input id="email" name="email" type="text" class="form-control required email"> -->
+                                                {{ params['form'].email(class_="form-control required", placeholder='Email') }}
+                                            </div>
+
+                                            <div class="row" id="pwd-container1">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <label>Password *</label>
+                                                        {{ params['form'].password(class_="form-control example1 required", id="password1",placeholder='This field is required') }}
+
+                                                        <!-- <input id="password" name="password" type="text" class="form-control required"> -->
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="pwstrength_viewport_progress"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Confirm Password *</label>
+                                                <input id="confirm" name="confirm" type="password" class="form-control required">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="text-center">
+                                                <div style="margin-top: 20px">
+                                                    <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+
+                                <h1>Accept</h1>
+
+                                <fieldset>
+
+                                    <div class="text-center pdf-toolbar">
+
+                                            <div class="btn-group">
+                                                <button id="prev" class="btn btn-white" type="button"><i class="fa fa-long-arrow-left"></i> <span class="hidden-xs">Previous</span></button>
+                                                <button id="next" class="btn btn-white" type="button"><i class="fa fa-long-arrow-right"></i> <span class="hidden-xs">Next</span></button>
+                                            <span class="hidden-xs">Page: <span class="btn btn-white hidden-xs" id="page_num"></span> / <span class="btn btn-white hidden-xs" id="page_count"></span></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center m-t-md">
+                                            <canvas id="the-canvas" class="pdfcanvas border-left-right border-top-bottom b-r-md"></canvas>
+                                        </div>
+                                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
+                                </fieldset>
+
+                                <h1>Finish</h1>
+                                <fieldset>
+                                    <div class="text-center" style="margin-top: 120px">
+                                        <h2>Welcome! You can start exploring.</h2>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Mainly scripts -->
+    <script src="static/inspinia/js/jquery-3.1.1.min.js"></script>
+    <script src="static/inspinia/js/bootstrap.min.js"></script>
+    <script src="static/inspinia/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="static/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="static/inspinia/js/inspinia.js"></script>
+    <script src="static/inspinia/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Steps -->
+    <script src="static/inspinia/js/plugins/steps/jquery.steps.min.js"></script>
+
+    <!-- Jquery Validate -->
+    <script src="static/inspinia/js/plugins/validate/jquery.validate.min.js"></script>
+
+    <!-- PDF js -->
+
+    <script src="static/inspinia/js/plugins/pdfjs/pdf.js"></script>
+
+    <script src="static/inspinia/js/plugins/pwstrength/pwstrength-bootstrap.min.js"></script>
+    <script src="static/inspinia/js/plugins/pwstrength/zxcvbn.js"></script>
+
+
+    <script>
+        $(document).ready(function(){
+            $("#wizard").steps();
+            $("#form").steps({
+                bodyTag: "fieldset",
+                onStepChanging: function (event, currentIndex, newIndex)
+                {
+                    // Always allow going backward even if the current step contains invalid fields!
+                    if (currentIndex > newIndex)
+                    {
+                        return true;
+                    }
+
+                    // Forbid suppressing "Warning" step if the user is to young
+                    if (newIndex === 3 && Number($("#age").val()) < 18)
+                    {
+                        return false;
+                    }
+
+                    var form = $(this);
+
+                    // Clean up if user went backward before
+                    if (currentIndex < newIndex)
+                    {
+                        // To remove error styles
+                        $(".body:eq(" + newIndex + ") label.error", form).remove();
+                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                    }
+
+                    // Disable validation on fields that are disabled or hidden.
+                    form.validate().settings.ignore = ":disabled,:hidden";
+
+                    // Start validation; Prevent going forward if false
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex)
+                {
+                    // Suppress (skip) "Warning" step if the user is old enough.
+                    if (currentIndex === 2 && Number($("#age").val()) >= 18)
+                    {
+                        $(this).steps("next");
+                    }
+
+                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                    if (currentIndex === 2 && priorIndex === 3)
+                    {
+                        $(this).steps("previous");
+                    }
+                },
+                onFinishing: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Disable validation on fields that are disabled.
+                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                    form.validate().settings.ignore = ":disabled";
+
+                    // Start validation; Prevent form submission if false
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex)
+                {
+                    var form = $(this);
+
+                    // Submit form input
+                    form.submit();
+                }
+            }).validate({
+                        errorPlacement: function (error, element)
+                        {
+                            element.before(error);
+                        },
+                        rules: {
+                            confirm: {
+                                equalTo: "#password1"
+                            }
+                        }
+            });
+
+
+
+            // If absolute URL from the remote server is provided, configure the CORS
+            // header on that server.
+            var url = '/static/images/consent_form_heterogeneous_jul2017.pdf';
+
+            // The workerSrc property shall be specified.
+            // PDFJS.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+            var pdfDoc = null,
+                pageNum = 1,
+                pageRendering = false,
+                pageNumPending = null,
+                scale = 0.8,
+                canvas = document.getElementById('the-canvas'),
+                ctx = canvas.getContext('2d');
+
+            /**
+                * Get page info from document, resize canvas accordingly, and render page.
+                * @param num Page number.
+                */
+            function renderPage(num) {
+                pageRendering = true;
+                // Using promise to fetch the page
+                pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport(scale);
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+
+                // Wait for rendering to finish
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                    // New page rendering is pending
+                    renderPage(pageNumPending);
+                    pageNumPending = null;
+                    }
+                });
+                });
+
+                // Update page counters
+                document.getElementById('page_num').textContent = pageNum;
+            }
+
+            /**
+                * If another page rendering in progress, waits until the rendering is
+                * finised. Otherwise, executes rendering immediately.
+                */
+            function queueRenderPage(num) {
+                if (pageRendering) {
+                pageNumPending = num;
+                } else {
+                renderPage(num);
+                }
+            }
+
+            /**
+                * Displays previous page.
+                */
+            function onPrevPage() {
+                if (pageNum <= 1) {
+                return;
+                }
+                pageNum--;
+                queueRenderPage(pageNum);
+            }
+            document.getElementById('prev').addEventListener('click', onPrevPage);
+
+            /**
+                * Displays next page.
+                */
+            function onNextPage() {
+                if (pageNum >= pdfDoc.numPages) {
+                return;
+                }
+                pageNum++;
+                queueRenderPage(pageNum);
+            }
+            document.getElementById('next').addEventListener('click', onNextPage);
+
+            /**
+                * Asynchronously downloads PDF.
+                */
+            PDFJS.getDocument(url).then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page_count').textContent = pdfDoc.numPages;
+
+                // Initial/first page rendering
+                renderPage(pageNum);
+            });
+       });
+
+       $(document).ready(function(){
+           // Example 1
+           var options1 = {};
+           options1.ui = {
+               container: "#pwd-container1",
+               showVerdictsInsideProgressBar: true,
+               viewports: {
+                   progress: ".pwstrength_viewport_progress"
+               }
+           };
+           options1.common = {
+               debug: false,
+           };
+           $('.example1').pwstrength(options1);
+
+
+       })
+    </script>
+
+</body>
+
+</html>

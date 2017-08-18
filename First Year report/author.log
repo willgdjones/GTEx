@@ -1,0 +1,833 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  18 AUG 2017 19:18
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**author.tex
+(./author.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(./svmult.cls
+Document Class: svmult 2007/06/25 v5.4 
+Springer Verlag global LaTeX document class for multi authored books
+Class Springer-SVMult Info: extra/valid Springer sub-package 
+(Springer-SVMult)           not found in option list - using "global" style.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+\svparindent=\dimen103
+\bibindent=\dimen104
+\betweenumberspace=\dimen105
+\headlineindent=\dimen106
+\minitoc=\write3
+\c@minitocdepth=\count87
+\c@chapter=\count88
+\mottowidth=\dimen107
+\svitemindent=\dimen108
+\verbatimindent=\dimen109
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 963.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 964.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 965.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 966.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 967.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 968.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 969.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 970.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 971.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 972.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 973.
+\tocchpnum=\dimen110
+\tocsecnum=\dimen111
+\tocsectotal=\dimen112
+\tocsubsecnum=\dimen113
+\tocsubsectotal=\dimen114
+\tocsubsubsecnum=\dimen115
+\tocsubsubsectotal=\dimen116
+\tocparanum=\dimen117
+\tocparatotal=\dimen118
+\tocsubparanum=\dimen119
+\foot@parindent=\dimen120
+\spthmsep=\dimen121
+\c@theorem=\count89
+\c@case=\count90
+\c@conjecture=\count91
+\c@corollary=\count92
+\c@definition=\count93
+\c@example=\count94
+\c@exercise=\count95
+\c@lemma=\count96
+\c@note=\count97
+\c@problem=\count98
+\c@property=\count99
+\c@proposition=\count100
+\c@question=\count101
+\c@solution=\count102
+\c@remark=\count103
+\c@prob=\count104
+\instindent=\dimen122
+\figgap=\dimen123
+\bildb@x=\box26
+\figcapgap=\dimen124
+\tabcapgap=\dimen125
+\c@merk=\count105
+\c@@inst=\count106
+\c@@auth=\count107
+\c@auco=\count108
+\instindent=\dimen126
+\authrun=\box27
+\authorrunning=\toks14
+\tocauthor=\toks15
+\titrun=\box28
+\titlerunning=\toks16
+\toctitle=\toks17
+\c@contribution=\count109
+LaTeX Info: Redefining \abstract on input line 2320.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count110
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip43
+\fb@frw=\dimen127
+\fb@frh=\dimen128
+\FrameRule=\dimen129
+\FrameSep=\dimen130
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count111
+\Gm@cntv=\count112
+\c@Gm@tempcnt=\count113
+\Gm@bindingoffset=\dimen131
+\Gm@wd@mp=\dimen132
+\Gm@odd@mp=\dimen133
+\Gm@even@mp=\dimen134
+\Gm@layoutwidth=\dimen135
+\Gm@layoutheight=\dimen136
+\Gm@layouthoffset=\dimen137
+\Gm@layoutvoffset=\dimen138
+\Gm@dimlist=\toks19
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen139
+\captionmargin@=\dimen140
+\captionwidth=\dimen141
+\caption@tempdima=\dimen142
+\caption@indent=\dimen143
+\caption@parindent=\dimen144
+\caption@hangindent=\dimen145
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\captionstyle \ifx \@ca
+ptype \fig@type \vskip \figcapgap \fi \setbox \@tempboxa \hbox {{\floatlegendst
+yle #1\floatcounterend }\capstrut #2}\ifdim \wd \@tempboxa >\hsize {\floatlegen
+dstyle #1\floatcounterend }\capstrut #2\par \else \hbox to\hsize {\leftlegendgl
+ue \unhbox \@tempboxa \hfil }\fi \ifx \@captype \fig@type \else \vskip \tabcapg
+ap \fi .
+\c@ContinuedFloat=\count114
+)
+\c@subfigure=\count115
+\c@subtable=\count116
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/mathptmx.sty
+Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ztmcm/m/n on input line 28.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ztmcm/m/it on input line 29.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/ztmcm/m/n on input line 30.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/ztmcm/m/n on input line 31.
+\symbold=\mathgroup4
+\symitalic=\mathgroup5
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 34.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 35.
+LaTeX Info: Redefining \hbar on input line 50.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/helvet.sty
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/courier.sty
+Package: courier 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/type1cm/type1cm.sty
+Package: type1cm 2002/09/05 v0.04 BlueSky/Y&Y Type1 CM font definitions (DPC, p
+atched RF)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count117
+\float@exts=\toks20
+\float@box=\box29
+\@float@everytoks=\toks21
+\@floatcapt=\box30
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count118
+\lst@gtempboxa=\box31
+\lst@token=\toks22
+\lst@length=\count119
+\lst@currlwidth=\dimen146
+\lst@column=\count120
+\lst@pos=\count121
+\lst@lostspace=\dimen147
+\lst@width=\dimen148
+\lst@newlines=\count122
+\lst@lineno=\count123
+\lst@maxwidth=\dimen149
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+\c@lstnumber=\count124
+\lst@skipnumbers=\count125
+\lst@framebox=\box32
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2014/09/06 1.5e listings configuration
+))
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/makeidx.sty
+Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+)
+\Gin@req@height=\dimen150
+\Gin@req@width=\dimen151
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
+\c@tracingmulticols=\count126
+\mult@box=\box33
+\multicol@leftmargin=\dimen152
+\c@unbalance=\count127
+\c@collectmore=\count128
+\doublecol@number=\count129
+\multicoltolerance=\count130
+\multicolpretolerance=\count131
+\full@width=\dimen153
+\page@free=\dimen154
+\premulticols=\dimen155
+\postmulticols=\dimen156
+\multicolsep=\skip44
+\multicolbaselineskip=\skip45
+\partial@page=\box34
+\last@line=\box35
+\maxbalancingoverflow=\dimen157
+\mult@rightbox=\box36
+\mult@grightbox=\box37
+\mult@gfirstbox=\box38
+\mult@firstbox=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\c@columnbadness=\count132
+\c@finalcolumnbadness=\count133
+\last@try=\dimen158
+\multicolovershoot=\dimen159
+\multicolundershoot=\dimen160
+\mult@nat@firstbox=\box57
+\colbreak@box=\box58
+\mc@col@check@num=\count134
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/footmisc/footmisc.sty
+Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
+\FN@temptoken=\toks23
+\footnotemargin=\dimen161
+\c@pp@next@reset=\count135
+Package footmisc Info: Declaring symbol style bringhurst on input line 855.
+Package footmisc Info: Declaring symbol style chicago on input line 863.
+Package footmisc Info: Declaring symbol style wiley on input line 872.
+Package footmisc Info: Declaring symbol style lamport-robust on input line 883.
+
+Package footmisc Info: Declaring symbol style lamport* on input line 903.
+Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
+.
+)
+\@indexfile=\write4
+\openout4 = `author.idx'.
+
+
+Writing index file author.idx
+(./author.aux)
+\openout1 = `author.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 41.
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count136
+\scratchdimen=\dimen162
+\scratchbox=\box59
+\nofMPsegments=\count137
+\nofMParguments=\count138
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count139
+\MPscratchDim=\dimen163
+\MPnumerator=\count140
+\makeMPintoPDFobject=\count141
+\everyMPtoPDFconversion=\toks25
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-24.0pt
+* \headheight=12.0pt
+* \headsep=12.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=90.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: Incompatible package detected (regarding \@caption).
+(caption)             \@caption = \long macro:#1[#2]#3->\par \addcontentsline {
+\csname ext@#1\endcsname }{#1}{\protect \numberline {\csname the#1\endcsname }{
+\ignorespaces #2}}\begingroup \@parboxrestore \if@minipage \@setminipage \fi \@
+makecaption {\csname fnum@#1\endcsname }{\ignorespaces #3}\par \endgroup .
+
+Package caption Warning: Forced redefinition of \caption since the
+(caption)                unsupported(!) package option `compatibility=false'
+(caption)                was given.
+See the caption package documentation for explanation.
+
+Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\big@size=\dimen164
+\c@lstlisting=\count142
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+
+
+Package mathptmx Warning: There are no bold math fonts on input line 55.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <16> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 55.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 55
+.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
+File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 55
+.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omlztmcm.fd
+File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 55
+.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsztmcm.fd
+File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
+)
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 55
+.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omxztmcm.fd
+File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8.5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.29004> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.10005> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 73.
+
+
+LaTeX Warning: Citation `complex-sources-of-variation' on page 1 undefined on i
+nput line 78.
+
+
+LaTeX Warning: Citation `deep-inside-convolutional-networks' on page 1 undefine
+d on input line 80.
+
+[1
+
+
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `scalable-unsupervised-learning' on page 2 undefined on
+ input line 84.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 99.
+
+LaTeX Warning: Citation `Gando et al.' on page 2 undefined on input line 103.
+
+
+LaTeX Warning: Citation `Lin et al' on page 2 undefined on input line 103.
+
+[2]
+
+LaTeX Warning: Reference `fig:patch_features_exploration' on page 3 undefined o
+n input line 141.
+
+
+LaTeX Warning: Reference `validation_accuracy_across_patchsize' on page 3 undef
+ined on input line 148.
+
+[3]
+
+LaTeX Warning: Reference `fig:feature_crosscorrelation' on page 4 undefined on 
+input line 156.
+
+
+LaTeX Warning: Citation `McCall et al. ' on page 4 undefined on input line 163.
+
+
+
+LaTeX Warning: Reference `fig:image_feature_PCs_vs_TFs' on page 4 undefined on 
+input line 163.
+
+
+LaTeX Warning: Reference `tab:1' on page 4 undefined on input line 163.
+
+[4]
+
+LaTeX Warning: Reference `fig:sign_pvalues_vary_patchsize' on page 5 undefined 
+on input line 171.
+
+
+LaTeX Warning: Reference `fig:sign_pvalues_raw_vs_retrained' on page 5 undefine
+d on input line 175.
+
+
+LaTeX Warning: Reference `associations_mean_vs_median' on page 5 undefined on i
+nput line 180.
+
+
+LaTeX Warning: Reference `associations_mean_vs_median' on page 5 undefined on i
+nput line 180.
+
+
+LaTeX Warning: Reference `fig:features_with_sign_transcripts' on page 5 undefin
+ed on input line 184.
+
+
+LaTeX Warning: Reference `fig:features_with_sign_transcripts' on page 5 undefin
+ed on input line 184.
+
+
+LaTeX Warning: Reference `transcripts_with_sign_features' on page 5 undefined o
+n input line 186.
+
+[5]
+
+LaTeX Warning: Reference `fig:example_inflation_lung_256_mean' on page 6 undefi
+ned on input line 199.
+
+
+LaTeX Warning: Reference `fig:corrected_scatterplots' on page 6 undefined on in
+put line 206.
+
+
+LaTeX Warning: Reference `fig:technical_factors_vs_image_features' on page 6 un
+defined on input line 210.
+
+
+LaTeX Warning: Reference `fig:top5_bottom5_samples797' on page 6 undefined on i
+nput line 212.
+
+
+LaTeX Warning: Reference `fig:top5_bottom5_samples351' on page 6 undefined on i
+nput line 214.
+
+[6]
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting_tis
+sue_patches.png, id=29, 1445.4pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extractin
+g_tissue_patches.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
+_tissue_patches.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/extracting_tissue_patches.png used on input line 254.
+(pdftex.def)             Requested size: 422.77664pt x 211.38614pt.
+ [7]
+</Users/fonz/Documents/Projects/GTEx/plotting/Classifier/validation_accuracy_ac
+ross_patchsize.png, id=35, 462.528pt x 346.896pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/Classifier/validation_accura
+cy_across_patchsize.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/Classifier/validation_accurac
+y_across_patchsize.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/Classifie
+r/validation_accuracy_across_patchsize.png used on input line 261.
+(pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_acros
+s_patches.png, id=36, 867.24pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_
+across_patches.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_a
+cross_patches.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/features_across_patches.png used on input line 269.
+(pdftex.def)             Requested size: 328.82707pt x 274.02234pt.
+ [8 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
+_tissue_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/Classifier/v
+alidation_accuracy_across_patchsize.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated_fea
+tures_across_samples.png, id=42, 722.7pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregate
+d_features_across_samples.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated
+_features_across_samples.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/aggregated_features_across_samples.png used on input line 277.
+(pdftex.def)             Requested size: 234.8775pt x 234.87471pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_crossc
+orrelation.png, id=43, 361.35pt x 361.35pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_c
+rosscorrelation.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_cr
+osscorrelation.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/feature_crosscorrelation.png used on input line 284.
+(pdftex.def)             Requested size: 234.8775pt x 234.88023pt.
+ [9 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_a
+cross_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExplora
+tion/aggregated_features_across_samples.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
+_PCs_vs_image_feature_PCs.png, id=49, 1084.05pt x 361.35pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
+ssion_PCs_vs_image_feature_PCs.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
+sion_PCs_vs_image_feature_PCs.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
+eAssociations/expression_PCs_vs_image_feature_PCs.png used on input line 291.
+(pdftex.def)             Requested size: 281.85587pt x 93.94878pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
+_PCs_vs_TFs.png, id=50, 578.16pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
+ssion_PCs_vs_TFs.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
+sion_PCs_vs_TFs.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
+eAssociations/expression_PCs_vs_TFs.png used on input line 299.
+(pdftex.def)             Requested size: 187.89914pt x 234.87471pt.
+ [10 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_c
+rosscorrelation.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAs
+sociations/expression_PCs_vs_image_feature_PCs.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_feat
+ure_PCs_vs_TFs.png, id=56, 578.16pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image
+_feature_PCs_vs_TFs.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_
+feature_PCs_vs_TFs.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
+eAssociations/image_feature_PCs_vs_TFs.png used on input line 306.
+(pdftex.def)             Requested size: 187.89914pt x 234.87471pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression_mea
+ns_and_stds.png, id=57, 722.7pt x 361.35pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expressio
+n_means_and_stds.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression
+_means_and_stds.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/expression_means_and_stds.png used on input line 313.
+(pdftex.def)             Requested size: 281.85587pt x 140.92593pt.
+ [11 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
+ssion_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureA
+ssociations/image_feature_PCs_vs_TFs.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_associ
+ations_across_patchsizes.png, id=63, 722.7pt x 505.89pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_a
+ssociations_across_patchsizes.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_as
+sociations_across_patchsizes.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/raw_associations_across_patchsizes.png used on input line 320.
+(pdftex.def)             Requested size: 328.82707pt x 230.1803pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
+ns_raw_vs_retrained.png, id=64, 722.7pt x 505.89pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
+iations_raw_vs_retrained.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
+ations_raw_vs_retrained.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/associations_raw_vs_retrained.png used on input line 327.
+(pdftex.def)             Requested size: 328.82707pt x 230.1803pt.
+ [12 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expressio
+n_means_and_stds.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureA
+ssociations/raw_associations_across_patchsizes.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
+ns_mean_vs_median.png, id=70, 722.7pt x 505.89pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
+iations_mean_vs_median.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
+ations_mean_vs_median.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/associations_mean_vs_median.png used on input line 334.
+(pdftex.def)             Requested size: 328.82707pt x 230.1803pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/features_w
+ith_significant_transcripts.png, id=71, 722.7pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featu
+res_with_significant_transcripts.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featur
+es_with_significant_transcripts.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/features_with_significant_transcripts.png used on input line 358.
+
+(pdftex.def)             Requested size: 187.89914pt x 187.89757pt.
+ [13 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
+iations_raw_vs_retrained.png> </Users/fonz/Documents/Projects/GTEx/plotting/Raw
+FeatureAssociations/associations_mean_vs_median.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transcript
+s_with_significant_features.png, id=78, 722.7pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/trans
+cripts_with_significant_features.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transc
+ripts_with_significant_features.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/transcripts_with_significant_features.png used on input line 365.
+
+(pdftex.def)             Requested size: 187.89914pt x 187.89757pt.
+ [14 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featu
+res_with_significant_transcripts.png> </Users/fonz/Documents/Projects/GTEx/plot
+ting/RawFeatureAssociations/transcripts_with_significant_features.png>] [15] (.
+/author.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5508 strings out of 493089
+ 89265 string characters out of 6134843
+ 159548 words of memory out of 5000000
+ 8886 multiletter control sequences out of 15000+600000
+ 34176 words of font info for 70 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 42i,10n,40p,1405b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fo
+nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
+/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times
+/utmri8a.pfb>
+Output written on author.pdf (15 pages, 2074797 bytes).
+PDF statistics:
+ 115 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+
