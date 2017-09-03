@@ -1,23 +1,11 @@
 This is BibTeX, Version 0.99d (TeX Live 2015)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: author.aux
-White space in argument---line 11 of file author.aux
- : \citation{Gando
- :                 et al.}
-I'm skipping whatever remains of this command
-White space in argument---line 12 of file author.aux
- : \citation{Lin
- :               et al}
-I'm skipping whatever remains of this command
-White space in argument---line 21 of file author.aux
- : \citation{McCall
- :                  et al. }
-I'm skipping whatever remains of this command
 I found no \bibdata command---while reading file author.aux
 I found no \bibstyle command---while reading file author.aux
-You've used 3 entries,
+You've used 27 entries,
             0 wiz_defined-function locations,
-            86 strings with 578 characters,
+            112 strings with 1141 characters,
 and the built_in function-call counts, 0 in all, are:
 = -- 0
 > -- 0
@@ -56,4 +44,4 @@ warning$ -- 0
 while$ -- 0
 width$ -- 0
 write$ -- 0
-(There were 5 error messages)
+(There were 2 error messages)

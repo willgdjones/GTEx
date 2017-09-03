@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  18 AUG 2017 19:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  31 AUG 2017 23:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -155,6 +155,73 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen138
 \Gm@dimlist=\toks19
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2015/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks20
+\XKV@tempa@toks=\toks21
+)
+\XKV@depth=\count114
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+)
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box29
+)
+\tc@llx=\dimen141
+\tc@lly=\dimen142
+\tc@urx=\dimen143
+\tc@ury=\dimen144
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen145
+\adjbox@Height=\dimen146
+\adjbox@Depth=\dimen147
+\adjbox@Totalheight=\dimen148
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2011/09/13 v1.0 Conditionals for odd/even page detection
+\c@checkoddpage=\count115
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box30
+\sift@deathcycles=\count116
+\@vwid@loff=\dimen149
+\@vwid@roff=\dimen150
+))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 
@@ -164,13 +231,13 @@ Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen139
-\captionmargin@=\dimen140
-\captionwidth=\dimen141
-\caption@tempdima=\dimen142
-\caption@indent=\dimen143
-\caption@parindent=\dimen144
-\caption@hangindent=\dimen145
+\captionmargin=\dimen151
+\captionmargin@=\dimen152
+\captionwidth=\dimen153
+\caption@tempdima=\dimen154
+\caption@indent=\dimen155
+\caption@parindent=\dimen156
+\caption@hangindent=\dimen157
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
 )
@@ -185,11 +252,19 @@ yle #1\floatcounterend }\capstrut #2}\ifdim \wd \@tempboxa >\hsize {\floatlegen
 dstyle #1\floatcounterend }\capstrut #2\par \else \hbox to\hsize {\leftlegendgl
 ue \unhbox \@tempboxa \hfil }\fi \ifx \@captype \fig@type \else \vskip \tabcapg
 ap \fi .
-\c@ContinuedFloat=\count114
+\c@ContinuedFloat=\count117
 )
-\c@subfigure=\count115
-\c@subtable=\count116
-) (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/mathptmx.sty
+\c@subfigure=\count118
+\c@subtable=\count119
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen158
+\WF@size=\dimen159
+\c@WF@wrappedlines=\count120
+\WF@box=\box31
+\WF@everypar=\toks22
+Package: wrapfig 2003/01/31  v 3.6
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/mathptmx.sty
 Package: mathptmx 2005/04/12 PSNFSS-v9.2a Times w/ Math, improved (SPQR, WaS) 
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 28.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -237,31 +312,31 @@ atched RF)
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count117
-\float@exts=\toks20
-\float@box=\box29
-\@float@everytoks=\toks21
-\@floatcapt=\box30
+\c@float@type=\count121
+\float@exts=\toks23
+\float@box=\box32
+\@float@everytoks=\toks24
+\@floatcapt=\box33
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count118
-\lst@gtempboxa=\box31
-\lst@token=\toks22
-\lst@length=\count119
-\lst@currlwidth=\dimen146
-\lst@column=\count120
-\lst@pos=\count121
-\lst@lostspace=\dimen147
-\lst@width=\dimen148
-\lst@newlines=\count122
-\lst@lineno=\count123
-\lst@maxwidth=\dimen149
+\lst@mode=\count122
+\lst@gtempboxa=\box34
+\lst@token=\toks25
+\lst@length=\count123
+\lst@currlwidth=\dimen160
+\lst@column=\count124
+\lst@pos=\count125
+\lst@lostspace=\dimen161
+\lst@width=\dimen162
+\lst@newlines=\count126
+\lst@lineno=\count127
+\lst@maxwidth=\dimen163
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
-\c@lstnumber=\count124
-\lst@skipnumbers=\count125
-\lst@framebox=\box32
+\c@lstnumber=\count128
+\lst@skipnumbers=\count129
+\lst@framebox=\box35
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2014/09/06 1.5e listings configuration
@@ -271,49 +346,57 @@ Package: listings 2014/09/06 1.5e (Carsten Heinz)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/blindtext/blindtext.sty
+Package: blindtext 2012/01/06 V2.0 blindtext-Package
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
-)
-Package graphics Info: Driver file: pdftex.def on input line 94.
-)
-\Gin@req@height=\dimen150
-\Gin@req@width=\dimen151
+\c@blindtext=\count130
+\c@Blindtext=\count131
+\c@blind@countparstart=\count132
+\blind@countxx=\count133
+\blindtext@numBlindtext=\count134
+\blind@countyy=\count135
+\c@blindlist=\count136
+\c@blindlistlevel=\count137
+\c@blindlist@level=\count138
+\blind@listitem=\count139
+\c@blind@listcount=\count140
+\c@blind@levelcount=\count141
+\blind@mathformula=\count142
+\blind@Mathformula=\count143
+\c@blind@randomcount=\count144
+\c@blind@randommax=\count145
+\c@blind@pangramcount=\count146
+\c@blind@pangrammax=\count147
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
-\c@tracingmulticols=\count126
-\mult@box=\box33
-\multicol@leftmargin=\dimen152
-\c@unbalance=\count127
-\c@collectmore=\count128
-\doublecol@number=\count129
-\multicoltolerance=\count130
-\multicolpretolerance=\count131
-\full@width=\dimen153
-\page@free=\dimen154
-\premulticols=\dimen155
-\postmulticols=\dimen156
+\c@tracingmulticols=\count148
+\mult@box=\box36
+\multicol@leftmargin=\dimen164
+\c@unbalance=\count149
+\c@collectmore=\count150
+\doublecol@number=\count151
+\multicoltolerance=\count152
+\multicolpretolerance=\count153
+\full@width=\dimen165
+\page@free=\dimen166
+\premulticols=\dimen167
+\postmulticols=\dimen168
 \multicolsep=\skip44
 \multicolbaselineskip=\skip45
-\partial@page=\box34
-\last@line=\box35
-\maxbalancingoverflow=\dimen157
-\mult@rightbox=\box36
-\mult@grightbox=\box37
-\mult@gfirstbox=\box38
-\mult@firstbox=\box39
-\@tempa=\box40
-\@tempa=\box41
-\@tempa=\box42
+\partial@page=\box37
+\last@line=\box38
+\maxbalancingoverflow=\dimen169
+\mult@rightbox=\box39
+\mult@grightbox=\box40
+\mult@gfirstbox=\box41
+\mult@firstbox=\box42
 \@tempa=\box43
 \@tempa=\box44
 \@tempa=\box45
@@ -328,20 +411,23 @@ Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
 \@tempa=\box54
 \@tempa=\box55
 \@tempa=\box56
-\c@columnbadness=\count132
-\c@finalcolumnbadness=\count133
-\last@try=\dimen158
-\multicolovershoot=\dimen159
-\multicolundershoot=\dimen160
-\mult@nat@firstbox=\box57
-\colbreak@box=\box58
-\mc@col@check@num=\count134
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\c@columnbadness=\count154
+\c@finalcolumnbadness=\count155
+\last@try=\dimen170
+\multicolovershoot=\dimen171
+\multicolundershoot=\dimen172
+\mult@nat@firstbox=\box60
+\colbreak@box=\box61
+\mc@col@check@num=\count156
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/footmisc/footmisc.sty
 Package: footmisc 2011/06/06 v5.5b a miscellany of footnote facilities
-\FN@temptoken=\toks23
-\footnotemargin=\dimen161
-\c@pp@next@reset=\count135
+\FN@temptoken=\toks26
+\footnotemargin=\dimen173
+\c@pp@next@reset=\count157
 Package footmisc Info: Declaring symbol style bringhurst on input line 855.
 Package footmisc Info: Declaring symbol style chicago on input line 863.
 Package footmisc Info: Declaring symbol style wiley on input line 872.
@@ -356,38 +442,42 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 
 
 Writing index file author.idx
-(./author.aux)
+(./author.aux
+
+LaTeX Warning: Label `fig:associations_raw_vs_retrained' multiply defined.
+
+)
 \openout1 = `author.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 50.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count136
-\scratchdimen=\dimen162
-\scratchbox=\box59
-\nofMPsegments=\count137
-\nofMParguments=\count138
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count139
-\MPscratchDim=\dimen163
-\MPnumerator=\count140
-\makeMPintoPDFobject=\count141
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count158
+\scratchdimen=\dimen174
+\scratchbox=\box62
+\nofMPsegments=\count159
+\nofMParguments=\count160
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count161
+\MPscratchDim=\dimen175
+\MPnumerator=\count162
+\makeMPintoPDFobject=\count163
+\everyMPtoPDFconversion=\toks28
 )
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -423,23 +513,6 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: Incompatible package detected (regarding \@caption).
-(caption)             \@caption = \long macro:#1[#2]#3->\par \addcontentsline {
-\csname ext@#1\endcsname }{#1}{\protect \numberline {\csname the#1\endcsname }{
-\ignorespaces #2}}\begingroup \@parboxrestore \if@minipage \@setminipage \fi \@
-makecaption {\csname fnum@#1\endcsname }{\ignorespaces #3}\par \endgroup .
-
-Package caption Warning: Forced redefinition of \caption since the
-(caption)                unsupported(!) package option `compatibility=false'
-(caption)                was given.
-See the caption package documentation for explanation.
-
-Package caption Info: float package is loaded.
-Package caption Info: listings package is loaded.
-Package caption Info: End \AtBeginDocument code.
-\big@size=\dimen164
-\c@lstlisting=\count142
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -484,350 +557,403 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: Incompatible package detected (regarding \@caption).
+(caption)             \@caption = \long macro:#1[#2]#3->\par \addcontentsline {
+\csname ext@#1\endcsname }{#1}{\protect \numberline {\csname the#1\endcsname }{
+\ignorespaces #2}}\begingroup \@parboxrestore \if@minipage \@setminipage \fi \@
+makecaption {\csname fnum@#1\endcsname }{\ignorespaces #3}\par \endgroup .
+
+
+Package caption Warning: Forced redefinition of \caption since the
+(caption)                unsupported(!) package option `compatibility=false'
+(caption)                was given.
+See the caption package documentation for explanation.
+
+Package caption Info: float package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: wrapfig package is loaded.
+Package caption Info: End \AtBeginDocument code.
+\big@size=\dimen176
+\c@lstlisting=\count164
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 
-
-Package mathptmx Warning: There are no bold math fonts on input line 55.
+Package mathptmx Warning: There are no bold math fonts on input line 62.
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <16> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 55.
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 55
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 62.
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 62
 .
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 55
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 62
 .
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 55
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 62
 .
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 55
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 62
 .
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8.5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.29004> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.10005> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 55.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 73.
-
-
-LaTeX Warning: Citation `complex-sources-of-variation' on page 1 undefined on i
-nput line 78.
-
-
-LaTeX Warning: Citation `deep-inside-convolutional-networks' on page 1 undefine
-d on input line 80.
-
-[1
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
+ [1
 
 
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `scalable-unsupervised-learning' on page 2 undefined on
- input line 84.
-
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 99.
-
-LaTeX Warning: Citation `Gando et al.' on page 2 undefined on input line 103.
-
-
-LaTeX Warning: Citation `Lin et al' on page 2 undefined on input line 103.
-
-[2]
-
-LaTeX Warning: Reference `fig:patch_features_exploration' on page 3 undefined o
-n input line 141.
-
-
-LaTeX Warning: Reference `validation_accuracy_across_patchsize' on page 3 undef
-ined on input line 148.
-
-[3]
-
-LaTeX Warning: Reference `fig:feature_crosscorrelation' on page 4 undefined on 
-input line 156.
-
-
-LaTeX Warning: Citation `McCall et al. ' on page 4 undefined on input line 163.
-
-
-
-LaTeX Warning: Reference `fig:image_feature_PCs_vs_TFs' on page 4 undefined on 
-input line 163.
-
-
-LaTeX Warning: Reference `tab:1' on page 4 undefined on input line 163.
-
-[4]
-
-LaTeX Warning: Reference `fig:sign_pvalues_vary_patchsize' on page 5 undefined 
-on input line 171.
-
-
-LaTeX Warning: Reference `fig:sign_pvalues_raw_vs_retrained' on page 5 undefine
-d on input line 175.
-
-
-LaTeX Warning: Reference `associations_mean_vs_median' on page 5 undefined on i
-nput line 180.
-
-
-LaTeX Warning: Reference `associations_mean_vs_median' on page 5 undefined on i
-nput line 180.
-
-
-LaTeX Warning: Reference `fig:features_with_sign_transcripts' on page 5 undefin
-ed on input line 184.
-
-
-LaTeX Warning: Reference `fig:features_with_sign_transcripts' on page 5 undefin
-ed on input line 184.
-
-
-LaTeX Warning: Reference `transcripts_with_sign_features' on page 5 undefined o
-n input line 186.
-
-[5]
-
-LaTeX Warning: Reference `fig:example_inflation_lung_256_mean' on page 6 undefi
-ned on input line 199.
-
-
-LaTeX Warning: Reference `fig:corrected_scatterplots' on page 6 undefined on in
-put line 206.
-
-
-LaTeX Warning: Reference `fig:technical_factors_vs_image_features' on page 6 un
-defined on input line 210.
-
-
-LaTeX Warning: Reference `fig:top5_bottom5_samples797' on page 6 undefined on i
-nput line 212.
-
-
-LaTeX Warning: Reference `fig:top5_bottom5_samples351' on page 6 undefined on i
-nput line 214.
-
-[6]
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 120.
+ [3]
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting_tis
-sue_patches.png, id=29, 1445.4pt x 722.7pt>
+sue_patches.png, id=14, 1445.4pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extractin
 g_tissue_patches.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
 _tissue_patches.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/extracting_tissue_patches.png used on input line 254.
-(pdftex.def)             Requested size: 422.77664pt x 211.38614pt.
- [7]
-</Users/fonz/Documents/Projects/GTEx/plotting/Classifier/validation_accuracy_ac
-ross_patchsize.png, id=35, 462.528pt x 346.896pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/Classifier/validation_accura
-cy_across_patchsize.png Graphic file (type png)
+ploration/extracting_tissue_patches.png used on input line 129.
+(pdftex.def)             Requested size: 1445.39648pt x 722.69823pt.
 
-<use /Users/fonz/Documents/Projects/GTEx/plotting/Classifier/validation_accurac
-y_across_patchsize.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/Classifie
-r/validation_accuracy_across_patchsize.png used on input line 261.
-(pdftex.def)             Requested size: 234.8775pt x 176.15768pt.
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at_dif
+ferent_scales.png, id=16, 722.7pt x 216.81pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_a
+t_different_scales.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at
+_different_scales.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/patches_at_different_scales.png used on input line 142.
+(pdftex.def)             Requested size: 722.69823pt x 216.80946pt.
+ [4 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
+_tissue_patches.png>] [5 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureE
+xploration/patches_at_different_scales.png>] [6]
+
+LaTeX Warning: Reference `fig:validation_accuracy_across_patchsize' on page 7 u
+ndefined on input line 230.
+
+[7] [8] [9]
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_bottom5_f
+eature796.png, id=44, 1445.4pt x 433.62pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_bott
+om5_feature796.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_botto
+m5_feature796.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/top5_bottom5_feature796.png used on input line 290.
+(pdftex.def)             Requested size: 1445.39648pt x 433.61894pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/image_feat
+ure_796_vs_SMTSISCH.png, id=45, 722.7pt x 505.89pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/image
+_feature_796_vs_SMTSISCH.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/image_
+feature_796_vs_SMTSISCH.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/image_feature_796_vs_SMTSISCH.png used on input line 296.
+(pdftex.def)             Requested size: 722.69823pt x 505.88875pt.
+
+Overfull \hbox (1.90001pt too wide) in paragraph at lines 288--300
+[]$[]$ $[]$ 
+ []
+
+[10 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_botto
+m5_feature796.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAsso
+ciations/image_feature_796_vs_SMTSISCH.png>] [11] [12] [13]
+</Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png, id=62, 746.79pt 
+x 279.444pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png Graphic file
+ (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gan
+tt.png used on input line 390.
+(pdftex.def)             Requested size: 746.78816pt x 279.44331pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_acros
-s_patches.png, id=36, 867.24pt x 722.7pt>
+s_patches.png, id=63, 1084.05pt x 289.08pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_
 across_patches.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_a
 cross_patches.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/features_across_patches.png used on input line 269.
-(pdftex.def)             Requested size: 328.82707pt x 274.02234pt.
- [8 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
-_tissue_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/Classifier/v
-alidation_accuracy_across_patchsize.png>]
+ploration/features_across_patches.png used on input line 401.
+(pdftex.def)             Requested size: 1084.04736pt x 289.07928pt.
+ [14 </Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png>]
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated_fea
-tures_across_samples.png, id=42, 722.7pt x 722.7pt>
+tures_across_samples.png, id=68, 722.7pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregate
 d_features_across_samples.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated
 _features_across_samples.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/aggregated_features_across_samples.png used on input line 277.
-(pdftex.def)             Requested size: 234.8775pt x 234.87471pt.
+ploration/aggregated_features_across_samples.png used on input line 410.
+(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_crossc
-orrelation.png, id=43, 361.35pt x 361.35pt>
+orrelation.png, id=69, 361.35pt x 361.35pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_c
 rosscorrelation.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_cr
 osscorrelation.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/feature_crosscorrelation.png used on input line 284.
-(pdftex.def)             Requested size: 234.8775pt x 234.88023pt.
- [9 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_a
-cross_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExplora
-tion/aggregated_features_across_samples.png>]
-</Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
-_PCs_vs_image_feature_PCs.png, id=49, 1084.05pt x 361.35pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
-ssion_PCs_vs_image_feature_PCs.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
-sion_PCs_vs_image_feature_PCs.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/expression_PCs_vs_image_feature_PCs.png used on input line 291.
-(pdftex.def)             Requested size: 281.85587pt x 93.94878pt.
+ploration/feature_crosscorrelation.png used on input line 417.
+(pdftex.def)             Requested size: 361.34912pt x 361.34912pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
-_PCs_vs_TFs.png, id=50, 578.16pt x 722.7pt>
+_PCs_vs_TFs.png, id=70, 578.16pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
 ssion_PCs_vs_TFs.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
 sion_PCs_vs_TFs.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/expression_PCs_vs_TFs.png used on input line 299.
-(pdftex.def)             Requested size: 187.89914pt x 234.87471pt.
- [10 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_c
-rosscorrelation.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAs
-sociations/expression_PCs_vs_image_feature_PCs.png>]
+eAssociations/expression_PCs_vs_TFs.png used on input line 432.
+(pdftex.def)             Requested size: 578.15858pt x 722.69823pt.
+
 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_feat
-ure_PCs_vs_TFs.png, id=56, 578.16pt x 722.7pt>
+ure_PCs_vs_TFs.png, id=71, 578.16pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image
 _feature_PCs_vs_TFs.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_
 feature_PCs_vs_TFs.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/image_feature_PCs_vs_TFs.png used on input line 306.
-(pdftex.def)             Requested size: 187.89914pt x 234.87471pt.
+eAssociations/image_feature_PCs_vs_TFs.png used on input line 439.
+(pdftex.def)             Requested size: 578.15858pt x 722.69823pt.
+ [15 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_
+across_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExplor
+ation/aggregated_features_across_samples.png> </Users/fonz/Documents/Projects/G
+TEx/plotting/FeatureExploration/feature_crosscorrelation.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
+_PCs_vs_image_feature_PCs.png, id=78, 1084.05pt x 361.35pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
+ssion_PCs_vs_image_feature_PCs.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
+sion_PCs_vs_image_feature_PCs.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
+eAssociations/expression_PCs_vs_image_feature_PCs.png used on input line 451.
+(pdftex.def)             Requested size: 1084.04736pt x 361.34912pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression_mea
-ns_and_stds.png, id=57, 722.7pt x 361.35pt>
+ns_and_stds.png, id=79, 722.7pt x 361.35pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expressio
 n_means_and_stds.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression
 _means_and_stds.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/expression_means_and_stds.png used on input line 313.
-(pdftex.def)             Requested size: 281.85587pt x 140.92593pt.
- [11 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
-ssion_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureA
-ssociations/image_feature_PCs_vs_TFs.png>]
+ploration/expression_means_and_stds.png used on input line 460.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_associ
-ations_across_patchsizes.png, id=63, 722.7pt x 505.89pt>
+ations_across_patchsizes.png, id=80, 1011.78pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_a
 ssociations_across_patchsizes.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_as
 sociations_across_patchsizes.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/raw_associations_across_patchsizes.png used on input line 320.
-(pdftex.def)             Requested size: 328.82707pt x 230.1803pt.
-
+eAssociations/raw_associations_across_patchsizes.png used on input line 467.
+(pdftex.def)             Requested size: 1011.77753pt x 722.69823pt.
+ [16 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
+ssion_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureA
+ssociations/image_feature_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/
+plotting/PCAFeatureAssociations/expression_PCs_vs_image_feature_PCs.png>]
 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
-ns_raw_vs_retrained.png, id=64, 722.7pt x 505.89pt>
+ns_raw_vs_retrained.png, id=87, 1156.32pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
 iations_raw_vs_retrained.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
 ations_raw_vs_retrained.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/associations_raw_vs_retrained.png used on input line 327.
-(pdftex.def)             Requested size: 328.82707pt x 230.1803pt.
- [12 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expressio
-n_means_and_stds.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureA
-ssociations/raw_associations_across_patchsizes.png>]
+eAssociations/associations_raw_vs_retrained.png used on input line 479.
+(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
+
+Underfull \hbox (badness 3482) in paragraph at lines 480--480
+[]\OT1/ptm/m/n/10 Fig. 10: |Com-par-ing the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 480--480
+\OT1/ptm/m/n/10 sig-nif-i-cant as-so-ci-a-tion
+ []
+
+
 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
-ns_mean_vs_median.png, id=70, 722.7pt x 505.89pt>
+ns_mean_vs_median.png, id=88, 1156.32pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
 iations_mean_vs_median.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
 ations_mean_vs_median.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/associations_mean_vs_median.png used on input line 334.
-(pdftex.def)             Requested size: 328.82707pt x 230.1803pt.
+eAssociations/associations_mean_vs_median.png used on input line 484.
+(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
+
+Underfull \hbox (badness 3482) in paragraph at lines 485--485
+[]\OT1/ptm/m/n/10 Fig. 11: |Com-par-ing the
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 485--485
+\OT1/ptm/m/n/10 sig-nif-i-cant as-so-ci-a-tion
+ []
+
+
+Underfull \hbox (badness 3323) in paragraph at lines 485--485
+\OT1/ptm/m/n/10 and me-dian ag-gre-ga-tion.
+ []
+
 
 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/features_w
-ith_significant_transcripts.png, id=71, 722.7pt x 722.7pt>
+ith_significant_transcripts.png, id=89, 1156.32pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featu
 res_with_significant_transcripts.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featur
 es_with_significant_transcripts.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/features_with_significant_transcripts.png used on input line 358.
+eAssociations/features_with_significant_transcripts.png used on input line 489.
 
-(pdftex.def)             Requested size: 187.89914pt x 187.89757pt.
- [13 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
-iations_raw_vs_retrained.png> </Users/fonz/Documents/Projects/GTEx/plotting/Raw
-FeatureAssociations/associations_mean_vs_median.png>]
+(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
+
 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transcript
-s_with_significant_features.png, id=78, 722.7pt x 722.7pt>
+s_with_significant_features.png, id=90, 1156.32pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/trans
 cripts_with_significant_features.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transc
 ripts_with_significant_features.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/transcripts_with_significant_features.png used on input line 365.
+eAssociations/transcripts_with_significant_features.png used on input line 494.
 
-(pdftex.def)             Requested size: 187.89914pt x 187.89757pt.
- [14 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featu
-res_with_significant_transcripts.png> </Users/fonz/Documents/Projects/GTEx/plot
-ting/RawFeatureAssociations/transcripts_with_significant_features.png>] [15] (.
-/author.aux)
+(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--590
+[]\OT1/ptm/m/n/10 R
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
+[]\OT1/ptm/m/n/10 p-
+ []
+
+
+Overfull \hbox (11.86995pt too wide) in paragraph at lines 588--600
+[][] 
+ []
+
+[17 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression
+_means_and_stds.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAs
+sociations/raw_associations_across_patchsizes.png> </Users/fonz/Documents/Proje
+cts/GTEx/plotting/RawFeatureAssociations/associations_raw_vs_retrained.png> </U
+sers/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associations_
+mean_vs_median.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAss
+ociations/features_with_significant_transcripts.png> </Users/fonz/Documents/Pro
+jects/GTEx/plotting/RawFeatureAssociations/transcripts_with_significant_feature
+s.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 608--608
+[]\OT1/ptm/m/n/10 R
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 608--609
+[]\OT1/ptm/m/n/10 p-
+ []
+
+
+Overfull \hbox (11.86995pt too wide) in paragraph at lines 606--618
+[][] 
+ []
+
+(./referenc.tex
+Missing character: There is no Ñ in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no “ in font ptmr7t!
+ [18]
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no “ in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no “ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no “ in font ptmr7t!
+
+Underfull \hbox (badness 4634) in paragraph at lines 63--64
+[]\OT1/ptm/m/n/8.5 Xu, J., Luo, X., Wang, G., Gilmore, H., & Mad-ab-hushi, A. (
+2016). A Deep Con-vo-lu-tional Neu-ral Net-work for
+ []
+
+
+Underfull \hbox (badness 2828) in paragraph at lines 63--64
+\OT1/ptm/m/n/8.5 seg-ment-ing and clas-si-fy-ing ep-ithe-lial and stro-mal re-g
+ions in histopatho-log-i-cal im-ages. Neu-ro-com-put-ing, 191, 214?223.
+ []
+
+) [19] (./author.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 5508 strings out of 493089
- 89265 string characters out of 6134843
- 159548 words of memory out of 5000000
- 8886 multiletter control sequences out of 15000+600000
- 34176 words of font info for 70 fonts, out of 8000000 for 9000
+ 6568 strings out of 493089
+ 107492 string characters out of 6134843
+ 186074 words of memory out of 5000000
+ 9876 multiletter control sequences out of 15000+600000
+ 40140 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,10n,40p,1405b,345s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 59i,10n,94p,2176b,517s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texl
 ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
 ve/2015/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fo
-nts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times
-/utmri8a.pfb>
-Output written on author.pdf (15 pages, 2074797 bytes).
+mf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/u
+rw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/
+utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pf
+b>
+Output written on author.pdf (19 pages, 2842658 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 138 PDF objects out of 1000 (max. 8388607)
+ 73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

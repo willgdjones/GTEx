@@ -1,70 +1,146 @@
 \relax 
 \immediate\closeout\minitoc
 \let \MiniTOC =N
-\citation{complex-sources-of-variation}
-\citation{deep-inside-convolutional-networks}
-\@writefile{toc}{\contentsline {title}{First Year Report}{1}}
+\citation{imaging-as-a-tool}
+\citation{imaging-genetics}
+\citation{imaging-genetics-parkinsons}
+\citation{hematoxylin-and-eosin-staining}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {title}{Associating gene expression to neural network derived image features}{1}}
 \@writefile{toc}{\authcount {1}}
-\@writefile{toc}{\contentsline {author}{William Jones}{1}}
+\@writefile{toc}{\contentsline {author}{William Jones (First year report)}{1}}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Background 1200 words}{1}}
+\citation{histopathological-image-analysis}
+\citation{gene-expression-parkinsons}
+\citation{what-is-complex-about-complex-disorders}
+\citation{GTEx-project}
+\citation{GTEx-histology}
+\citation{complex-sources-of-variation}
+\citation{image-net}
+\citation{deep-inside-convolutional-networks}
+\citation{network-in-network}
 \citation{scalable-unsupervised-learning}
-\citation{Gando et al.}
-\citation{Lin et al}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Aims 200 words}{2}}
-\newlabel{sec:2}{{2}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Methods 500 words}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Tissue Classification}{2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Neural Network architecture}{2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Data generation}{2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Training the neural network}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Extracting Image level features}{3}}
-\citation{McCall et al. }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Results 1000 words}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Tissue classification}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Feature association}{4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Exploratory Data analysis}{4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Features Associations}{4}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Quantifying significant associations}{5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.4}Comparing Raw vs Retrained InceptioNet}{5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.5}Comparing Aggregation methods}{5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.6}Accounting for covarying transcripts and covarying features}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Accounting for technical variation}{6}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Feature Interpretation}{6}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion 900 words}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Future Work 1000 words}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Figures}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces In the left hand image, we illustrate how patch centers are formed within a tissue boundary. The blue dots represent patch centers that fit inside the tissue boundary. In the right hand image, we illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding.\relax }}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Aims 200 words}{3}}
+\newlabel{sec:2}{{2}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methods 500 words}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Tissue Classification}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Dataset}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Training data generation}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \leavevmode {\color  {ao(english)}A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \leavevmode {\color  {ao(english)}B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary. \relax }}{4}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:extracting_tissue_patches}{{1}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces This figure demonstrates the performance of our convolutional neural network in correctly classifying square tissue patches at different patch sizes. Each patch is resized to be 299x299 pixels. We see that at smaller resolutions, validation accuracy decreases but still achieves 81\% accuracy at patchsize 128x128.\relax }}{8}}
-\newlabel{fig:validation_accuracy_across_patchsize}{{2}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Image feature variation across patch from a single lung image\relax }}{9}}
-\newlabel{fig:features_across_patches}{{3}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Figure showing 50 aggregated image feature values across 100 lung image samples. The top heatmap displays the image features from the retrained Inceptionet, and the bottom heatmap displays the image features from raw Inceptionet. More features are activated in retrained Inceptionet.\relax }}{9}}
-\newlabel{fig:aggregated_features_across_samples}{{4}{9}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Hierachical clustering performed on aggregated image features with non-zero standard deviation.\relax }}{10}}
-\newlabel{fig:feature_cross_correlation}{{5}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Pairwise pearsonr correlation analysis between image feature PCs and expression PCs describing 95\% of the variation of the respective datasets. A strong relationship exists between expression PC 1 and image feature PC1.\relax }}{10}}
-\newlabel{fig:expression_PCs_vs_image_feature_PCs}{{6}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Pairwise pearsonr correlation analysis between 51 technical factors and the first 10 expression PCs. A strong relationship exists between expression PC1 and 5 technical factors. This is described in more detail within Table 1\hbox {} \relax }}{11}}
-\newlabel{fig:expression_PCs_vs_TFs}{{7}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Pairwise pearsonr correlation analysis between 51 technical factors and the first 10 image feature principle components. A strong relationship exists between image features PC1 and 5 technical factors. This is described in more detail within Table 2\hbox {} \relax }}{11}}
-\newlabel{fig:technical_factors_vs_pca_feature}{{8}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The left hand figure displays a histogram of mean expression of transcripts across the lung samples. The red cutoff line indicates the proportion of transcripts that have mean expression greater than 1. The right hand figure displays a histogram of transcript standard deviations across the lung samples that have been filtered to have mean expression greater than 1. The right hand side of the red cutoff line indicate the 1000 most varying transcripts.\relax }}{12}}
-\newlabel{fig:expression_means_and_stds}{{9}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces A graph showing the relationship between raw number of Bonferroni significant associations for 3 different FDRs: 1-e2, 1-e4 and 1-e6. We see that at a patch size of 256x256 we find the greater number of associations across all FDRs.\relax }}{12}}
-\newlabel{fig:raw_associations_across_patchsizes}{{10}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces A graph showing the relationship between raw number of Bonferroni significant associations for 3 different FDRs: 1-e2, 1-e4 and 1-e6. We see that at a patch size of 256x256 we find the greater number of associations across all FDRs.\relax }}{13}}
-\newlabel{fig:associations_raw_vs_retrained}{{11}{13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces A graph showing the relationship between raw number of Bonferroni significant associations for 3 different FDRs: 1-e2, 1-e4 and 1-e6. We see that at a patch size of 256x256 we find the greater number of associations across all FDRs.\relax }}{13}}
-\newlabel{fig:associations_mean_vs_median}{{12}{13}}
+\newlabel{fig:extracting_tissue_patches}{{1}{4}}
+\citation{shapiro-computer-vision}
+\citation{otsu-method}
+\citation{fine-tuning-deep-convolutional-neural-networks}
+\citation{network-in-network}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Resolutions captured by patches of different sizes. For patch sizes at 4096 pixels, whole slide image features are captured such as tissue shape and colour, whereas as smaller resolutions of 128 pixels tissue texture and cell type composition are visible.\relax }}{5}}
+\newlabel{patches-different-scales}{{2}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Neural network model}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Training and Evaluation}{5}}
+\citation{keras}
+\citation{openslide}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.5}Tools}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Latent factors}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Associating features to RNA}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}RNA expression data}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Association tests}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results 1000 words}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Tissue classification}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Latent Image Feature Association}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Exploratory Data analysis}{7}}
+\citation{complex-sources-of-variation}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Feature Associations}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Quantifying individual significant associations}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.4}Comparing Raw vs Retrained InceptioNet}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.5}Comparing Aggregation methods}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.6}Accounting for covarying transcripts and covarying features}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.7}Feature Interpretation}{10}}
+\newlabel{fig:top5_bottom5_feature796}{{3a}{10}}
+\newlabel{sub@fig:top5_bottom5_feature796}{{a}{10}}
+\newlabel{fig:image_feature_796_vs_SMTSISCH}{{3b}{10}}
+\newlabel{sub@fig:image_feature_796_vs_SMTSISCH}{{b}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces  \relax }}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion 900 words}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Tissue Classification}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Latent feature associations}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Future Work 1000 words}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Short term}{12}}
+\citation{mendelian-randomization}
+\citation{fully-convolutional-networks}
+\citation{sparse-autoencoders}
+\citation{segmenting-classifying-epithelial}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Medium term}{13}}
+\citation{generative-adverserial-networks}
+\citation{variational-autoencoders}
+\citation{gans-biological-image-synthesis}
+\citation{hipsci-project}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Long term}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Gantt chart}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Gantt chart\relax }}{14}}
+\newlabel{fig:gantt}{{4}{14}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Figures}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Variation in 50 aggregated image features across 100 patches from two different Lung samples. Thumbnails of the images are displayed on the right hand side. Despite visible feature variation across patches, there is evidence of image feature activity that is consistent across patches, indicated by the faint horizontal lines. This motivates aggregating across patches, using either the mean or the median.\relax }}{15}}
+\newlabel{fig:features_across_patches}{{5}{15}}
+\newlabel{fig:aggregated_features_across_samples}{{6a}{15}}
+\newlabel{sub@fig:aggregated_features_across_samples}{{a}{15}}
+\newlabel{fig:feature_crosscorrelation}{{6b}{15}}
+\newlabel{sub@fig:feature_crosscorrelation}{{b}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  \relax }}{15}}
+\newlabel{fig:expression_PCs_vs_TFs}{{7a}{16}}
+\newlabel{sub@fig:expression_PCs_vs_TFs}{{a}{16}}
+\newlabel{fig:image_feature_PCs_vs_TFs}{{7b}{16}}
+\newlabel{sub@fig:image_feature_PCs_vs_TFs}{{b}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Major sources of variation in image and gene expression data are not independent\relax }}{16}}
+\newlabel{fig:technical_factors_drive_variation}{{7}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Major shared variation is between PC1 of both the image features and expression. We display \leavevmode {\color  {ao(english)}A} Pairwise pearsonr correlation and \leavevmode {\color  {ao(english)}B} -log10 pvalues between the top $20$ image feature PCs and the top $10$ expression PCs. \leavevmode {\color  {ao(english)}C-G} Scatterplot of top 5 (ordered by R\textsuperscript  {2} ) associations between expression and image PCs. \relax }}{16}}
+\newlabel{fig:expression_PCs_vs_image_feature_PCs}{{8}{16}}
+\newlabel{fig:expression_means_and_stds}{{9a}{17}}
+\newlabel{sub@fig:expression_means_and_stds}{{a}{17}}
+\newlabel{fig:associations_raw_vs_retrained}{{9b}{17}}
+\newlabel{sub@fig:associations_raw_vs_retrained}{{b}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The left figure illustrates the expression data cutoffs. The right hand figure displays the number of significant associations between levels of individual transcripts across samples, and the aggregated image features. The image features are from Lung images, mean aggregated, and generated from retrained Inception at a patch size of $256$.\relax }}{17}}
+\newlabel{fig:expression_cutoff_and_raw_significant_associations}{{9}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Comparing the significant association count (y-axis) across patch size (x-axis) between raw and retrained Inceptionet. (Bonf $\alpha $ = 0.0001)\relax }}{17}}
+\newlabel{fig:associations_raw_vs_retrained}{{10}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Comparing the significant association count (y-axis) across patch size (x-axis) between mean and median aggregation. (Bonf $\alpha $ = 0.0001)\relax }}{17}}
+\newlabel{fig:associations_mean_vs_median}{{11}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Counting the number of features that have a significant association to at least $1$ transcript. (Bonf $\alpha $ = 0.0001)\relax }}{17}}
+\newlabel{fig:features_with_significant_transcripts}{{12}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Counting the number of transcripts that have a significant association to at least $1$ feature. (Bonf $\alpha $ = 0.0001)\relax }}{17}}
+\newlabel{fig:transcripts_with_significant_features}{{13}{17}}
+\bibcite{imaging-as-a-tool}{1}
+\bibcite{imaging-genetics}{2}
+\bibcite{imaging-genetics-parkinsons}{3}
+\bibcite{hematoxylin-and-eosin-staining}{4}
+\bibcite{histopathological-image-analysis}{5}
+\bibcite{GTEx-project}{6}
+\bibcite{GTEx-histology}{7}
+\bibcite{what-is-complex-about-complex-disorders}{8}
+\bibcite{gene-expression-parkinsons}{9}
+\bibcite{complex-sources-of-variation}{10}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Tables}{18}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Top 5 R\textsuperscript  {2} associations between Expression PCs and technical factors\relax }}{18}}
+\newlabel{tab:expression_pcs_and_tfs}{{1}{18}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Top 5 R\textsuperscript  {2} associations between Image Feature PCs and technical factors\relax }}{18}}
+\newlabel{tab:image_feature_pcs_and_tfs}{{2}{18}}
+\@writefile{toc}{\contentsline {section}{References}{18}}
+\@mtwritefile{\contentsline {mtchap}{References}{18}}
+\bibcite{image-net}{11}
+\bibcite{scalable-unsupervised-learning}{12}
+\bibcite{deep-inside-convolutional-networks}{13}
+\bibcite{fine-tuning-deep-convolutional-neural-networks}{14}
+\bibcite{network-in-network}{15}
+\bibcite{autoencoders-unsupervised-learning-and-deep-architectures}{16}
+\bibcite{shapiro-computer-vision}{17}
+\bibcite{otsu-method}{18}
+\bibcite{keras}{19}
+\bibcite{openslide}{20}
+\bibcite{generative-adverserial-networks}{21}
+\bibcite{gans-biological-image-synthesis}{22}
+\bibcite{variational-autoencoders}{23}
+\bibcite{fully-convolutional-networks}{24}
+\bibcite{sparse-autoencoders}{25}
+\bibcite{segmenting-classifying-epithelial}{26}
+\bibcite{mendelian-randomization}{27}
+\bibcite{hipsci-project}{28}
 \immediate\closeout\minitoc
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Number of features with a significant expression association\relax }}{14}}
-\newlabel{fig:features_with_significant_transcripts}{{13}{14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Number of transcripts with significant feature association\relax }}{14}}
-\newlabel{fig:transcripts_with_significant_features}{{14}{14}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Tables}{14}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Top 5 R\textsuperscript  {2} associations between Expression PCs and technical factors\relax }}{14}}
-\newlabel{tab:expression_pcs_and_tfs}{{1}{14}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Top 5 R\textsuperscript  {2} associations between Expression PCs and technical factors\relax }}{15}}
-\newlabel{tab:image_feature_pcs_and_tfs}{{2}{15}}

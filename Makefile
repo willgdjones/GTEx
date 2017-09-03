@@ -1,11 +1,11 @@
 graphs:
-	rsync -vr --delete willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx/figures /Users/fonz/Documents/Projects/GTEx
+	rsync -vr --delete willj@ebi-cli-002.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx/figures /Users/fonz/Documents/Projects/GTEx
 
 rsync:
-	rsync -vr --delete /Users/fonz/Documents/Projects/GTEx/src willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
-	rsync -vr /Users/fonz/Documents/Projects/GTEx/Makefile willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
-	rsync -vr /Users/fonz/Documents/Projects/GTEx/README.md willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
-	rsync -vr /Users/fonz/Documents/Projects/GTEx/tests willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr --delete --exclude '*_pycache_*' /Users/fonz/Documents/Projects/GTEx/src willj@ebi-cli-002.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr /Users/fonz/Documents/Projects/GTEx/Makefile willj@ebi-cli-002.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr /Users/fonz/Documents/Projects/GTEx/README.md willj@ebi-cli-002.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
+	rsync -vr --exclude '*_pycache_*' /Users/fonz/Documents/Projects/GTEx/tests willj@ebi-cli-002.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx
 
 results:
 	rsync -vr --delete willj@ebi-cli-001.ebi.ac.uk:/hps/nobackup/research/stegle/users/willj/GTEx/results /Users/fonz/Documents/Projects/GTEx

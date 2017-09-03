@@ -7,9 +7,13 @@ import numpy as np
 from matplotlib import cbook
 from numpy import ma
 from scipy.stats import pearsonr
-# from openslide import open_slide
+from sklearn.linear_model import LinearRegression
+from sklearn.decomposition import PCA
 import cv2
-# import mahotas
+import mahotas
+import scipy.stats as st
+import scipy as sp
+
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -150,19 +154,30 @@ def get_technical_factors(tissue, donorIDs):
 
 
 
-def filter_features_across_all_patchsizes(tissue, model, aggregation, M):
+def filter_features_across_all_patchsizes(tissue, model, aggregation, M, pc_correction=False):
 
     """
         Computes M most varying pvalues across all patch sizes.
     """
 
+    if pc_correction:
+        print ('Correcting image features with {} expression PCs'.format(pc_correction))
     patch_sizes = [128, 256, 512, 1024, 2048, 4096]
-    image_features, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(tissue, model, aggregation, '256')
+    _, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(tissue, model, aggregation, '256')
 
     all_image_features = []
     for ps in patch_sizes:
         image_features, _, _, _, _, _, _ = extract_final_layer_data(tissue, model, aggregation, str(ps))
-        all_image_features.append(image_features)
+        if pc_correction:
+            pca = PCA(n_components=pc_correction)
+            pca_expression = pca.fit_transform(expression)
+            lr = LinearRegression()
+            lr.fit(pca_expression, image_features)
+            predicted = lr.predict(pca_expression)
+            corrected_image_features = image_features - predicted
+            all_image_features.append(corrected_image_features)
+        else:
+            all_image_features.append(image_features)
 
     concat_image_features = np.concatenate(all_image_features)
     most_varying_feature_idx = np.argsort(concat_image_features.std(0))[-M:]
@@ -170,6 +185,8 @@ def filter_features_across_all_patchsizes(tissue, model, aggregation, M):
     all_filt_features = {}
     for (i, ps) in enumerate(patch_sizes):
         all_filt_features[ps] = all_image_features[i][:, most_varying_feature_idx]
+
+
 
     return all_filt_features, most_varying_feature_idx, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx
 
@@ -200,7 +217,7 @@ def filter_expression(expression, transcriptIDs, M, k):
 
 
 
-def compute_pearsonR(image_features, expression):
+def compute_pearsonR(filt_features, filt_expression):
     """
     Compute p-values between the top N most varying image features.
     The top M most varying transcripts + the top M most expression transcripts.
@@ -208,24 +225,24 @@ def compute_pearsonR(image_features, expression):
     Computes pvalues for 3 random shuffles.
     """
     # Make sure all features are > 0
-    image_features[image_features < 0] = 0
+    filt_features[filt_features < 0] = 0
 
-    N = image_features.shape[1]
-    M = image_features.shape[1]
+    N = filt_features.shape[1]
+    M = filt_expression.shape[1]
     results = {}
     shuffle = ['real', 1, 2, 3]
     for sh in shuffle:
-        R_mat = np.zeros((N, 2*M))
-        pvs = np.zeros((N, 2*M))
-        image_features_copy = image_features.copy()
-        shuf_idx = list(range(image_features.shape[0]))
+        R_mat = np.zeros((N, M))
+        pvs = np.zeros((N, M))
+        filt_features_copy = filt_features.copy()
+        shuf_idx = list(range(filt_features.shape[0]))
         if sh != 'real':
             np.random.shuffle(shuf_idx)
-        filt_image_features_copy = image_features_copy[shuf_idx, :]
+        filt_features_copy = filt_features_copy[shuf_idx, :]
 
         for i in range(N):
-            for j in range(2*M):
-                R, pv = pearsonr(expression[:, j], filt_image_features_copy[:, i])
+            for j in range(M):
+                R, pv = pearsonr(filt_expression[:, j], filt_features_copy[:, i])
                 R_mat[i, j] = R
                 pvs[i, j] = pv
         results['Rs_{}'.format(sh)] = R_mat
@@ -236,6 +253,7 @@ def compute_pearsonR(image_features, expression):
 
 
 def create_tissue_boundary(ID, tissue, patchsize):
+    from openslide import open_slide
 
     image_filepath = os.path.join(GTEx_directory, 'data', 'raw', tissue, ID + '.svs')
 
@@ -287,3 +305,53 @@ def create_tissue_boundary(ID, tissue, patchsize):
         slidemarkings[x-3:x+3, y-3:y+3] = [0, 0, 255]
 
     return slide, mask, slidemarkings
+
+
+def top5_bottom5_image(tissue, model, patchsize, feature):
+
+    """
+        Displays thumbnails of the top 5 and bottom 5 images that activate a
+        given image features at a specific patchsize
+    """
+
+    from openslide import open_slide
+    features, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(tissue, model, 'mean', patchsize)
+
+    sorted_idx = np.argsort(features[:,feature - 1])
+    donorIDs_ordered = donorIDs[sorted_idx]
+
+    tissue_filepath = os.path.join(GTEx_directory,'data','raw',tissue)
+
+    LungGTExIDs = os.listdir(tissue_filepath)
+    LungdonorIDs = [x.split('.')[0].split('-')[1] for x in LungGTExIDs]
+
+    ordered_GTExIDs = np.array(LungGTExIDs)[[LungdonorIDs.index(x.decode('utf-8')) for x in donorIDs_ordered]]
+
+    topIDs = ordered_GTExIDs[-5:]
+    bottomIDs = ordered_GTExIDs[:5]
+
+    top_five_images = []
+    bottom_five_images = []
+
+    for (k,ID) in enumerate(topIDs):
+        image_filepath = os.path.join(GTEx_directory,'data','raw','Lung', ID)
+        slide = open_slide(image_filepath)
+        x = slide.get_thumbnail(size=(400,400))
+        top_five_images.append(x)
+
+
+    for (k,ID) in enumerate(bottomIDs):
+        image_filepath = os.path.join(GTEx_directory,'data','raw','Lung', ID)
+        slide = open_slide(image_filepath)
+        x = slide.get_thumbnail(size=(400,400))
+        bottom_five_images.append(x)
+
+    return top_five_images, bottom_five_images
+
+
+def estimate_lambda(pv):
+    """estimate lambda form a set of PV"""
+    LOD2 = sp.median(st.chi2.isf(pv, 1))
+    null_median = st.chi2.median(1)
+    L = (LOD2 / null_median)
+    return L
