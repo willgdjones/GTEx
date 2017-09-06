@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  31 AUG 2017 23:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  6 SEP 2017 14:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -688,14 +688,14 @@ Overfull \hbox (1.90001pt too wide) in paragraph at lines 288--300
 m5_feature796.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAsso
 ciations/image_feature_796_vs_SMTSISCH.png>] [11] [12] [13]
 </Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png, id=62, 746.79pt 
-x 279.444pt>
+x 253.9086pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png Graphic file
  (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gan
-tt.png used on input line 390.
-(pdftex.def)             Requested size: 746.78816pt x 279.44331pt.
+tt.png used on input line 388.
+(pdftex.def)             Requested size: 746.78816pt x 253.90797pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_acros
 s_patches.png, id=63, 1084.05pt x 289.08pt>
@@ -705,7 +705,7 @@ across_patches.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_a
 cross_patches.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/features_across_patches.png used on input line 401.
+ploration/features_across_patches.png used on input line 399.
 (pdftex.def)             Requested size: 1084.04736pt x 289.07928pt.
  [14 </Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png>]
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated_fea
@@ -716,7 +716,7 @@ d_features_across_samples.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated
 _features_across_samples.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/aggregated_features_across_samples.png used on input line 410.
+ploration/aggregated_features_across_samples.png used on input line 408.
 (pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_crossc
@@ -727,7 +727,7 @@ rosscorrelation.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_cr
 osscorrelation.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/feature_crosscorrelation.png used on input line 417.
+ploration/feature_crosscorrelation.png used on input line 415.
 (pdftex.def)             Requested size: 361.34912pt x 361.34912pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
@@ -738,7 +738,7 @@ ssion_PCs_vs_TFs.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
 sion_PCs_vs_TFs.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/expression_PCs_vs_TFs.png used on input line 432.
+eAssociations/expression_PCs_vs_TFs.png used on input line 430.
 (pdftex.def)             Requested size: 578.15858pt x 722.69823pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_feat
@@ -749,7 +749,7 @@ _feature_PCs_vs_TFs.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_
 feature_PCs_vs_TFs.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/image_feature_PCs_vs_TFs.png used on input line 439.
+eAssociations/image_feature_PCs_vs_TFs.png used on input line 437.
 (pdftex.def)             Requested size: 578.15858pt x 722.69823pt.
  [15 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_
 across_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExplor
@@ -763,7 +763,7 @@ ssion_PCs_vs_image_feature_PCs.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
 sion_PCs_vs_image_feature_PCs.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/expression_PCs_vs_image_feature_PCs.png used on input line 451.
+eAssociations/expression_PCs_vs_image_feature_PCs.png used on input line 449.
 (pdftex.def)             Requested size: 1084.04736pt x 361.34912pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression_mea
@@ -774,7 +774,7 @@ n_means_and_stds.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression
 _means_and_stds.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/expression_means_and_stds.png used on input line 460.
+ploration/expression_means_and_stds.png used on input line 458.
 (pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_associ
@@ -785,7 +785,7 @@ ssociations_across_patchsizes.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_as
 sociations_across_patchsizes.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/raw_associations_across_patchsizes.png used on input line 467.
+eAssociations/raw_associations_across_patchsizes.png used on input line 465.
 (pdftex.def)             Requested size: 1011.77753pt x 722.69823pt.
  [16 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
 ssion_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureA
@@ -799,15 +799,15 @@ iations_raw_vs_retrained.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
 ations_raw_vs_retrained.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/associations_raw_vs_retrained.png used on input line 479.
+eAssociations/associations_raw_vs_retrained.png used on input line 477.
 (pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
 
-Underfull \hbox (badness 3482) in paragraph at lines 480--480
+Underfull \hbox (badness 3482) in paragraph at lines 478--478
 []\OT1/ptm/m/n/10 Fig. 10: |Com-par-ing the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 480--480
+Underfull \hbox (badness 10000) in paragraph at lines 478--478
 \OT1/ptm/m/n/10 sig-nif-i-cant as-so-ci-a-tion
  []
 
@@ -820,20 +820,20 @@ iations_mean_vs_median.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
 ations_mean_vs_median.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/associations_mean_vs_median.png used on input line 484.
+eAssociations/associations_mean_vs_median.png used on input line 482.
 (pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
 
-Underfull \hbox (badness 3482) in paragraph at lines 485--485
+Underfull \hbox (badness 3482) in paragraph at lines 483--483
 []\OT1/ptm/m/n/10 Fig. 11: |Com-par-ing the
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 485--485
+Underfull \hbox (badness 10000) in paragraph at lines 483--483
 \OT1/ptm/m/n/10 sig-nif-i-cant as-so-ci-a-tion
  []
 
 
-Underfull \hbox (badness 3323) in paragraph at lines 485--485
+Underfull \hbox (badness 3323) in paragraph at lines 483--483
 \OT1/ptm/m/n/10 and me-dian ag-gre-ga-tion.
  []
 
@@ -846,7 +846,7 @@ res_with_significant_transcripts.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featur
 es_with_significant_transcripts.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/features_with_significant_transcripts.png used on input line 489.
+eAssociations/features_with_significant_transcripts.png used on input line 487.
 
 (pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
 
@@ -858,21 +858,21 @@ cripts_with_significant_features.png Graphic file (type png)
 <use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transc
 ripts_with_significant_features.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/transcripts_with_significant_features.png used on input line 494.
+eAssociations/transcripts_with_significant_features.png used on input line 492.
 
 (pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 590--590
+Underfull \hbox (badness 10000) in paragraph at lines 588--588
 []\OT1/ptm/m/n/10 R
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 590--591
+Underfull \hbox (badness 10000) in paragraph at lines 588--589
 []\OT1/ptm/m/n/10 p-
  []
 
 
-Overfull \hbox (11.86995pt too wide) in paragraph at lines 588--600
+Overfull \hbox (11.86995pt too wide) in paragraph at lines 586--598
 [][] 
  []
 
@@ -885,17 +885,17 @@ mean_vs_median.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAss
 ociations/features_with_significant_transcripts.png> </Users/fonz/Documents/Pro
 jects/GTEx/plotting/RawFeatureAssociations/transcripts_with_significant_feature
 s.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 608--608
+Underfull \hbox (badness 10000) in paragraph at lines 606--606
 []\OT1/ptm/m/n/10 R
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 608--609
+Underfull \hbox (badness 10000) in paragraph at lines 606--607
 []\OT1/ptm/m/n/10 p-
  []
 
 
-Overfull \hbox (11.86995pt too wide) in paragraph at lines 606--618
+Overfull \hbox (11.86995pt too wide) in paragraph at lines 604--616
 [][] 
  []
 
@@ -935,7 +935,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  6568 strings out of 493089
  107492 string characters out of 6134843
- 186074 words of memory out of 5000000
+ 186073 words of memory out of 5000000
  9876 multiletter control sequences out of 15000+600000
  40140 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -950,7 +950,7 @@ ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/u
 rw/times/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/
 utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pf
 b>
-Output written on author.pdf (19 pages, 2842658 bytes).
+Output written on author.pdf (19 pages, 2840525 bytes).
 PDF statistics:
  138 PDF objects out of 1000 (max. 8388607)
  73 compressed objects within 1 object stream

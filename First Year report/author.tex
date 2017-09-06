@@ -351,35 +351,33 @@ Furthermore, using the final layer feature of the neural network compresses enti
 Given that this report has identified that the strongest drivers of variation between image feature and expression are technical factors, the next step in the analysis is to account for this technical variation in a linear mixed model (LMM) and use this to focus on transcripts with relationships to image features outside of known technical variation. These relationships are more likely to be underpinned biologically and more interesting from a biological perspective. Once these corrected associations are characterised, I will perform Gene Ontology analysis to understand the known biology of these transcripts, and hypothesis as to why they are predictable from the images.
 
 %Genotype
-Since we were focussed on correcting for technical factors in order to find and interpret associations independent of these, we have neglected searching for genotype associations. This is because we hypothesised that image features driven by technical factors would drown out the association signal to the genotype, which we already anticipate to be underpowered. A next step would be to investigate the relationship to the genotype of image features that show a relationship to transcripts after correcting for technical factors. I will  search for significant associations within a 1kb window of genes which produce transcripts that have significant associations to image features. This will test the hypothesis that image features have a genetic basis.
+Since we were focussed on correcting for technical factors in order to find and interpret associations independent of these, we have neglected searching for genotype associations. This is because we hypothesised that image features driven by technical factors would drown out the association signal to the genotype, which we already anticipate to be underpowered. A next step would be to investigate the relationship to the genotype of image features that show a relationship to transcripts after correcting for technical factors. I will search for significant associations within a 1kb window of genes which produce transcripts that have significant associations to image features. This will test the hypothesis that image features have a genetic basis.
 
 %Mendelian randomisation
 Once genotype relationships have been identified, I will perform Mendelian Randomization \cite{mendelian-randomization} analysis to ascertain whether image features are mediated through expression, or via an independent mechanism.
 
-%Deep Learn review
-In a different piece of work that I also completing in the short term: I am co-auther on a review paper titled "Deep Learning in Computational Biology" which has been accepted with minor revisions into the journal "Emerging Topics in Life Sciences". This will require minor further editting along with my co-authors.
-
+%Phenotype analysis
+In addition, I will look to include the clinical annotation data, that were originally made by radiologists when inspecting the tissue slice. I will look for associations with both the generated image features and genotype to investigate whether these clinical phenotype have a genetic basis.
+%Cross tissue analysis
+Finally, I will extend this analysis to other tissue types. At this point, I have only looked at Lung tissue in detail, but I have pre-computed patches and features from 9 other tissue types, and if interesting finds emerge I can then generate patches from other available tissues.
 
 \subsection{Medium term}
 
-%Tissue classification paper
-I would like to draft the results of the tissue classification part of this report into a short paper. It would be informative to know at which resolution tissue types become indistinguishable. It is not known whether features at very small resolutions, like colour, can be discriminative. This will answer questions of how different tissues are visually, and could potentially be linked to stages of embryonic development. As an unstudied question this work could answer the resolution at which tissue slices become unique. Furthermore, it flips the conventional use case of neural networks in classification. Instead of testing whether a neural network is able to find discriminative features for a particular task, it assumes that such features would be discoverable by a neural network, if indeed they exist. We aim to investigate whether these feature exist at all, or at least that if they do exist, they cannot be modelling by a neural network.
 
+%Latent Factor association paper
+In the medium term, having performed the corrected p-value analysis, genotype association analysis, integrated clinical phenotypes, performed cross-tissue analysis and performed the mendelian randomisation analysis, I aim to write up the Latent Factor association work into a paper. This will be one of the first example of employing methods from deep learning on images with the purpose of relating them to genetic data. I know of a competing group that is employing similar methods, and so will aim to write this work up as soon as the results become available.
+
+%Tissue classification paper
+Furthermore, I would like to draft the results of the tissue classification part of this report into a short paper. It would be informative to know at which resolution tissue types become indistinguishable. It is not known whether features at very small resolutions, like colour, can be discriminative. This will answer questions of how different tissues are visually, and could potentially be linked to stages of embryonic development. As an unstudied question this work could answer the resolution at which tissue slices become unique. Furthermore, it flips the conventional use case of neural networks in classification. Instead of testing whether a neural network is able to find discriminative features for a particular task, it assumes that such features would be discoverable by a neural network, if indeed they exist. We aim to investigate whether these feature exist at all, or at least that if they do exist, they cannot be modelling by a neural network.
+
+
+\subsection{Long term}
 %Convolutional Architecture
 
 The deep aggregated features that I generated are not easily interpretable. The most interpretable feature only managed to capture the global change of colour in the tissue slice. The reason for this was because the current network architecture collapsed all convolutional layers into a single dense layer, destroying all spatial relationships between the pixels in the input patch. Modern day autoencoders used in computer vision employ Fully Connected Networks (FCNs) \cite{fully-convolutional-networks} architectures for encoding images into compressed representations that are rectangular in shape, and that conserve these spatial relationships. Recently, researchers have used these architectures to perform unsupervised nucleus detection \cite{sparse-autoencoders}  and segmentation of epithelial and stromal regions \cite{segmenting-classifying-epithelial}. Applying these methods to the GTEx data has the potential to give accurate approximations to the proportion of different cell types e.g. lymphocytes in a histopathology tissue slice. Using this, we can whether a relationship exists between cell-type proportion and specific gene transcripts or genotypes. If these features were representative of cell type composition across a tissue slice, it is very likely be related to levels of individual transcripts. This is because the RNA expression data is generated in bulk from a sample taken from the tissue slice, and gene expression is strongly determined by cell-type. It is highly plausible that this would also be linked between to genotype. The benefit of this approach is that these representations actually have a clear interpretation as the proportion of cell-type composition.
 
-
-\subsection{Long term}
-
-%Latent Factor association paper
-In the longer term, having performed the corrected p-value analysis, genotype association analysis, and Mendelian randomisation analysis, I aim to write up the Latent Factor association work into a paper. This will be one of the first example of employing methods from deep learning on images with the purpose of relating them to genetic data. I know of a competing group that is employing similar methods, and so will aim to write this work up as soon as the result become available.
-
 %Investigate GANs VAEs
-I would like to pursue other classes of neural network models in the recent deep learning literature that have given promising results. Generative Adverserial Networks (GANs) \cite{generative-adverserial-networks} and Variational Autoencoders \cite{variational-autoencoders} are able to define latent image representations, and creating realistic images with them as input. For example, recent work has demonstrated that it is possible to generate realistic looking images of protein abundance classes in high-content screening \cite{gans-biological-image-synthesis}.
-
-%similar analysis on different datasets (HIPSCI).
-I have access to other datasets that contain image data as well as the corresponding expression and genotype data, for example the Human Induced Pluripotent Stem Cells Initiative (HIPSCI) \cite{hipsci-project} contains annotated images of single cells. It could be possible and fruitful to employ the methods developed in this report on this HIPSCI data.
+I would like to pursue other classes of neural network models in the recent deep learning literature that have given promising results. Generative Adverserial Networks (GANs) \cite{generative-adverserial-networks} and Variational Autoencoders \cite{variational-autoencoders} are able to define latent image representations, and creating realistic images with them as input. For example, recent work has demonstrated that it is possible to generate realistic looking images of protein abundance classes in high-content screening \cite{gans-biological-image-synthesis}. These results demonstrate that it is possible to create more powerful compression mappings  images and vectors. The vectors we have looked at in this report are in no way generative, they only describe characteristics of the images. Well trained VAEs and GANs describe the high-dimensional manifold of the compressed image representation that they have the ability to generate entirely new images of a particular class by making small modifications to this compressed representation. This implies that these representations will much better describe the characteristics of the input image when compared with the methods we have currently explored.
 
 \subsection{Gantt chart}
 
@@ -387,7 +385,7 @@ I have access to other datasets that contain image data as well as the correspon
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{/Gantt/Gantt}
+\includegraphics[width=1\textwidth]{/Gantt/Gantt}
 \caption{Gantt chart}
 \label{fig:gantt}
 \end{figure}
