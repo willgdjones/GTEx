@@ -12,6 +12,7 @@ results
 figures
 notebooks
 plotting
+!src/plotting
 .DS_store
 
 
