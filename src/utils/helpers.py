@@ -89,16 +89,16 @@ class MidPointNorm(Normalize):
 def extract_final_layer_data(t, m, a, ps):
     with h5py.File(GTEx_directory +
                 '/data/h5py/aggregated_features.h5py', 'r') as f:
-        expression = f[t]['ordered_expression'].value
-        transcriptIDs = f[t]['transcriptIDs'].value
-        donorIDs = f[t]['donorIDs'].value
-        technical_factors, technical_headers, technical_idx = \
-            get_technical_factors(t, donorIDs)
+        X = f[t]['ordered_expression'].value
+        tIDs = f[t]['transcriptIDs'].value
+        dIDs = f[t]['donorIDs'].value
+        tfs, ths, t_idx = \
+            get_technical_factors(t, dIDs)
         size_group = f[t]['-1'][ps]
-        features = size_group[m][a]['ordered_aggregated_features'].value
-        features[features < 0] = 0
-        return features, expression, donorIDs, transcriptIDs, \
-            technical_factors, technical_headers, technical_idx
+        Y = size_group[m][a]['ordered_aggregated_features'].value
+        Y[Y < 0] = 0
+        return Y, X, dIDs, tIDs, \
+            tfs, ths, t_idx
 
 
 def extract_mid_layer_data(t, l, ca, m, a, ps):
@@ -163,86 +163,85 @@ def filter_features_across_all_patchsizes(tissue, model, aggregation, M, pc_corr
     if pc_correction:
         print ('Correcting image features with {} expression PCs'.format(pc_correction))
     patch_sizes = [128, 256, 512, 1024, 2048, 4096]
-    _, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(tissue, model, aggregation, '256')
+    _, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(tissue, model, aggregation, '256')
 
-    all_image_features = []
+    all_Y = []
     for ps in patch_sizes:
-        image_features, _, _, _, _, _, _ = extract_final_layer_data(tissue, model, aggregation, str(ps))
+        Y, _, _, _, _, _, _ = extract_final_layer_data(tissue, model, aggregation, str(ps))
         if pc_correction:
+            print('Correcting {} with {} PC'.format(ps, pc_correction))
             pca = PCA(n_components=pc_correction)
-            pca_expression = pca.fit_transform(expression)
+            pca_X = pca.fit_transform(X)
             lr = LinearRegression()
-            lr.fit(pca_expression, image_features)
-            predicted = lr.predict(pca_expression)
-            corrected_image_features = image_features - predicted
-            all_image_features.append(corrected_image_features)
+            lr.fit(pca_X, Y)
+            predicted = lr.predict(pca_X)
+            corrected_Y = Y - predicted
+            all_Y.append(corrected_Y)
         else:
-            all_image_features.append(image_features)
+            all_Y.append(Y)
 
-    concat_image_features = np.concatenate(all_image_features)
-    most_varying_feature_idx = np.argsort(concat_image_features.std(0))[-M:]
+    concat_Y = np.concatenate(all_Y)
+    most_varying_feature_idx = np.argsort(concat_Y.std(0))[-M:]
 
-    all_filt_features = {}
+    all_filt_Y = {}
     for (i, ps) in enumerate(patch_sizes):
-        all_filt_features[ps] = all_image_features[i][:, most_varying_feature_idx]
+        all_filt_Y[ps] = all_Y[i][:, most_varying_feature_idx]
 
 
 
-    return all_filt_features, most_varying_feature_idx, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx
+    return all_filt_Y, most_varying_feature_idx, X, dIDs, tIDs, tfs, ths, t_idx
 
 
-def filter_features(features, N):
+def filter_features(Y, N):
     """
         Return top N varying image features.
     """
-    most_varying_feature_idx = np.argsort(np.std(features, axis=0))[-N:]
-    filt_features = features[:, most_varying_feature_idx]
-    return filt_features, most_varying_feature_idx
+    most_varying_feature_idx = np.argsort(np.std(Y, axis=0))[-N:]
+    filt_Y = Y[:, most_varying_feature_idx]
+    return filt_Y, most_varying_feature_idx
 
 
-def filter_expression(expression, transcriptIDs, M, k):
+def filter_expression(exp, tIDs, M, k):
     """
         Return top M varying transcripts, with mean expression > k, along with their transcript names.
     """
-    k_threshold_idx = np.mean(expression, axis=0) > k
-    filt_expression = expression[:,k_threshold_idx]
-    filt_transcriptIDs = transcriptIDs[k_threshold_idx]
+    k_threshold_idx = np.mean(exp, axis=0) > k
+    filt_exp = exp[:,k_threshold_idx]
+    filt_tIDs = tIDs[k_threshold_idx]
 
-    M_varying_idx = np.argsort(np.std(filt_expression, axis=0))[-M:]
+    M_varying_idx = np.argsort(np.std(filt_exp, axis=0))[-M:]
 
-    filt_expression = filt_expression[:, M_varying_idx]
-    filt_transcriptIDs = filt_transcriptIDs[M_varying_idx]
+    filt_exp = filt_exp[:, M_varying_idx]
+    filt_tIDs = filt_tIDs[M_varying_idx]
 
-    return filt_expression, filt_transcriptIDs
+    return filt_exp, filt_tIDs
 
 
 
-def compute_pearsonR(filt_features, filt_expression):
+def compute_pearsonR(Y, X):
     """
-    Compute p-values between the top N most varying image features.
-    The top M most varying transcripts + the top M most expression transcripts.
-    Performs N * 2M association tests overall.
-    Computes pvalues for 3 random shuffles.
+    Perform pairwise associations between filt_features and filt_expression.
+    Also computes pvalues for 3 random shuffles.
     """
     # Make sure all features are > 0
-    filt_features[filt_features < 0] = 0
+    X[X < 0] = 0
 
-    N = filt_features.shape[1]
-    M = filt_expression.shape[1]
+    N = Y.shape[1]
+    M = X.shape[1]
     results = {}
     shuffle = ['real', 1, 2, 3]
     for sh in shuffle:
         R_mat = np.zeros((N, M))
         pvs = np.zeros((N, M))
-        filt_features_copy = filt_features.copy()
-        shuf_idx = list(range(filt_features.shape[0]))
+        Y_copy = Y.copy()
+        shuf_idx = list(range(Y.shape[0]))
         if sh != 'real':
             np.random.shuffle(shuf_idx)
-        filt_features_copy = filt_features_copy[shuf_idx, :]
+        Y_copy = Y_copy[shuf_idx, :]
 
         for i in range(N):
             for j in range(M):
-                R, pv = pearsonr(filt_expression[:, j], filt_features_copy[:, i])
+                R, pv = pearsonr(Y_copy[:, i], X[:, j])
                 R_mat[i, j] = R
                 pvs[i, j] = pv
         results['Rs_{}'.format(sh)] = R_mat

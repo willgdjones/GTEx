@@ -31,7 +31,6 @@ class Classifier():
 
 class InflationPvalues():
 
-
     @staticmethod
     def raw_pvalues():
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)

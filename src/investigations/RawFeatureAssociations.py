@@ -8,8 +8,9 @@ import argparse
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 from matplotlib.colors import Normalize
+sys.path.insert(0, os.getcwd())
 
-from utils.helpers import *
+from src.utils.helpers import *
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -34,6 +35,7 @@ class RawFeatureAssociations():
         k = 1
 
         association_results = {}
+        most_varying_feature_indexes = {}
 
         for a in AGGREGATIONS:
             for m in MODELS:
@@ -45,9 +47,11 @@ class RawFeatureAssociations():
                     print('Computing: Lung', a, m, s)
                     res = compute_pearsonR(filt_features, filt_expression)
 
+                    most_varying_feature_indexes['{}_{}_{}_{}'.format('Lung', a, m, s)] = most_varying_feature_idx
+
                     association_results['{}_{}_{}_{}'.format('Lung', a, m, s)] = res
 
-        results = [association_results, most_varying_feature_idx, filt_transcriptIDs]
+        results = [association_results, most_varying_feature_indexes, filt_transcriptIDs]
 
         pickle.dump(results, open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
