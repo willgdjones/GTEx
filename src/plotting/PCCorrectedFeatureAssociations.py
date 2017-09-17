@@ -26,7 +26,7 @@ name = args['name']
 
 
 
-class CorrectedFeatureAssociations():
+class PCCorrectedFeatureAssociations():
 
     @staticmethod
     def corrected_pvalues():

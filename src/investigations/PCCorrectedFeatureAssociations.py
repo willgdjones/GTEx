@@ -75,7 +75,7 @@ class PCCorrectedFeatureAssociations():
         k = 1
 
 
-        all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, _, _, _ = filter_features_across_all_patchsizes('Lung', 'retrained', 'mean', N, pc_correction=3)
+        all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, _, _, _ = filter_features_across_all_patchsizes('Lung', 'retrained', 'mean', N, pc_correction=1)
         filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
         filt_features = all_filt_features[256]
 
@@ -101,13 +101,10 @@ class PCCorrectedFeatureAssociations():
 
 
         association_results, assoc_most_varying_feature_idx, assoc_filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
-        Rs_real, pvs_real, pvs_1, pvs_2, pvs_3 = association_results['Lung_mean_retrained_256_3']
+        Rs_real, pvs_real, pvs_1, pvs_2, pvs_3 = association_results['Lung_mean_retrained_256_1']
 
 
         sorted_idx = np.argsort(Rs_real.flatten()**2)[::-1]
-        import pdb; pdb.set_trace()
-
-
 
 
         top10associations = []
