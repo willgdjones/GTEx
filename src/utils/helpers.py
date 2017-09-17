@@ -154,7 +154,7 @@ def get_technical_factors(tissue, donorIDs):
 
 
 
-def filter_features_across_all_patchsizes(tissue, model, aggregation, M, pc_correction=False):
+def filter_features_across_all_patchsizes(tissue, model, aggregation, M, pc_correction=False, tf_correction=False):
 
     """
         Computes M most varying pvalues across all patch sizes.
@@ -176,6 +176,19 @@ def filter_features_across_all_patchsizes(tissue, model, aggregation, M, pc_corr
             lr.fit(pca_X, Y)
             predicted = lr.predict(pca_X)
             corrected_Y = Y - predicted
+            all_Y.append(corrected_Y)
+        elif tf_correction:
+            print('Correcting {} with 5 TFs'.format(ps))
+
+            Y_prime = Y[t_idx,:]
+            X_prime = X[t_idx,:]
+            TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+            tf_idx = [list(ths).index(x) for x in TFs]
+            tf_X = tfs[:,tf_idx]
+            lr = LinearRegression()
+            lr.fit(tf_X, Y_prime)
+            predicted = lr.predict(tf_X)
+            corrected_Y = Y_prime - predicted
             all_Y.append(corrected_Y)
         else:
             all_Y.append(Y)

@@ -6,7 +6,8 @@ import numpy as np
 import h5py
 import argparse
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from utils.helpers import *
+sys.path.insert(0, os.getcwd())
+from src.utils.helpers import *
 import pylab as PL
 import matplotlib
 from matplotlib import cbook
@@ -29,8 +30,9 @@ class CorrectedFeatureAssociations():
 
     @staticmethod
     def corrected_pvalues():
-        raw_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/raw_pvalues.pickle', 'rb'))
+        print ('Loading corrected pvalues')
         corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/corrected_pvalues.pickle', 'rb'))
+        import pdb; pdb.set_trace()
 
         import seaborn as sns
         sns.set_style("dark")
@@ -38,7 +40,9 @@ class CorrectedFeatureAssociations():
 
         for (i, pvalues) in enumerate(corrected_results):
             Rs_real, pvs_real, pvs_1, pvs_2, pvs_3 = pvalues
+            print ('Calculating lambda for PC {}'.format(i))
             lamb = estimate_lambda(pvs_real.flatten())
+            print ('Plotting PC {}'.format(i))
             qqplot(pvs_real.flatten(), label=r'{} PCs, $\lambda={:0.2f}$'.format(i+1, lamb))
 
         plt.legend(prop={'size':15}, loc='upper left')

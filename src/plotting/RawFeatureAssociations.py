@@ -6,7 +6,8 @@ import numpy as np
 import h5py
 import argparse
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from utils.helpers import *
+sys.path.insert(0, os.getcwd())
+from src.utils.helpers import *
 import pylab as PL
 import matplotlib
 from matplotlib import cbook
@@ -23,8 +24,7 @@ args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
 
-if __name__ == '__main__':
-    eval(group + '().' + name + '()')
+
 
 
 class RawFeatureAssociations():
@@ -37,7 +37,11 @@ class RawFeatureAssociations():
         SIZES = [128, 256, 512, 1024, 2048, 4096]
         ALPHAS = [0.01, 0.0001, 0.000001]
 
-        all_counts = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        raw_associations_across_patchsizes = pickle.load(open(GTEx_directory + '/results/RawFeatureAssociations/raw_associations_across_patchsizes.pickle', 'rb'))
+
+
+
+
 
         plt.figure(figsize=(14,10))
         plt.xticks(range(len(SIZES)), SIZES,size=15)
@@ -56,103 +60,69 @@ class RawFeatureAssociations():
         plt.show()
 
     @staticmethod
-    def associations_raw_vs_retrained():
+    def raw_association_statistics():
 
         import seaborn as sns
         sns.set_style("dark")
 
-        all_counts = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
-        import pdb; pdb.set_trace()
+        associations_raw_vs_retrained = pickle.load(open(GTEx_directory + '/results/RawFeatureAssociations/associations_raw_vs_retrained.pickle', 'rb'))
+        associations_mean_vs_median = pickle.load(open(GTEx_directory + '/results/RawFeatureAssociations/associations_mean_vs_median.pickle', 'rb'))
+        features_with_significant_transcripts = pickle.load(open(GTEx_directory + '/results/RawFeatureAssociations/features_with_significant_transcripts.pickle', 'rb'))
+        transcripts_with_significant_features = pickle.load(open(GTEx_directory + '/results/RawFeatureAssociations/transcripts_with_significant_features.pickle', 'rb'))
 
-        alpha = 0.0001
+        ALPHA = 0.0001
         SIZES = [128, 256, 512, 1024, 2048, 4096]
         MODELS = ['retrained', 'raw']
-
-        plt.figure(figsize=(16,10))
-        plt.xticks(range(len(SIZES)), SIZES, size=15)
-        # plt.xlabel('Patch size', size=60)
-        plt.tick_params(axis='both', labelsize=50)
-        # plt.ylabel('Count', size=60)
-        colours = ['blue','red']
-        for (k, m) in enumerate(MODELS):
-            plt.plot(all_counts[k], c=colours[k],label=m)
-
-        plt.legend(prop={'size':50})
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
-
-        plt.show()
-
-    @staticmethod
-    def associations_mean_vs_median():
-
-        import seaborn as sns
-        sns.set_style("dark")
-
-        all_counts = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
-
-        alpha = 0.0001
-        SIZES = [128, 256, 512, 1024, 2048, 4096]
         AGGREGATIONS = ['mean', 'median']
 
-        plt.figure(figsize=(16,10))
-        plt.xticks(range(len(SIZES)), SIZES, size=15)
-        plt.tick_params(axis='both', labelsize=50)
+        fig, axes = plt.subplots(1,4,figsize=(20,3))
+
+        # associations_raw_vs_retrained
+
+        axes[0].set_xticklabels(SIZES, size=10)
+        axes[0].set_xticks(range(len(SIZES)))
+        axes[0].set_ylabel("Number of associations")
+
+        # axes[0].tick_params(axis='both')
+
+        colours = ['blue','red']
+        for (k, m) in enumerate(MODELS):
+            axes[0].plot(associations_raw_vs_retrained[k], c=colours[k],label=m)
+
+        axes[0].legend()
+
+        # associations_mean_vs_median
+
+        axes[1].set_xticklabels(SIZES, size=10)
+        axes[1].set_xticks(range(len(SIZES)))
+        axes[1].tick_params(axis='both')
 
         colours = ['blue','red']
         for (k, m) in enumerate(AGGREGATIONS):
-            plt.plot(all_counts[k], c=colours[k],label=m)
+            axes[1].plot(associations_mean_vs_median[k], c=colours[k],label=m)
 
-        plt.legend(prop={'size':50})
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        axes[1].legend()
+        # prop={'size':50}
 
-        plt.show()
 
-    @staticmethod
-    def features_with_significant_transcripts():
-
-        import seaborn as sns
-        sns.set_style("dark")
-
-        SIZES = [128, 256, 512, 1024, 2048, 4096]
-
-        size_counts = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
-        plt.figure(figsize=(16,10))
+        # features_with_significant_transcripts
         # plt.title("Number of features with significant pvalues (Bonf)", size=20)
-        plt.xticks(range(len(SIZES)),SIZES,size=15)
-        plt.tick_params(axis='both', labelsize=50)
-        plt.plot(size_counts)
+        axes[2].set_xticklabels(SIZES, size=10)
+        axes[2].set_xticks(range(len(SIZES)))
+        axes[2].plot(features_with_significant_transcripts)
 
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
-        plt.show()
 
-    @staticmethod
-    def transcripts_with_significant_features():
-
-        import seaborn as sns
-        sns.set_style("dark")
-
-        SIZES = [128, 256, 512, 1024, 2048, 4096]
-
-        size_counts = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
-        import pdb; pdb.set_trace()
-        plt.figure(figsize=(16,10))
-
-        plt.xticks(range(len(SIZES)),SIZES,size=15)
-        plt.tick_params(axis='both', labelsize=50)
-        plt.plot(size_counts)
-
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        # transcripts_with_significant_features
+        axes[3].set_xticklabels(SIZES, size=10)
+        axes[3].set_xticks(range(len(SIZES)))
+        axes[3].plot(transcripts_with_significant_features)
 
         plt.show()
+
+
+
+
 
     @staticmethod
     def image_feature_796_vs_SMTSISCH():

@@ -4,8 +4,10 @@ import argparse
 # from sklearn.decomposition import PCA
 # from sklearn.linear_model import LinearRegression
 # from matplotlib.colors import Normalize
-
-from utils.helpers import *
+import os
+import sys
+sys.path.insert(0, os.getcwd())
+from src.utils.helpers import *
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -44,7 +46,8 @@ class InflationPvalues():
     def corrected_pvalues():
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
-        results = [association_results['Lung_mean_retrained_256_{}'.format(i)] for i in [1,2,3]]
+        results = [association_results['Lung_mean_retrained_256_{}'.format(i)] for i in [1,2,3,4,5]]
+
 
         pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 

@@ -109,10 +109,10 @@ class RawPValuesTestCase(unittest.TestCase):
 
 
 
-class CorrectedPValuesTestCase(unittest.TestCase):
+class PCCorrectedPValuesTestCase(unittest.TestCase):
 
     def setUp(self):
-        print ('Loading corrected pvalues')
+        print ('Loading PC corrected pvalues')
         with open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb') as f:
             corrected_association_results, corrected_most_varying_feature_idx, corrected_filt_transcriptIDs = pickle.load(f)
 
@@ -162,8 +162,8 @@ class CorrectedPValuesTestCase(unittest.TestCase):
 
 
     def test_example_corrected_pvalues(self):
-        N = 50
-        M = 200
+        N = 500
+        M = 2000
         k = 1
 
         SIZES = [128, 256, 512, 1024, 2048, 4096]
@@ -201,7 +201,7 @@ class CorrectedPValuesTestCase(unittest.TestCase):
                         # Choosing 100 random transcript / feature pairs.
                         R_assertion = []
                         pv_assertion = []
-                        for k in range(100):
+                        for k in range(100000):
                             f = np.random.choice(N)
                             t = np.random.choice(M)
                             computed_associations = self.corrected_association_results[key]
@@ -224,69 +224,27 @@ class CorrectedPValuesTestCase(unittest.TestCase):
         assert all(R_assertions) and all(pv_assertions)
 
 
-class ComputePvaluesTestCase(unittest.TestCase):
 
 
-    def test_compute_raw_pvalues(self):
-        SIZES = [128, 256, 512, 1024, 2048, 4096]
-        AGGREGATION = 'mean'
-        MODEL = 'raw'
-        N = 5
-        M = 10
-        k = 1
+# class PCCorrectedPValuesTestCase(unittest.TestCase):
 
-        all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, _, _, _ = filter_features_across_all_patchsizes('Lung', MODEL, AGGREGATION, N)
-        filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
-        filt_features = all_filt_features[128]
+    # def setUp(self):
+    #     print ('Loading TF corrected pvalues')
+    #     with open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb') as f:
+    #         corrected_association_results, corrected_most_varying_feature_idx, corrected_filt_transcriptIDs = pickle.load(f)
+    #
+    #     self.corrected_association_results = corrected_association_results
+    #     self.corrected_most_varying_feature_idx = corrected_most_varying_feature_idx
+    #     self.corrected_filt_transcriptIDs = corrected_filt_transcriptIDs
 
-        res = compute_pearsonR(filt_features, filt_expression)
-
-        R_assertions = []
-        pv_assertions = []
-        for i in range(10):
-            f = np.random.choice(N)
-            t = np.random.choice(M)
-            R, pv = pearsonr(filt_features[:,f], filt_expression[:,t])
-            R_assertion = res[0][f][t] == R
-            pv_assertion = res[1][f][t] == pv
-            R_assertions.append(R_assertion)
-            pv_assertions.append(pv_assertion)
-
-        assert all(R_assertions) and all(pv_assertions)
-
-
-
-
-
-        import pdb; pdb.set_trace()
-
-    def test_compute_corrected_pvalues(self):
-        SIZES = [128, 256, 512, 1024, 2048, 4096]
-        AGGREGATION = 'median'
-        MODEL = 'retrained'
-        PC = 2
-        N = 5
-        M = 10
-        k = 1
-
-        all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, _, _, _ = filter_features_across_all_patchsizes('Lung', MODEL, AGGREGATION, N, pc_correction=PC)
-        filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
-        filt_features = all_filt_features[128]
-
-        res = compute_pearsonR(filt_features, filt_expression)
-
-        R_assertions = []
-        pv_assertions = []
-        for i in range(10):
-            f = np.random.choice(N)
-            t = np.random.choice(M)
-            R, pv = pearsonr(filt_features[:,f], filt_expression[:,t])
-            R_assertion = res[0][f][t] == R
-            pv_assertion = res[1][f][t] == pv
-            R_assertions.append(R_assertion)
-            pv_assertions.append(pv_assertion)
-
-        assert all(R_assertions) and all(pv_assertions)
+    # def test_example_corrected_pvalues(self):
+        # SIZES = [128, 256, 512, 1024, 2048, 4096]
+        # AGGREGATIONS = ['mean', 'median']
+        # MODELS = ['raw', 'retrained']
+        # TFs = [1,2,3,4,5]
+        # N = 500
+        # M = 2000
+        # k = 1
 
 
 

@@ -6,12 +6,13 @@ import numpy as np
 import h5py
 import argparse
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from utils.helpers import *
 import pylab as PL
 import matplotlib
 from matplotlib import cbook
 import matplotlib.gridspec as gridspec
 from matplotlib.colors import Normalize
+sys.path.insert(0, os.getcwd())
+from src.utils.helpers import *
 
 
 GTEx_directory = '.'
@@ -75,6 +76,8 @@ class InflationPvalues():
 
     @staticmethod
     def raw_vs_corrected_pvalues():
+
+        print("Loading pvalues")
         raw_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/raw_pvalues.pickle', 'rb'))
         corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/corrected_pvalues.pickle', 'rb'))
 
@@ -84,9 +87,15 @@ class InflationPvalues():
 
         _, pvs_real_raw, _, _, _ = raw_results
         _, pvs_real_corrected, _, _, _ = corrected_results[0]
+
+        print('Estimating lambda for raw pvalues')
         raw_lamb = estimate_lambda(pvs_real_raw.flatten())
-        qqplot(pvs_real_raw.flatten(), label='raw $\lambda={:0.2f}$'.format(raw_lamb))
+        print('Estimating lambda for corrected pvalues')
         corrected_lamb =  estimate_lambda(pvs_real_corrected.flatten())
+
+        print('Plotting raw pvalues')
+        qqplot(pvs_real_raw.flatten(), label='raw $\lambda={:0.2f}$'.format(raw_lamb))
+        print('Plotting corrected pvalues')
 
         qqplot(pvs_real_corrected.flatten(), label='corrected $\lambda={:0.2f}$'.format(corrected_lamb))
         plt.legend(prop={'size':15})

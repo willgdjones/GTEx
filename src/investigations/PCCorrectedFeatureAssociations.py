@@ -21,7 +21,7 @@ args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
 
-class CorrectedFeatureAssociations():
+class PCCorrectedFeatureAssociations():
 
     @staticmethod
     def corrected_pvalues():
@@ -106,9 +106,6 @@ class CorrectedFeatureAssociations():
 
         sorted_idx = np.argsort(Rs_real.flatten()**2)[::-1]
         import pdb; pdb.set_trace()
-
-
-
 
 
 

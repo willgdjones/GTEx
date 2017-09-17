@@ -9,7 +9,7 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 from matplotlib.colors import Normalize
 
-from utils.helpers import *
+from src.utils.helpers import *
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
