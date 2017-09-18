@@ -24,9 +24,8 @@ args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
 
+class TFCorrectedFeatureAssociations():
 
-
-class PCCorrectedFeatureAssociations():
 
     @staticmethod
     def associations_across_patchsizes():
@@ -36,7 +35,7 @@ class PCCorrectedFeatureAssociations():
         SIZES = [128, 256, 512, 1024, 2048, 4096]
         ALPHAS = [0.01, 0.001, 0.0001,0.00001]
 
-        pc_corrected_associations_across_patchsizes = pickle.load(open(GTEx_directory + '/results/PCCorrectedFeatureAssociations/associations_across_patchsizes.pickle', 'rb'))
+        pc_corrected_associations_across_patchsizes = pickle.load(open(GTEx_directory + '/results/TFCorrectedFeatureAssociations/associations_across_patchsizes.pickle', 'rb'))
 
 
 
@@ -56,17 +55,16 @@ class PCCorrectedFeatureAssociations():
 
         plt.show()
 
-
     @staticmethod
     def association_statistics():
 
         import seaborn as sns
         sns.set_style("dark")
 
-        associations_raw_vs_retrained = pickle.load(open(GTEx_directory + '/results/PCCorrectedFeatureAssociations/associations_raw_vs_retrained.pickle', 'rb'))
-        associations_mean_vs_median = pickle.load(open(GTEx_directory + '/results/PCCorrectedFeatureAssociations/associations_mean_vs_median.pickle', 'rb'))
-        features_with_significant_transcripts = pickle.load(open(GTEx_directory + '/results/PCCorrectedFeatureAssociations/features_with_significant_transcripts.pickle', 'rb'))
-        transcripts_with_significant_features = pickle.load(open(GTEx_directory + '/results/PCCorrectedFeatureAssociations/transcripts_with_significant_features.pickle', 'rb'))
+        associations_raw_vs_retrained = pickle.load(open(GTEx_directory + '/results/TFCorrectedFeatureAssociations/associations_raw_vs_retrained.pickle', 'rb'))
+        associations_mean_vs_median = pickle.load(open(GTEx_directory + '/results/TFCorrectedFeatureAssociations/associations_mean_vs_median.pickle', 'rb'))
+        features_with_significant_transcripts = pickle.load(open(GTEx_directory + '/results/TFCorrectedFeatureAssociations/features_with_significant_transcripts.pickle', 'rb'))
+        transcripts_with_significant_features = pickle.load(open(GTEx_directory + '/results/TFCorrectedFeatureAssociations/transcripts_with_significant_features.pickle', 'rb'))
 
         ALPHA = 0.0001
         SIZES = [128, 256, 512, 1024, 2048, 4096]
@@ -121,26 +119,6 @@ class PCCorrectedFeatureAssociations():
         plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
-
-    @staticmethod
-    def top_corrected_associations():
-        top10associations = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
-
-        import seaborn as sns
-        sns.set_style("dark")
-
-        fig, ax = plt.subplots(2,5,figsize=(25,8))
-        for i in range(10):
-            feature, feature_name, transcript, transcript_name, pv, R = top10associations[i]
-            ax.flatten()[i].scatter(feature, transcript)
-            ax.flatten()[i].set_title("R: {:0.2} pv: {:0.2} {}".format(R, pv, transcript_name), size=15)
-            ax.flatten()[i].set_xlabel("Image feature {}".format(feature_name), size=15)
-            ax.flatten()[i].set_ylabel("Bulk RNA expression", size=15)
-
-        plt.tight_layout()
-        plt.show()
-
-
 
 
 if __name__ == '__main__':

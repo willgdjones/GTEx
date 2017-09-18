@@ -24,32 +24,6 @@ args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
 
-class Classifier():
-
-    @staticmethod
-    def validation_accuracy_across_patchsize():
-        import matplotlib as mpl
-        import seaborn as sns
-        sns.set_style("dark")
-
-        validation_accuracies = np.loadtxt(GTEx_directory + '/results/{group}/{name}.txt'.format(group=group, name=name))
-        fig = plt.figure(figsize=(5,4))
-        plt.plot(validation_accuracies)
-        plt.ylabel('Validation accuracy', size=15)
-        plt.xticks([0, 1, 2, 3, 4, 5], ['128', '256', '512', '1024', '2056', '4096'])
-        plt.xlabel('Patch size', size=15)
-
-        label_size = 100
-        mpl.rcParams['xtick.labelsize'] = label_size
-        mpl.rcParams['ytick.labelsize'] = label_size
-
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
-        plt.show()
-
-
-
 class InflationPvalues():
 
     @staticmethod
@@ -75,30 +49,55 @@ class InflationPvalues():
 
 
     @staticmethod
-    def raw_vs_corrected_pvalues():
+    def raw_vs_pc_corrected_pvalues():
 
         print("Loading pvalues")
         raw_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/raw_pvalues.pickle', 'rb'))
-        corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/pc_corrected_pvalues.pickle', 'rb'))
+        pc_corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/pc_corrected_pvalues.pickle', 'rb'))
 
         import seaborn as sns
         sns.set_style("dark")
         from limix.plot import qqplot
 
         _, pvs_real_raw, _, _, _ = raw_results
-        _, pvs_real_corrected, _, _, _ = corrected_results[0]
+        _, pvs_real_corrected, _, _, _ = pc_corrected_results[0]
 
         print('Estimating lambda for raw pvalues')
         raw_lamb = estimate_lambda(pvs_real_raw.flatten())
         print('Estimating lambda for corrected pvalues')
-        corrected_lamb =  estimate_lambda(pvs_real_corrected.flatten())
+        corrected_lamb =  estimate_lambda(pvs_real_pc_corrected.flatten())
 
         print('Plotting raw pvalues')
         qqplot(pvs_real_raw.flatten(), label='raw $\lambda={:0.2f}$'.format(raw_lamb))
         print('Plotting corrected pvalues')
 
-        qqplot(pvs_real_corrected.flatten(), label='corrected $\lambda={:0.2f}$'.format(corrected_lamb))
+        qqplot(pvs_real_pc_corrected.flatten(), label='corrected $\lambda={:0.2f}$'.format(pc_corrected_lamb))
         plt.legend(prop={'size':15})
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+
+        plt.show()
+
+    @staticmethod
+    def pc_corrected_pvalues():
+        print ('Loading corrected pvalues')
+        pc_corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/pc_corrected_pvalues.pickle', 'rb'))
+
+
+        import seaborn as sns
+        sns.set_style("dark")
+        from limix.plot import qqplot
+
+        for (i, pvalues) in enumerate(pc_corrected_results):
+            Rs_real, pvs_real, pvs_1, pvs_2, pvs_3 = pvalues
+            print ('Calculating lambda for PC {}'.format(i))
+            lamb = estimate_lambda(pvs_real.flatten())
+            print ('Plotting PC {}'.format(i))
+            qqplot(pvs_real.flatten(), label=r'{} PCs, $\lambda={:0.2f}$'.format(i+1, lamb))
+
+        plt.legend(prop={'size':15}, loc='upper left')
 
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
         plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
@@ -138,8 +137,37 @@ class InflationPvalues():
         plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
         plt.show()
 
+    @staticmethod
+    def tf_vs_pc_corrected_pvalues():
+
+        print("Loading pvalues")
+        pc_corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/pc_corrected_pvalues.pickle', 'rb'))
+        tf_corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/tf_corrected_pvalues.pickle', 'rb'))
 
 
+        import seaborn as sns
+        sns.set_style("dark")
+        from limix.plot import qqplot
+
+        _, pvs_real_pc_corrected, _, _, _ = pc_corrected_results[0]
+        _, pvs_real_tf_corrected, _, _, _ = tf_corrected_results
+
+        print('Estimating lambda for raw pvalues')
+        pc_corrected_lamb = estimate_lambda(pvs_real_pc_corrected.flatten())
+        print('Estimating lambda for TF corrected pvalues')
+        tf_corrected_lamb =  estimate_lambda(pvs_real_tf_corrected.flatten())
+
+        print('Plotting 1 PC corrected pvalues')
+        qqplot(pvs_real_pc_corrected.flatten(), label='1 PC Corrected $\lambda={:0.2f}$'.format(pc_corrected_lamb))
+        print('Plotting TF corrected pvalues')
+        qqplot(pvs_real_tf_corrected.flatten(), label='5 TF Corrected $\lambda={:0.2f}$'.format(tf_corrected_lamb))
+
+        plt.legend(prop={'size':15})
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.show()
 
 if __name__ == '__main__':
     eval(group + '().' + name + '()')

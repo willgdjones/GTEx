@@ -1,4 +1,5 @@
 data
+.DS_store
 small_data
 .ipynb_checkpoints
 .cache

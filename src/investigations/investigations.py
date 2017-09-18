@@ -31,27 +31,5 @@ class Classifier():
         np.savetxt(GTEx_directory + '/results/{group}/{name}.txt'.format(group=group, name=name), validation_accuracies)
 
 
-class InflationPvalues():
-
-    @staticmethod
-    def raw_pvalues():
-        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
-
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/RawFeatureAssociations/raw_pvalues.pickle', 'rb'))
-        results = association_results['Lung_mean_retrained_256']
-
-        pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
-
-    @staticmethod
-    def corrected_pvalues():
-        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
-        results = [association_results['Lung_mean_retrained_256_{}'.format(i)] for i in [1,2,3,4,5]]
-
-
-        pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
-
-
-
 if __name__ == '__main__':
     eval(group + '().' + name + '()')

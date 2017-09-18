@@ -100,7 +100,7 @@ class PCCorrectedFeatureAssociations():
             return R, pv
 
 
-        association_results, assoc_most_varying_feature_idx, assoc_filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, assoc_most_varying_feature_idx, assoc_filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
         Rs_real, pvs_real, pvs_1, pvs_2, pvs_3 = association_results['Lung_mean_retrained_256_1']
 
 
@@ -126,19 +126,19 @@ class PCCorrectedFeatureAssociations():
 
 
     @staticmethod
-    def raw_associations_across_patchsizes():
+    def associations_across_patchsizes():
 
         import statsmodels.stats.multitest as smm
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
 
 
         print ("Loading association data")
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
 
 
 
         SIZES = [128, 256, 512, 1024, 2048, 4096]
-        ALPHAS = [0.01,0.0001,0.000001]
+        ALPHAS = [0.01, 0.001, 0.0001,0.00001]
 
         print ("Calculating Bonferroni significant associations:")
         all_counts = []
@@ -147,14 +147,13 @@ class PCCorrectedFeatureAssociations():
             size_counts = []
             for s in SIZES:
                 print ("Patch size: ", s)
-                pvalues = association_results['{}_{}_{}_{}_3'.format('Lung','mean','retrained',s)][1].flatten()
+                pvalues = association_results['{}_{}_{}_{}_2'.format('Lung','mean','retrained',s)][1].flatten()
                 counts = sum(smm.multipletests(pvalues, method='bonferroni',alpha=alph)[0])
                 size_counts.append(counts)
             all_counts.append(size_counts)
 
         print ("Saving results")
         pickle.dump(all_counts, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
-        import pdb; pdb.set_trace()
 
     @staticmethod
     def associations_raw_vs_retrained():
@@ -163,7 +162,7 @@ class PCCorrectedFeatureAssociations():
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
 
         print ("Loading association data")
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
 
         alpha = 0.0001
         SIZES = [128, 256, 512, 1024, 2048, 4096]
@@ -176,7 +175,7 @@ class PCCorrectedFeatureAssociations():
             model_counts = []
             for s in SIZES:
                 print ("Patch size: ", s)
-                pvalues = association_results['{}_{}_{}_{}_3'.format('Lung','mean',m,s)][1].flatten()
+                pvalues = association_results['{}_{}_{}_{}_2'.format('Lung','mean',m,s)][1].flatten()
                 counts = sum(smm.multipletests(pvalues, method='bonferroni',alpha=alpha)[0])
                 model_counts.append(counts)
             all_counts.append(model_counts)
@@ -192,7 +191,7 @@ class PCCorrectedFeatureAssociations():
 
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading association data")
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
 
         alpha = 0.0001
         SIZES = [128, 256, 512, 1024, 2048, 4096]
@@ -205,7 +204,7 @@ class PCCorrectedFeatureAssociations():
             aggregation_counts = []
             for s in SIZES:
                 print ("Patch size: ", s)
-                pvalues = association_results['{}_{}_{}_{}_3'.format('Lung',a,'retrained',s)][1].flatten()
+                pvalues = association_results['{}_{}_{}_{}_2'.format('Lung',a,'retrained',s)][1].flatten()
                 counts = sum(smm.multipletests(pvalues, method='bonferroni',alpha=alpha)[0])
                 aggregation_counts.append(counts)
             all_counts.append(aggregation_counts)
@@ -221,7 +220,7 @@ class PCCorrectedFeatureAssociations():
 
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading association data")
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
 
         alpha = 0.0001
         SIZES = [128, 256, 512, 1024, 2048, 4096]
@@ -231,7 +230,7 @@ class PCCorrectedFeatureAssociations():
         size_counts = []
         for s in SIZES:
             print ("Patch size: ", s)
-            pvalues = association_results['{}_{}_{}_{}_3'.format('Lung','mean','retrained',s)][1]
+            pvalues = association_results['{}_{}_{}_{}_2'.format('Lung','mean','retrained',s)][1]
             original_shape = pvalues.shape
             counts = sum(np.sum(smm.multipletests(pvalues.flatten(),method='bonferroni',alpha=alpha)[0].reshape(original_shape),axis=1) > 0)
             size_counts.append(counts)
@@ -247,7 +246,7 @@ class PCCorrectedFeatureAssociations():
 
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading association data")
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
 
         alpha = 0.0001
         SIZES = [128, 256, 512, 1024, 2048, 4096]
@@ -257,7 +256,7 @@ class PCCorrectedFeatureAssociations():
         size_counts = []
         for s in SIZES:
             print ("Patch size: ", s)
-            pvalues = association_results['{}_{}_{}_{}_3'.format('Lung','mean','retrained',s)][1]
+            pvalues = association_results['{}_{}_{}_{}_2'.format('Lung','mean','retrained',s)][1]
             original_shape = pvalues.shape
             counts = sum(np.sum(smm.multipletests(pvalues.flatten(),method='bonferroni',alpha=alpha)[0].reshape(original_shape),axis=0) > 0)
             size_counts.append(counts)

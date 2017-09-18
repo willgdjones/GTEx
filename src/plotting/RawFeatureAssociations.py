@@ -30,7 +30,7 @@ name = args['name']
 class RawFeatureAssociations():
 
     @staticmethod
-    def raw_associations_across_patchsizes():
+    def associations_across_patchsizes():
         import seaborn as sns
         sns.set_style("dark")
 
@@ -41,8 +41,6 @@ class RawFeatureAssociations():
 
 
 
-
-
         plt.figure(figsize=(14,10))
         plt.xticks(range(len(SIZES)), SIZES,size=15)
         plt.xlabel('Patch size', size=30)
@@ -50,7 +48,7 @@ class RawFeatureAssociations():
         plt.ylabel('Count', size=30)
         colours = ['blue','red','green']
         for (k, alph) in enumerate(ALPHAS):
-            plt.plot(all_counts[k], c=colours[k],label=alph)
+            plt.plot(raw_associations_across_patchsizes[k], c=colours[k],label=alph)
 
         plt.legend(prop={'size':30})
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
@@ -60,7 +58,7 @@ class RawFeatureAssociations():
         plt.show()
 
     @staticmethod
-    def raw_association_statistics():
+    def association_statistics():
 
         import seaborn as sns
         sns.set_style("dark")
@@ -117,6 +115,10 @@ class RawFeatureAssociations():
         axes[3].set_xticklabels(SIZES, size=10)
         axes[3].set_xticks(range(len(SIZES)))
         axes[3].plot(transcripts_with_significant_features)
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
 
