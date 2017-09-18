@@ -1,4 +1,4 @@
-# Deep Learning for biomedical image feature extraction.
+<!-- # Deep Learning for biomedical image feature extraction.
 
 This directory contains the files and folders for my PhD project.
 
@@ -76,4 +76,4 @@ Monitoring Lung, patch_size 256
 ------------|----------|--------|--------|-------|--------|--------
 Layer       |    1     |  7     |  12    |  65   |   166  |   -1
 Raw         |    644   |  644   |  644   |  644  |   644  |   322
-Retrain     |    644   |  644   |  644   |  644  |   644  |   322
+Retrain     |    644   |  644   |  644   |  644  |   644  |   322 -->
