@@ -94,19 +94,60 @@ class Question2():
                     for s in SIZES:
                         key = '{}_{}_{}_{}'.format(t,a,m,s)
 
+                        print (key)
+
                         Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s)
                         Y_prime = Y[t_idx,:]
                         X_prime = X[t_idx,:]
                         tf_idx = [list(ths).index(x) for x in TFs]
-                        tf_X = tfs[:,tf_idx]
+
                         # Take log of SMTSISH
-                        tf_X[tf_idx.index('SMTSISCH')] = np.log2(tf_idx.index('SMTSISCH'))
+                        tfs[TFs.index('SMTSISCH')] = np.log2(tfs[TFs.index('SMTSISCH')] + 1)
+                        tf_predictors = tfs[:,tf_idx]
+
+
                         lr_X = LinearRegression()
+
+
+                        # Regress out effects from X
+                        lr_X.fit(tf_predictors, X_prime)
+                        X_predicted = lr_X.predict(tf_predictors)
+                        corrected_X = X_prime - X_predicted
+
+
                         lr_Y = LinearRegression()
-                        lr.fit(tf_X, Y_prime)
-                        predicted = lr.predict(tf_X)
-                        corrected_Y = Y_prime - predicted
-                        all_Y.append(corrected_Y)
+
+                        # Regress out effects from X
+                        lr_Y.fit(tf_predictors, Y_prime)
+                        Y_predicted = lr_Y.predict(tf_predictors)
+                        corrected_Y = Y_prime - Y_predicted
+
+                        print ("Calculating PCs that explain 99.9% of corrected image feature variance")
+                        pca_Y = PCA(n_components=0.999)
+                        pca_corrected_Y = pca_Y.fit_transform(corrected_Y)
+
+
+                        print ("Calculating PCs that explain 99.9% of expression variance")
+                        pca_X = PCA(n_components=0.999)
+                        pca_corrected_X = pca_X.fit_transform(corrected_Y)
+
+                        print ("Computing correlation matrix")
+                        N = pca_corrected_X.shape[1]
+                        M = pca_corrected_Y.shape[1]
+                        R_matrix = np.zeros(shape=(N,M))
+                        for i in range(N):
+                            for j in range(M):
+                                R, pv = pearsonr(pca_corrected_X[:,i], pca_corrected_Y[:,j])
+                                R_matrix[i,j] = R
+
+                        print ("Calculating variance explained")
+                        variance_explained = pca_Y.explained_variance_
+                        total = sum([variance_explained[k] * sum(R_matrix[k,:]**2) for k in range(len(variance_explained))])
+                        print (total)
+
+                        results[key] = total
+
+
 
 
 
