@@ -8,8 +8,8 @@ import argparse
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 from matplotlib.colors import Normalize
-
-from utils.helpers import *
+sys.path.insert(0, os.getcwd())
+from src.utils.helpers import *
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
