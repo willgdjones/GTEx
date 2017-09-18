@@ -22,7 +22,7 @@ group = args['group']
 name = args['name']
 
 
-class Question1():
+class NIPSQuestion1():
 
     @staticmethod
     def calculate_variance_explained():
@@ -76,6 +76,54 @@ class Question1():
 
 
 
+class Question2():
+    @staticmethod
+    def shared_variability():
+
+        TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
+        SIZES = ['128', '256', '512', '1024', '2048', '4096']
+        AGGREGATIONS = ['mean', 'median']
+        MODELS = ['raw', 'retrained']
+        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+
+        results = {}
+
+        for t in TISSUES:
+            for a in AGGREGATIONS:
+                for m in MODELS:
+                    for s in SIZES:
+                        key = '{}_{}_{}_{}'.format(t,a,m,s)
+
+                        Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s)
+                        Y_prime = Y[t_idx,:]
+                        X_prime = X[t_idx,:]
+                        tf_idx = [list(ths).index(x) for x in TFs]
+                        tf_X = tfs[:,tf_idx]
+                        # Take log of SMTSISH
+                        tf_X[tf_idx.index('SMTSISCH')] = np.log2(tf_idx.index('SMTSISCH'))
+                        lr_X = LinearRegression()
+                        lr_Y = LinearRegression()
+                        lr.fit(tf_X, Y_prime)
+                        predicted = lr.predict(tf_X)
+                        corrected_Y = Y_prime - predicted
+                        all_Y.append(corrected_Y)
+
+
+
+
+
+
+
+        Y_prime = Y[t_idx,:]
+        X_prime = X[t_idx,:]
+        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+        tf_idx = [list(ths).index(x) for x in TFs]
+        tf_X = tfs[:,tf_idx]
+        lr = LinearRegression()
+        lr.fit(tf_X, Y_prime)
+        predicted = lr.predict(tf_X)
+        corrected_Y = Y_prime - predicted
+        all_Y.append(corrected_Y)
 
 
 
