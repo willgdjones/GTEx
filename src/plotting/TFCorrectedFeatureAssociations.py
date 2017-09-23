@@ -121,5 +121,25 @@ class TFCorrectedFeatureAssociations():
         plt.show()
 
 
+    @staticmethod
+    def top_corrected_associations():
+        top10associations = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+
+        import seaborn as sns
+        sns.set_style("dark")
+
+        fig, ax = plt.subplots(2,5,figsize=(25,8))
+        
+        for i in range(10):
+            feature, feature_name, transcript, transcript_name, pv, R = top10associations[i]
+            ax.flatten()[i].scatter(feature, transcript)
+            ax.flatten()[i].set_title("R: {:0.2} pv: {:0.2} {}".format(R, pv, transcript_name), size=15)
+            ax.flatten()[i].set_xlabel("Image feature {}".format(feature_name), size=15)
+            ax.flatten()[i].set_ylabel("Bulk RNA expression", size=15)
+
+        plt.tight_layout()
+        plt.show()
+
+
 if __name__ == '__main__':
     eval(group + '().' + name + '()')

@@ -122,6 +122,66 @@ class TFCorrectedFeatureAssociations():
         print ("Saving results")
         pickle.dump(all_counts, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
+    @staticmethod
+    def top_corrected_associations():
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
+        from pyensembl import EnsemblRelease
+        data = EnsemblRelease(77)
+
+        N = 500
+        M = 2000
+        k = 1
+
+
+        all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, tfs, ths, t_idx = filter_features_across_all_patchsizes('Lung', 'retrained', 'mean', N, tf_correction=True)
+        filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
+        filt_features = all_filt_features[256]
+
+        def get_gene_name(transcript):
+            transcript_id = transcript.decode('utf-8').split('.')[0]
+            return data.gene_name_of_gene_id(transcript_id)
+
+
+
+        def get_t_f_idx(position, M):
+            f = int(np.floor(position / M))
+            t = position % M
+            return f, t
+
+        def display_scatter(f, t, axis=None):
+            R, pv = pearsonr(filt_features[:,f], filt_expression[:,t])
+            if axis:
+                axis.scatter(filt_features[:,f], filt_expression[:,t])
+                axis.set_title("R: {:0.2} pv: {:0.2}".format(R,pv))
+            else:
+                plt.scatter(filt_features[:,f], filt_expression[:,t])
+            return R, pv
+
+
+        association_results, assoc_most_varying_feature_idx, assoc_filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        Rs_real, pvs_real, pvs_1, pvs_2, pvs_3 = association_results['Lung_mean_retrained_256']
+
+
+        sorted_idx = np.argsort(Rs_real.flatten()**2)[::-1]
+
+
+        top10associations = []
+        for i in range(10):
+            position = sorted_idx[i]
+            f, t = get_t_f_idx(position, M)
+            print (f,t)
+            feature = filt_features[:,f]
+            transcript = filt_expression[:,t]
+
+            R, pv = pearsonr(feature, transcript[t_idx])
+            transcript_name = get_gene_name(filt_transcriptIDs[t])
+            feature_name = most_varying_feature_idx[f] + 1
+            association_data = [feature, feature_name, transcript[t_idx], transcript_name, pv, R]
+            top10associations.append(association_data)
+
+        pickle.dump(top10associations, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+
 
     @staticmethod
     def associations_mean_vs_median():

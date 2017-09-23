@@ -55,17 +55,21 @@ class NIPSQuestion1():
                         pca_expression = pca_exp.fit_transform(expression)
 
                         print ("Computing correlation matrix")
-                        N = pca_expression.shape[1]
-                        M = pca_image_features.shape[1]
+                        N = pca_image_features.shape[1]
+                        M = pca_expression.shape[1]
                         R_matrix = np.zeros(shape=(N,M))
                         for i in range(N):
                             for j in range(M):
-                                R, pv = pearsonr(pca_expression[:,i], pca_image_features[:,j])
+                                R, pv = pearsonr(pca_image_features[:,i], pca_expression[:,j])
                                 R_matrix[i,j] = R
 
                         print ("Calculating variance explained")
-                        variance_explained = pca_im.explained_variance_
-                        total = sum([variance_explained[k] * sum(R_matrix[k,:]**2) for k in range(len(variance_explained))])
+                        variance_explained = pca_exp.explained_variance_
+
+                        #sum(R_matrix[k,:]) ~ 1 for all k.
+                        total = sum([variance_explained[k] * sum(R_matrix[:,k]**2) for k in range(len(variance_explained))])
+
+
                         print (total)
 
                         results[key] = total
@@ -76,9 +80,11 @@ class NIPSQuestion1():
 
 
 
-class Question2():
+class NIPSQuestion2():
     @staticmethod
     def shared_variability():
+
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
 
         TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
         SIZES = ['128', '256', '512', '1024', '2048', '4096']
@@ -104,7 +110,7 @@ class Question2():
                         # Take log of SMTSISH
                         tfs[TFs.index('SMTSISCH')] = np.log2(tfs[TFs.index('SMTSISCH')] + 1)
                         tf_predictors = tfs[:,tf_idx]
-
+                        # tf_predictors = np.array([t[np.random.permutation(tf_predictors_raw.shape[0])] for t in tf_predictors.T]).T
 
                         lr_X = LinearRegression()
 
@@ -129,43 +135,29 @@ class Question2():
 
                         print ("Calculating PCs that explain 99.9% of expression variance")
                         pca_X = PCA(n_components=0.999)
-                        pca_corrected_X = pca_X.fit_transform(corrected_Y)
+                        pca_corrected_X = pca_X.fit_transform(corrected_X)
 
                         print ("Computing correlation matrix")
-                        N = pca_corrected_X.shape[1]
-                        M = pca_corrected_Y.shape[1]
+                        N = pca_corrected_Y.shape[1]
+                        M = pca_corrected_X.shape[1]
                         R_matrix = np.zeros(shape=(N,M))
                         for i in range(N):
                             for j in range(M):
-                                R, pv = pearsonr(pca_corrected_X[:,i], pca_corrected_Y[:,j])
+                                R, pv = pearsonr(pca_corrected_Y[:,i], pca_corrected_X[:,j])
                                 R_matrix[i,j] = R
 
                         print ("Calculating variance explained")
-                        variance_explained = pca_Y.explained_variance_
-                        total = sum([variance_explained[k] * sum(R_matrix[k,:]**2) for k in range(len(variance_explained))])
+                        variance_explained = pca_X.explained_variance_
+
+
+                        total = sum([variance_explained[k] * sum(R_matrix[:,k]**2) for k in range(len(variance_explained))])
+
                         print (total)
 
                         results[key] = total
 
 
-
-
-
-
-
-
-
-        Y_prime = Y[t_idx,:]
-        X_prime = X[t_idx,:]
-        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
-        tf_idx = [list(ths).index(x) for x in TFs]
-        tf_X = tfs[:,tf_idx]
-        lr = LinearRegression()
-        lr.fit(tf_X, Y_prime)
-        predicted = lr.predict(tf_X)
-        corrected_Y = Y_prime - predicted
-        all_Y.append(corrected_Y)
-
+        pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
