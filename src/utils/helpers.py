@@ -154,55 +154,80 @@ def get_technical_factors(tissue, donorIDs):
 
 
 
-def filter_features_across_all_patchsizes(tissue, model, aggregation, M, pc_correction=False, tf_correction=False):
+
+
+def filter_and_correct_expression_and_image_features(tissue, model, aggregation, patch_size, M, k, pc_correction=False, tf_correction=False):
 
     """
         Computes M most varying pvalues across all patch sizes.
+        - Filters to the top M most varying genes that have mean expression > k.
+
+        Optional:
+        - Performs PC correction - regresses out effect of first x PCs from image features, and substracts the first x PCs from the expression matrix.
+        - Performs TF correction - regresses out effect of five PCs from both the image features, and expression.
     """
 
+
+
+
+    # Filter expression
+    Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(tissue, model, aggregation, patch_size)
+    filt_X, filt_tIDs, final_exp_idx = filter_expression(X, tIDs, M, k)
+
+
+
     if pc_correction:
-        print ('Correcting image features with {} expression PCs'.format(pc_correction))
-    patch_sizes = [128, 256, 512, 1024, 2048, 4096]
-    _, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(tissue, model, aggregation, '256')
-
-    all_Y = []
-    for ps in patch_sizes:
-        Y, _, _, _, _, _, _ = extract_final_layer_data(tissue, model, aggregation, str(ps))
-        if pc_correction:
-            print('Correcting {} with {} PC'.format(ps, pc_correction))
-            pca = PCA(n_components=pc_correction)
-            pca_X = pca.fit_transform(X)
-            lr = LinearRegression()
-            lr.fit(pca_X, Y)
-            predicted = lr.predict(pca_X)
-            corrected_Y = Y - predicted
-            all_Y.append(corrected_Y)
-        elif tf_correction:
-            print('Correcting {} with 5 TFs'.format(ps))
-
-            Y_prime = Y[t_idx,:]
-            X_prime = X[t_idx,:]
-            TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
-            tf_idx = [list(ths).index(x) for x in TFs]
-            tf_X = tfs[:,tf_idx]
-            lr = LinearRegression()
-            lr.fit(tf_X, Y_prime)
-            predicted = lr.predict(tf_X)
-            corrected_Y = Y_prime - predicted
-            all_Y.append(corrected_Y)
-        else:
-            all_Y.append(Y)
-
-    concat_Y = np.concatenate(all_Y)
-    most_varying_feature_idx = np.argsort(concat_Y.std(0))[-M:]
-
-    all_filt_Y = {}
-    for (i, ps) in enumerate(patch_sizes):
-        all_filt_Y[ps] = all_Y[i][:, most_varying_feature_idx]
+        print ('Correcting with {} expression PCs'.format(pc_correction))
+        pca = PCA(n_components=pc_correction)
 
 
+        pca_predictors = pca.fit_transform(filt_X)
 
-    return all_filt_Y, most_varying_feature_idx, X, dIDs, tIDs, tfs, ths, t_idx
+        # Correct Y
+        lr = LinearRegression()
+        lr.fit(pca_predictors, Y)
+        predicted_Y = lr.predict(pca_predictors)
+        corrected_Y = Y - predicted_Y
+
+        # Correct X
+        projected_filt_X = np.dot(pca_predictors,pca.components_)
+        corrected_filt_X = filt_X - projected_filt_X
+
+        # Set as return variables
+        final_X = corrected_filt_X
+        final_Y = corrected_Y
+
+    elif tf_correction:
+        print('Correcting with 5 technical factors')
+        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+        tf_Y = Y[t_idx,:]
+        tf_filt_X = filt_X[t_idx,:]
+
+        tfs[TFs.index('SMTSISCH')] = np.log2(tfs[TFs.index('SMTSISCH')] + 1)
+        tf_idx = [list(ths).index(x) for x in TFs]
+        tf_predictors = tfs[:,tf_idx]
+
+        #Correct Y
+        lr_Y = LinearRegression()
+        lr_Y.fit(tf_predictors, tf_Y)
+        tf_Y_predicted = lr_Y.predict(tf_predictors)
+        corrected_tf_Y = tf_Y - tf_Y_predicted
+
+        #Correct X
+        lr_X = LinearRegression()
+        lr_X.fit(tf_predictors, tf_filt_X)
+        tf_filt_X_predicted = lr_X.predict(tf_predictors)
+        corrected_tf_filt_X = tf_filt_X - tf_filt_X_predicted
+
+        # Set as return variables
+        final_X = corrected_tf_filt_X
+        final_Y = corrected_tf_Y
+    else:
+        # Set unmodified values as return variables
+        final_X = filt_X
+        final_Y = Y
+
+    return final_Y, final_X, dIDs, filt_tIDs, tfs, ths, t_idx
 
 
 def filter_features(Y, N):
@@ -214,20 +239,19 @@ def filter_features(Y, N):
     return filt_Y, most_varying_feature_idx
 
 
-def filter_expression(exp, tIDs, M, k):
+def filter_expression(X, tIDs, M, k):
     """
         Return top M varying transcripts, with mean expression > k, along with their transcript names.
     """
-    k_threshold_idx = np.mean(exp, axis=0) > k
-    filt_exp = exp[:,k_threshold_idx]
-    filt_tIDs = tIDs[k_threshold_idx]
+    k_threshold_idx = np.mean(X, axis=0) > k
+    M_varying_idx = np.argsort(np.std(X[:,k_threshold_idx], axis=0))[-M:]
+    idx = np.array(list(range(X.shape[1])))
+    final_exp_idx = idx[k_threshold_idx][M_varying_idx]
 
-    M_varying_idx = np.argsort(np.std(filt_exp, axis=0))[-M:]
+    filt_X = X[:, final_exp_idx]
+    filt_tIDs = tIDs[final_exp_idx]
 
-    filt_exp = filt_exp[:, M_varying_idx]
-    filt_tIDs = filt_tIDs[M_varying_idx]
-
-    return filt_exp, filt_tIDs
+    return filt_X, filt_tIDs, final_exp_idx
 
 
 

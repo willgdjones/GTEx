@@ -162,6 +162,16 @@ class NIPSQuestion2():
 
 
 
+class NIPSQuestion3():
+
+    @staticmethod
+    def gene_expression_variability():
+
+        results = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        import pdb; pdb.set_trace()
+
+
+
 
 
 

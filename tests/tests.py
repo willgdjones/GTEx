@@ -226,25 +226,26 @@ class PCCorrectedPValuesTestCase(unittest.TestCase):
 
 
 
-# class PCCorrectedPValuesTestCase(unittest.TestCase):
+class FilterCorrectionTestCase(unittest.TestCase):
 
     # def setUp(self):
-    #     print ('Loading TF corrected pvalues')
-    #     with open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb') as f:
-    #         corrected_association_results, corrected_most_varying_feature_idx, corrected_filt_transcriptIDs = pickle.load(f)
-    #
-    #     self.corrected_association_results = corrected_association_results
-    #     self.corrected_most_varying_feature_idx = corrected_most_varying_feature_idx
-    #     self.corrected_filt_transcriptIDs = corrected_filt_transcriptIDs
+        # print ('Loading TF corrected pvalues')
+        # with open(GTEx_directory + '/intermediate_results/CorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb') as f:
+        #     corrected_association_results, corrected_most_varying_feature_idx, corrected_filt_transcriptIDs = pickle.load(f)
+        #
+        # self.corrected_association_results = corrected_association_results
+        # self.corrected_most_varying_feature_idx = corrected_most_varying_feature_idx
+        # self.corrected_filt_transcriptIDs = corrected_filt_transcriptIDs
 
-    # def test_example_corrected_pvalues(self):
-        # SIZES = [128, 256, 512, 1024, 2048, 4096]
-        # AGGREGATIONS = ['mean', 'median']
-        # MODELS = ['raw', 'retrained']
-        # TFs = [1,2,3,4,5]
-        # N = 500
-        # M = 2000
-        # k = 1
+    def filter_and_correct_expression_and_image_features(self):
+        SIZES = [128, 256, 512, 1024, 2048, 4096]
+        AGGREGATIONS = ['mean', 'median']
+        MODELS = ['raw', 'retrained']
+        TFs = [1,2,3,4,5]
+        N = 500
+        M = 2000
+        k = 1
+        filter_and_correct_expression_and_image_features('Lung', 'retrained', 'median', '256', M, k, pc_correction=5, tf_correction=False)
 
 
 

@@ -25,31 +25,28 @@ name = args['name']
 class RawFeatureAssociations():
 
     @staticmethod
-    def raw_pvalues():
+    def compute_pvalues():
         os.makedirs(GTEx_directory + '/intermediate_results/{}'.format(group), exist_ok=True)
-        SIZES = [128, 256, 512, 1024, 2048, 4096]
+        SIZES = ['128', '256', '512', '1024', '2048', '4096']
         AGGREGATIONS = ['mean', 'median']
         MODELS = ['raw', 'retrained']
-        N = 500
         M = 2000
         k = 1
 
         association_results = {}
         most_varying_feature_indexes = {}
 
+        print('Computing raw associations')
+
         for a in AGGREGATIONS:
             for m in MODELS:
-                print ('Filtering features for Lung {} {}'.format(m, a))
-                all_filt_features, most_varying_feature_idx, expression, _, transcriptIDs, _, _, _ = filter_features_across_all_patchsizes('Lung', m, a, N)
-                filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
                 for s in SIZES:
-                    filt_features = all_filt_features[s]
-                    print('Computing: Lung', a, m, s)
-                    res = compute_pearsonR(filt_features, filt_expression)
-
-                    most_varying_feature_indexes['{}_{}_{}_{}'.format('Lung', a, m, s)] = most_varying_feature_idx
-
-                    association_results['{}_{}_{}_{}'.format('Lung', a, m, s)] = res
+                    key = '{}_{}_{}_{}'.format('Lung', a, m, s)
+                    Y, X, dIDs, filt_tIDs, tfs, ths, t_idx = filter_and_correct_expression_and_image_features('Lung', m, a, s, M, k, pc_correction=False, tf_correction=False)
+                    N = Y.shape[1]
+                    print('Computing {} x {} = {} associations for: Lung'.format(N, M, N*M), a, m, s)
+                    res = compute_pearsonR(Y, X)
+                    association_results[key] = res
 
         results = [association_results, most_varying_feature_indexes, filt_transcriptIDs]
 
