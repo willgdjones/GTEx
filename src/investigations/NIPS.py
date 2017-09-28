@@ -10,6 +10,9 @@ from sklearn.linear_model import LinearRegression
 from matplotlib.colors import Normalize
 sys.path.insert(0, os.getcwd())
 from src.utils.helpers import *
+import pyensembl
+os.environ['PYENSEMBL_CACHE_DIR'] = '/hps/nobackup/research/stegle/users/willj/GTEx'
+
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -164,10 +167,12 @@ class NIPSQuestion2():
 
 class NIPSQuestion3():
 
+
     @staticmethod
     def gene_expression_variability():
 
-        results = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+        association_results, most_varying_feature_indexes, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/PCCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
+
         import pdb; pdb.set_trace()
 
 

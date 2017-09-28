@@ -52,7 +52,7 @@ class TFCorrectedFeatureAssociations():
                     association_results[key] = res
 
 
-        results = [association_results, most_varying_feature_indexes, filt_transcriptIDs]
+        results = [association_results, filt_tIDs]
         pickle.dump(results, open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
     @staticmethod
@@ -253,6 +253,86 @@ class TFCorrectedFeatureAssociations():
 
         print ("Saving results")
         pickle.dump(size_counts, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+    @staticmethod
+    def tf_feature_selection():
+        Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256')
+
+        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+        tf_Y = Y[t_idx,:]
+        tf_X = X[t_idx,:]
+
+        tfs[:,TFs.index('SMTSISCH')] = np.log2(tfs[:,TFs.index('SMTSISCH')] + 1)
+        tf_idx = [list(ths).index(x) for x in TFs]
+        tf_predictors = tfs[:,tf_idx]
+
+        print ("Calculating PCs that explain 99.9% of image feature variance")
+        PCA_Y = PCA(n_components=0.999)
+        pca_Y = PCA_Y.fit_transform(tf_Y)
+
+
+        print ("Calculating PCs that explain 99.9% of expression variance")
+        PCA_X = PCA(n_components=0.999)
+        pca_X = PCA_X.fit_transform(tf_X)
+
+        idx = np.zeros_like(ths)
+
+        N = pca_X.shape[1]
+
+        ordered_choices = []
+
+        for i in range(5):
+
+            tf_predictors = tfs[:,np.argwhere(idx == 1).flatten()]
+            lr = LinearRegression()
+            pca_X_copy = pca_X.copy()
+            if i > 0:
+                lr.fit(tf_predictors, pca_X)
+                regressed_pca_X = lr.predict(tf_predictors)
+                regressed_pca_X = pca_X_copy - regressed_pca_X
+            else:
+                regressed_pca_X = pca_X_copy
+            maxweightedR2, max_c = [0, None]
+
+            for c in np.argwhere(idx == 0).flatten():
+
+
+                weightedR2 = np.dot(PCA_X.explained_variance_, [pearsonr(regressed_pca_X[:,j], tfs[:, c])[0]**2 for j in range(N)])
+
+                if weightedR2 > maxweightedR2:
+                    maxweightedR2, max_c = weightedR2, c
+                    idx[c] = 1
+
+            ordered_choices.append((weightedR2, ths[max_c]))
+
+        import pdb; pdb.set_trace()
+
+
+
+
+
+        # Choose SMTSISCH to start with
+        idx[TFs.index('SMTSISCH')] = 1
+
+        lr = LinearRegression()
+        lr.fit(tf_predictors, pca_X)
+
+
+        from sklearn.metrics import explained_variance_score
+        var_explained = explained_variance_score(pca_X, lr.predict(tf_predictors), multioutput=PCA_X.explained_variance_)
+
+        import pdb; pdb.set_trace()
+
+
+
+
+
+
+
+
+
+
+
 
 
 

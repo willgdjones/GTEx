@@ -51,7 +51,7 @@ class PCCorrectedFeatureAssociations():
                         association_results[key] = res
 
 
-        results = [association_results, most_varying_feature_indexes, filt_transcriptIDs]
+        results = [association_results, filt_tIDs]
 
         pickle.dump(results, open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
