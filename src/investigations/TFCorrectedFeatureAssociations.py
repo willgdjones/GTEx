@@ -255,7 +255,7 @@ class TFCorrectedFeatureAssociations():
         pickle.dump(size_counts, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
     @staticmethod
-    def tf_feature_selection():
+    def tf_feature_selection_expression():
         Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256')
 
         TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
@@ -265,11 +265,6 @@ class TFCorrectedFeatureAssociations():
         tfs[:,TFs.index('SMTSISCH')] = np.log2(tfs[:,TFs.index('SMTSISCH')] + 1)
         tf_idx = [list(ths).index(x) for x in TFs]
         tf_predictors = tfs[:,tf_idx]
-
-        print ("Calculating PCs that explain 99.9% of image feature variance")
-        PCA_Y = PCA(n_components=0.999)
-        pca_Y = PCA_Y.fit_transform(tf_Y)
-
 
         print ("Calculating PCs that explain 99.9% of expression variance")
         PCA_X = PCA(n_components=0.999)
@@ -313,7 +308,59 @@ class TFCorrectedFeatureAssociations():
 
         pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
-        import pdb; pdb.set_trace()
+    @staticmethod
+    def tf_feature_selection_image_features():
+        Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256')
+
+        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+        tf_Y = Y[t_idx,:]
+        tf_X = X[t_idx,:]
+
+        tfs[:,TFs.index('SMTSISCH')] = np.log2(tfs[:,TFs.index('SMTSISCH')] + 1)
+        tf_idx = [list(ths).index(x) for x in TFs]
+        tf_predictors = tfs[:,tf_idx]
+
+        print ("Calculating PCs that explain 99.9% of image feature variance")
+        PCA_Y = PCA(n_components=0.999)
+        pca_Y = PCA_Y.fit_transform(tf_Y)
+
+        idx = np.zeros_like(ths)
+        N = pca_Y.shape[1]
+        ordered_choices = []
+
+        print ("Performing feature selection")
+
+        for i in range(51):
+            print ("Iteration {}".format(i))
+
+            selected_c = np.argwhere(idx == 1).flatten()
+            tf_predictors = tfs[:,selected_c]
+            lr = LinearRegression()
+            pca_Y_copy = pca_Y.copy()
+            if i > 0:
+                lr.fit(tf_predictors, pca_Y)
+                regressed_pca_Y = lr.predict(tf_predictors)
+                regressed_pca_Y = pca_Y_copy - regressed_pca_Y
+            else:
+                regressed_pca_Y = pca_Y_copy
+
+            maxvarexplained, max_c = [0, None]
+            unselected_c = np.argwhere(idx == 0).flatten()
+            print ("{} choices left".format(len(unselected_c)))
+            for c in unselected_c:
+                varexplained = np.dot(PCA_Y.explained_variance_, [pearsonr(regressed_pca_Y[:,j], tfs[:, c])[0]**2 for j in range(N)])
+
+                if varexplained > maxvarexplained:
+                    maxvarexplained, max_c = varexplained, c
+
+
+
+            print ((maxvarexplained, max_c))
+            print ("Choosing {}, explains {} variance".format(ths[max_c], maxvarexplained))
+            ordered_choices.append((maxvarexplained, ths[max_c]))
+            idx[max_c] = 1
+
+        pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
