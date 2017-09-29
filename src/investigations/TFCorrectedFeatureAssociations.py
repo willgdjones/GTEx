@@ -276,14 +276,16 @@ class TFCorrectedFeatureAssociations():
         pca_X = PCA_X.fit_transform(tf_X)
 
         idx = np.zeros_like(ths)
-
         N = pca_X.shape[1]
-
         ordered_choices = []
 
-        for i in range(5):
+        print ("Performing feature selection")
 
-            tf_predictors = tfs[:,np.argwhere(idx == 1).flatten()]
+        for i in range(51):
+            print ("Iteration {}".format(i))
+
+            selected_c = np.argwhere(idx == 1).flatten()
+            tf_predictors = tfs[:,selected_c]
             lr = LinearRegression()
             pca_X_copy = pca_X.copy()
             if i > 0:
@@ -292,34 +294,24 @@ class TFCorrectedFeatureAssociations():
                 regressed_pca_X = pca_X_copy - regressed_pca_X
             else:
                 regressed_pca_X = pca_X_copy
-            maxweightedR2, max_c = [0, None]
 
-            for c in np.argwhere(idx == 0).flatten():
+            maxvarexplained, max_c = [0, None]
+            unselected_c = np.argwhere(idx == 0).flatten()
+            print ("{} choices left".format(len(unselected_c)))
+            for c in unselected_c:
+                varexplained = np.dot(PCA_X.explained_variance_, [pearsonr(regressed_pca_X[:,j], tfs[:, c])[0]**2 for j in range(N)])
 
-
-                weightedR2 = np.dot(PCA_X.explained_variance_, [pearsonr(regressed_pca_X[:,j], tfs[:, c])[0]**2 for j in range(N)])
-
-                if weightedR2 > maxweightedR2:
-                    maxweightedR2, max_c = weightedR2, c
-                    idx[c] = 1
-
-            ordered_choices.append((weightedR2, ths[max_c]))
-
-        import pdb; pdb.set_trace()
+                if varexplained > maxvarexplained:
+                    maxvarexplained, max_c = varexplained, c
 
 
 
+            print ((maxvarexplained, max_c))
+            print ("Choosing {}, explains {} variance".format(ths[max_c], maxvarexplained))
+            ordered_choices.append((maxvarexplained, ths[max_c]))
+            idx[max_c] = 1
 
-
-        # Choose SMTSISCH to start with
-        idx[TFs.index('SMTSISCH')] = 1
-
-        lr = LinearRegression()
-        lr.fit(tf_predictors, pca_X)
-
-
-        from sklearn.metrics import explained_variance_score
-        var_explained = explained_variance_score(pca_X, lr.predict(tf_predictors), multioutput=PCA_X.explained_variance_)
+        pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
         import pdb; pdb.set_trace()
 

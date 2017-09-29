@@ -129,7 +129,7 @@ class TFCorrectedFeatureAssociations():
         sns.set_style("dark")
 
         fig, ax = plt.subplots(2,5,figsize=(25,8))
-        
+
         for i in range(10):
             feature, feature_name, transcript, transcript_name, pv, R = top10associations[i]
             ax.flatten()[i].scatter(feature, transcript)
@@ -139,6 +139,22 @@ class TFCorrectedFeatureAssociations():
 
         plt.tight_layout()
         plt.show()
+
+
+    @staticmethod
+    def tf_feature_selection():
+        ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        varexplained = [x[0] for x in ordered_choices]
+        tfs = [x[1] for x in ordered_choices]
+
+
+        plt.figure(figsize=(15,10))
+        plt.plot(varexplained)
+        plt.xticks(list(range(len(tfs))), tfs, rotation=90)
+        plt.xlabel('Technical factor')
+        plt.ylabel('Extra variance explained')
+        plt.show()
+
 
 
 if __name__ == '__main__':
