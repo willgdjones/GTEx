@@ -143,17 +143,41 @@ class TFCorrectedFeatureAssociations():
 
     @staticmethod
     def tf_feature_selection():
-        ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
-        varexplained = [x[0] for x in ordered_choices]
-        tfs = [x[1] for x in ordered_choices]
+        expression_ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/tf_feature_selection_expression.pickle'.format(group=group), 'rb'))
+        image_feature_ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/tf_feature_selection_image_features.pickle'.format(group=group), 'rb'))
+
+        #Extract order of importance of technical factors for expression
+        expression_var_explained = [x[0] for x in expression_ordered_choices]
+        expression_ordered_tfs = [x[1] for x in expression_ordered_choices]
+
+        #Extract order of importance of technical factors for image features
+        image_feature_var_explained = [x[0] for x in image_feature_ordered_choices]
+        image_feature_ordered_tfs = [x[1] for x in image_feature_ordered_choices]
 
 
-        plt.figure(figsize=(15,10))
-        plt.plot(varexplained)
-        plt.xticks(list(range(len(tfs))), tfs, rotation=90)
-        plt.xlabel('Technical factor')
-        plt.ylabel('Extra variance explained')
+        f, a = plt.subplots(1,2,figsize=(30,10))
+        a[0].plot(expression_var_explained)
+        a[0].set_xticks(list(range(len(expression_ordered_tfs))))
+        a[0].set_xticklabels(expression_ordered_tfs, rotation=90)
+        a[0].set_ylabel('Extra variance explained', size=15)
+        a[0].set_title('Technical factors order of importance for expression', size=20)
+
+
+
+        a[1].plot(image_feature_var_explained)
+        a[1].set_xticks(list(range(len(image_feature_ordered_tfs))))
+        a[1].set_xticklabels(image_feature_ordered_tfs, rotation=90)
+        a[1].set_ylabel('Extra variance explained', size=15)
+        a[1].set_title('Technical factors order of importance for image features', size=20)
+
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+
         plt.show()
+
+
 
 
 
