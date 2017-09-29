@@ -160,15 +160,15 @@ class TFCorrectedFeatureAssociations():
         a[0].set_xticks(list(range(len(expression_ordered_tfs))))
         a[0].set_xticklabels(expression_ordered_tfs, rotation=90)
         a[0].set_ylabel('Extra variance explained', size=15)
-        a[0].set_title('Technical factors order of importance for expression', size=20)
+        a[0].set_title('Technical factors in order of importance to explain expression variation', size=20)
 
 
 
         a[1].plot(image_feature_var_explained)
         a[1].set_xticks(list(range(len(image_feature_ordered_tfs))))
         a[1].set_xticklabels(image_feature_ordered_tfs, rotation=90)
-        a[1].set_ylabel('Extra variance explained', size=15)
-        a[1].set_title('Technical factors order of importance for image features', size=20)
+        a[1].set_ylabel('Cumulative variance explained', size=15)
+        a[1].set_title('Technical factors in order of importance to explain image feature variation', size=20)
 
 
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)

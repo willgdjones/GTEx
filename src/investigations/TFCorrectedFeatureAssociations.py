@@ -258,67 +258,83 @@ class TFCorrectedFeatureAssociations():
     def tf_feature_selection_expression():
         Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256')
 
-        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+
         tf_Y = Y[t_idx,:]
         tf_X = X[t_idx,:]
 
-        tfs[:,TFs.index('SMTSISCH')] = np.log2(tfs[:,TFs.index('SMTSISCH')] + 1)
-        tf_idx = [list(ths).index(x) for x in TFs]
-        tf_predictors = tfs[:,tf_idx]
+        tfs[:,list(ths).index('SMTSISCH')] = np.log2(tfs[:,list(ths).index('SMTSISCH')] + 1)
 
-        print ("Calculating PCs that explain 99.9% of expression variance")
+
+        print ("Calculating PCs that explain 99.9% of image feature variance")
         PCA_X = PCA(n_components=0.999)
         pca_X = PCA_X.fit_transform(tf_X)
 
         idx = np.zeros_like(ths)
         N = pca_X.shape[1]
-        ordered_choices = []
+        ordered_choices = [(0, None)]
 
         print ("Performing feature selection")
 
         for i in range(51):
             print ("Iteration {}".format(i))
-
+        #
             selected_c = np.argwhere(idx == 1).flatten()
-            tf_predictors = tfs[:,selected_c]
-            lr = LinearRegression()
-            pca_X_copy = pca_X.copy()
-            if i > 0:
-                lr.fit(tf_predictors, pca_X)
-                regressed_pca_X = lr.predict(tf_predictors)
-                regressed_pca_X = pca_X_copy - regressed_pca_X
-            else:
-                regressed_pca_X = pca_X_copy
+            selected_predictors = tfs[:,selected_c]
+        #     lr = LinearRegression()
+        #     pca_Y_copy = pca_Y.copy()
+        #     if i > 0:
+        #         lr.fit(tf_predictors, pca_Y)
+        #         regressed_pca_Y = lr.predict(tf_predictors)
+        #         regressed_pca_Y = pca_Y_copy - regressed_pca_Y
+        #     else:
+        #         regressed_pca_Y = pca_Y_copy
 
-            maxvarexplained, max_c = [0, None]
+            max_frac_var_explained, max_choice = [0, None]
             unselected_c = np.argwhere(idx == 0).flatten()
             print ("{} choices left".format(len(unselected_c)))
-            for c in unselected_c:
-                varexplained = np.dot(PCA_X.explained_variance_, [pearsonr(regressed_pca_X[:,j], tfs[:, c])[0]**2 for j in range(N)])
 
-                if varexplained > maxvarexplained:
-                    maxvarexplained, max_c = varexplained, c
+            for choice in unselected_c:
+
+                if i == 0:
+                    trial_predictors = tfs[:, choice].reshape(-1,1)
+                else:
+
+                    trial_predictors = np.zeros((tfs.shape[0], len(selected_c) + 1))
+                    trial_predictors[:,:-1] = selected_predictors
+                    trial_predictors[:,-1] = tfs[:, choice]
+                lr = LinearRegression()
+
+                lr.fit(trial_predictors, pca_X)
+                residuals = pca_X - lr.predict(trial_predictors)
+                var_explained_per_PC = 1 - (np.var(residuals, axis=0) / np.var(pca_X, axis=0))
+
+
+                frac_var_explained = np.dot(PCA_X.explained_variance_, var_explained_per_PC) / sum(PCA_X.explained_variance_)
+
+
+                if frac_var_explained > max_frac_var_explained:
+                    max_frac_var_explained, max_choice = frac_var_explained, choice
 
 
 
-            print ((maxvarexplained, max_c))
-            print ("Choosing {}, explains {} variance".format(ths[max_c], maxvarexplained))
-            ordered_choices.append((maxvarexplained, ths[max_c]))
-            idx[max_c] = 1
+            print ((max_frac_var_explained, max_choice))
+            print ("With {}, can explain {} of variance".format(ths[max_choice], max_frac_var_explained))
+            ordered_choices.append((max_frac_var_explained, ths[max_choice]))
+            idx[max_choice] = 1
 
         pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
 
     @staticmethod
     def tf_feature_selection_image_features():
         Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256')
 
-        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+
         tf_Y = Y[t_idx,:]
         tf_X = X[t_idx,:]
 
-        tfs[:,TFs.index('SMTSISCH')] = np.log2(tfs[:,TFs.index('SMTSISCH')] + 1)
-        tf_idx = [list(ths).index(x) for x in TFs]
-        tf_predictors = tfs[:,tf_idx]
+        tfs[:,list(ths).index('SMTSISCH')] = np.log2(tfs[:,list(ths).index('SMTSISCH')] + 1)
+
 
         print ("Calculating PCs that explain 99.9% of image feature variance")
         PCA_Y = PCA(n_components=0.999)
@@ -326,39 +342,56 @@ class TFCorrectedFeatureAssociations():
 
         idx = np.zeros_like(ths)
         N = pca_Y.shape[1]
-        ordered_choices = []
+        ordered_choices = [(0, None)]
 
         print ("Performing feature selection")
 
         for i in range(51):
             print ("Iteration {}".format(i))
-
+        #
             selected_c = np.argwhere(idx == 1).flatten()
-            tf_predictors = tfs[:,selected_c]
-            lr = LinearRegression()
-            pca_Y_copy = pca_Y.copy()
-            if i > 0:
-                lr.fit(tf_predictors, pca_Y)
-                regressed_pca_Y = lr.predict(tf_predictors)
-                regressed_pca_Y = pca_Y_copy - regressed_pca_Y
-            else:
-                regressed_pca_Y = pca_Y_copy
+            selected_predictors = tfs[:,selected_c]
+        #     lr = LinearRegression()
+        #     pca_Y_copy = pca_Y.copy()
+        #     if i > 0:
+        #         lr.fit(tf_predictors, pca_Y)
+        #         regressed_pca_Y = lr.predict(tf_predictors)
+        #         regressed_pca_Y = pca_Y_copy - regressed_pca_Y
+        #     else:
+        #         regressed_pca_Y = pca_Y_copy
 
-            maxvarexplained, max_c = [0, None]
+            max_frac_var_explained, max_choice = [0, None]
             unselected_c = np.argwhere(idx == 0).flatten()
             print ("{} choices left".format(len(unselected_c)))
-            for c in unselected_c:
-                varexplained = np.dot(PCA_Y.explained_variance_, [pearsonr(regressed_pca_Y[:,j], tfs[:, c])[0]**2 for j in range(N)])
 
-                if varexplained > maxvarexplained:
-                    maxvarexplained, max_c = varexplained, c
+            for choice in unselected_c:
+
+                if i == 0:
+                    trial_predictors = tfs[:, choice].reshape(-1,1)
+                else:
+
+                    trial_predictors = np.zeros((tfs.shape[0], len(selected_c) + 1))
+                    trial_predictors[:,:-1] = selected_predictors
+                    trial_predictors[:,-1] = tfs[:, choice]
+                lr = LinearRegression()
+
+                lr.fit(trial_predictors, pca_Y)
+                residuals = pca_Y - lr.predict(trial_predictors)
+                var_explained_per_PC = 1 - (np.var(residuals, axis=0) / np.var(pca_Y, axis=0))
+
+
+                frac_var_explained = np.dot(PCA_Y.explained_variance_, var_explained_per_PC) / sum(PCA_Y.explained_variance_)
+
+
+                if frac_var_explained > max_frac_var_explained:
+                    max_frac_var_explained, max_choice = frac_var_explained, choice
 
 
 
-            print ((maxvarexplained, max_c))
-            print ("Choosing {}, explains {} variance".format(ths[max_c], maxvarexplained))
-            ordered_choices.append((maxvarexplained, ths[max_c]))
-            idx[max_c] = 1
+            print ((max_frac_var_explained, max_choice))
+            print ("With {}, can explain {} of variance".format(ths[max_choice], max_frac_var_explained))
+            ordered_choices.append((max_frac_var_explained, ths[max_choice]))
+            idx[max_choice] = 1
 
         pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
