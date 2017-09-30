@@ -128,6 +128,7 @@ class TFCorrectedFeatureAssociations():
         filt_expression, filt_transcriptIDs = filter_expression(expression, transcriptIDs, M, k)
         filt_features = all_filt_features[256]
 
+
         def get_gene_name(transcript):
             transcript_id = transcript.decode('utf-8').split('.')[0]
             return data.gene_name_of_gene_id(transcript_id)
@@ -394,6 +395,65 @@ class TFCorrectedFeatureAssociations():
             idx[max_choice] = 1
 
         pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+    @staticmethod
+    def gene_ontology_analysis():
+
+        import statsmodels.stats.multitest as smm
+        from gprofiler import GProfiler
+        from pyensembl import EnsemblRelease
+        data = EnsemblRelease(77)
+
+        def get_gene_name(transcript):
+            transcript_id = transcript.decode('utf-8').split('.')[0]
+            return data.gene_name_of_gene_id(transcript_id)
+
+
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
+        print ("Loading association data")
+        association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
+
+        significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
+        significant_counts = [sum(x) for x in significant_indicies]
+
+
+        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
+
+        significant_genes = []
+        for feature_transcripts in significant_transcripts:
+            genes = []
+            for t in feature_transcripts:
+                try:
+                    g = get_gene_name(t)
+                except ValueError:
+                    g = None
+
+                genes.append(g)
+            significant_genes.append(genes)
+
+        gene_enrichments = []
+        for gene_set in significant_genes:
+            clean_gene_set = [x for x in gene_set if x is not None]
+            gp = GProfiler("GTEx/wj")
+            results = gp.gprofile(clean_gene_set)
+            gene_enrichments.append(results)
+        import pdb; pdb.set_trace()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
