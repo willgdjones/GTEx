@@ -10,7 +10,13 @@ from sklearn.linear_model import LinearRegression
 from matplotlib.colors import Normalize
 sys.path.insert(0, os.getcwd())
 from src.utils.helpers import *
-
+import statsmodels.stats.multitest as smm
+from gprofiler import GProfiler
+from pyensembl import EnsemblRelease
+data = EnsemblRelease(77)
+import multiprocess as mp
+from tqdm import tqdm
+import time
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 
@@ -20,6 +26,20 @@ parser.add_argument('-n', '--name', help='Experiment name', required=True)
 args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
+
+
+
+
+def lookup_enrichment(gene_set):
+    clean_gene_set = [x for x in gene_set if x is not None]
+    gp = GProfiler("GTEx/wj")
+    enrichment_results = gp.gprofile(clean_gene_set)
+    return enrichment_results
+
+
+def get_gene_name(transcript):
+    transcript_id = transcript.decode('utf-8').split('.')[0]
+    return data.gene_name_of_gene_id(transcript_id)
 
 
 class TFCorrectedFeatureAssociations():
@@ -399,28 +419,21 @@ class TFCorrectedFeatureAssociations():
     @staticmethod
     def gene_ontology_analysis():
 
-        import statsmodels.stats.multitest as smm
-        from gprofiler import GProfiler
-        from pyensembl import EnsemblRelease
-        data = EnsemblRelease(77)
-
-        def get_gene_name(transcript):
-            transcript_id = transcript.decode('utf-8').split('.')[0]
-            return data.gene_name_of_gene_id(transcript_id)
-
 
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading association data")
         association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
 
+        print ("Calculating significant transcripts")
         significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
         significant_counts = [sum(x) for x in significant_indicies]
-
-
         significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
 
+        print ("Translating into significant genes")
         significant_genes = []
-        for feature_transcripts in significant_transcripts:
+        for (i, feature_transcripts) in enumerate(significant_transcripts):
+            if i % 100 == 0:
+                print ("Gene set ", i)
             genes = []
             for t in feature_transcripts:
                 try:
@@ -431,13 +444,18 @@ class TFCorrectedFeatureAssociations():
                 genes.append(g)
             significant_genes.append(genes)
 
-        gene_enrichments = []
-        for gene_set in significant_genes:
-            clean_gene_set = [x for x in gene_set if x is not None]
-            gp = GProfiler("GTEx/wj")
-            results = gp.gprofile(clean_gene_set)
-            gene_enrichments.append(results)
-        import pdb; pdb.set_trace()
+        print ("Looking up gene enrichments in a parallel fashion")
+
+        pool = mp.Pool(processes=16)
+        pbar = tqdm(total=len(significant_genes))
+        def pbar_update(x):
+            pbar.update(1)
+
+
+        results = [pool.apply_async(lookup_enrichment, args=(gene_set,), callback=pbar_update) for gene_set in significant_genes]
+        enrichment_results = [p.get() for p in results]
+
+        pickle.dump(enrichment_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
