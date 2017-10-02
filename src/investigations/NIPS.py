@@ -192,7 +192,7 @@ class NIPSQuestion3A():
 
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         final_results = {}
-        
+
         Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256')
         tfs[list(ths).index('SMTSISCH')] = np.log2(tfs[list(ths).index('SMTSISCH')] + 1)
 
@@ -237,9 +237,7 @@ class NIPSQuestion3A():
         results = [pool.apply_async(calculate_tf_enrichment, args=(th,), callback=pbar_update) for th in list(ths)]
         enrichment_results = [p.get() for p in results]
 
-        final_results[key] = enrichment_results
-
-        pickle.dump(final_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump(enrichment_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
