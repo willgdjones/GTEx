@@ -229,15 +229,67 @@ class NIPSQuestion3A():
             return enrichments
 
 
-        pool = mp.Pool(processes=16)
-        pbar = tqdm(total=len(list(ths)))
+        # pool = mp.Pool(processes=2)
+        # pbar = tqdm(total=len(list(ths)))
 
 
-
-        results = [pool.apply_async(calculate_tf_enrichment, args=(th,), callback=pbar_update) for th in list(ths)]
+        print ("Looking up gene enrichments")
+        results = [apply(calculate_tf_enrichment, args=(th,), callback=pbar_update) for th in list(ths)]
         enrichment_results = [p.get() for p in results]
 
         pickle.dump(enrichment_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+class NIPSQuestion5():
+    @staticmethod
+    def genetic_association_search():
+        print ("Loading genotype data")
+        Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
+
+        association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
+
+        print ("Calculating significant transcripts")
+        significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
+        significant_counts = [sum(x) for x in significant_indicies]
+        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
+
+
+
+        print ("Translating into significant genes")
+        significant_genes = []
+        for (i, feature_transcripts) in enumerate(significant_transcripts):
+            if i % 100 == 0:
+                print ("Gene set ", i)
+            genes = []
+            for t in feature_transcripts:
+                try:
+                    g = get_gene_name(t)
+                except ValueError:
+                    g = None
+
+                genes.append(g)
+            significant_genes.append(genes)
+
+        all_intervals = []
+        for gene_set in significant_genes:
+            w = 5000
+            try:
+                gene_set_intervals = []
+                for gene in gene_set:
+                    gene_obj = data.genes_by_name(gene[0])[0]
+                    interval_start = gene_obj.start - w
+                    interval_end = gene_obj.end + w
+                    chrom = gene_obj.contig
+                    interval = (interval_start, interval_end, chrom)
+
+
+            except TypeError:
+                interval = None
+
+            gene_set_intervals.append(interval)
+        all_intervals.append(gene_set_intervals)
+
+        import pdb; pdb.set_trace()
+
 
 
 

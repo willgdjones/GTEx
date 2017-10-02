@@ -86,10 +86,11 @@ class MidPointNorm(Normalize):
             else:
                 return  val*abs(vmax-midpoint) + midpoint
 
-def extract_final_layer_data(t, m, a, ps):
+def extract_final_layer_data(t, m, a, ps, genotypes=False):
     with h5py.File(GTEx_directory +
                 '/data/h5py/aggregated_features.h5py', 'r') as f:
         X = f[t]['ordered_expression'].value
+
         tIDs = f[t]['transcriptIDs'].value
         dIDs = f[t]['donorIDs'].value
         tfs, ths, t_idx = \
@@ -97,8 +98,16 @@ def extract_final_layer_data(t, m, a, ps):
         size_group = f[t]['-1'][ps]
         Y = size_group[m][a]['ordered_aggregated_features'].value
         Y[Y < 0] = 0
-        return Y, X, dIDs, tIDs, \
-            tfs, ths, t_idx
+        if genotypes:
+            
+            G = f[t]['ordered_genotypes'].value
+            gIDs = f[t]['genotype_locations'].value
+            return Y, X, G, dIDs, tIDs, gIDs, \
+                tfs, ths, t_idx
+        else:
+
+            return Y, X, dIDs, tIDs, \
+                tfs, ths, t_idx
 
 
 def extract_mid_layer_data(t, l, ca, m, a, ps):

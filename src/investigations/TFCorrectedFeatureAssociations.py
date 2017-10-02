@@ -419,43 +419,66 @@ class TFCorrectedFeatureAssociations():
     @staticmethod
     def gene_ontology_analysis():
 
+        # import logging
+
+        # logger = mp.log_to_stderr(logging.DEBUG)
+
 
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading association data")
         association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
 
-        print ("Calculating significant transcripts")
-        significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
-        significant_counts = [sum(x) for x in significant_indicies]
-        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
+        TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
+        SIZES = ['128', '256', '512', '1024', '2048', '4096']
+        AGGREGATIONS = ['mean', 'median']
+        MODELS = ['raw', 'retrained']
+        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
 
-        print ("Translating into significant genes")
-        significant_genes = []
-        for (i, feature_transcripts) in enumerate(significant_transcripts):
-            if i % 100 == 0:
-                print ("Gene set ", i)
-            genes = []
-            for t in feature_transcripts:
-                try:
-                    g = get_gene_name(t)
-                except ValueError:
-                    g = None
+        all_results = {}
 
-                genes.append(g)
-            significant_genes.append(genes)
+        for t in TISSUES:
+            for a in AGGREGATIONS:
+                for m in MODELS:
+                    for s in SIZES:
+                        key = '{}_{}_{}_{}'.format(t,a,m,s)
 
-        print ("Looking up gene enrichments in a parallel fashion")
+                        print ("Calculating significant transcripts")
+                        significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
+                        significant_counts = [sum(x) for x in significant_indicies]
+                        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
 
-        pool = mp.Pool(processes=16)
-        pbar = tqdm(total=len(significant_genes))
-        def pbar_update(x):
-            pbar.update(1)
+                        print ("Translating into significant genes")
+                        significant_genes = []
+                        for (i, feature_transcripts) in enumerate(significant_transcripts):
+                            if i % 100 == 0:
+                                print ("Gene set ", i)
+                            genes = []
+                            for t in feature_transcripts:
+                                try:
+                                    g = get_gene_name(t)
+                                except ValueError:
+                                    g = None
+
+                                genes.append(g)
+                            significant_genes.append(genes)
+
+                        print ("Looking up gene enrichments")
+
+                        # pool = mp.Pool(processes=8)
+                        pbar = tqdm(total=len(significant_genes))
+                        def pbar_update(x):
+                            pbar.update(1)
 
 
-        results = [pool.apply_async(lookup_enrichment, args=(gene_set,), callback=pbar_update) for gene_set in significant_genes]
-        enrichment_results = [p.get() for p in results]
+                        for gene_set in significant_genes:
+                            lookup_enrichment(gene_set)
+                            pbar.update(1)
+                        # enrichment_results = [p.get() for p in results]
+                        # logger.info(results)
 
-        pickle.dump(enrichment_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+                        all_results[key] = enrichment_results
+
+        pickle.dump(all_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
