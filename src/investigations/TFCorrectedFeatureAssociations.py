@@ -17,6 +17,11 @@ data = EnsemblRelease(77)
 import multiprocess as mp
 from tqdm import tqdm
 import time
+from pebble import ProcessPool, ProcessExpired
+from concurrent.futures import TimeoutError
+
+# import eventlet
+# eventlet.monkey_patch()
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 
@@ -35,6 +40,7 @@ def lookup_enrichment(gene_set):
     gp = GProfiler("GTEx/wj")
     enrichment_results = gp.gprofile(clean_gene_set)
     return enrichment_results
+
 
 
 def get_gene_name(transcript):
@@ -436,47 +442,65 @@ class TFCorrectedFeatureAssociations():
 
         all_results = {}
 
-        for t in TISSUES:
-            for a in AGGREGATIONS:
-                for m in MODELS:
-                    for s in SIZES:
-                        key = '{}_{}_{}_{}'.format(t,a,m,s)
+        # for t in TISSUES:
+        #     for a in AGGREGATIONS:
+        #         for m in MODELS:
+        #             for s in SIZES:
+        key = '{}_{}_{}_{}'.format('Lung','mean','retrained','256')
 
-                        print ("Calculating significant transcripts")
-                        significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
-                        significant_counts = [sum(x) for x in significant_indicies]
-                        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
+        print ("Calculating significant transcripts")
+        significant_indicies = [smm.multipletests(association_results[key][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
+        significant_counts = [sum(x) for x in significant_indicies]
+        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
 
-                        print ("Translating into significant genes")
-                        significant_genes = []
-                        for (i, feature_transcripts) in enumerate(significant_transcripts):
-                            if i % 100 == 0:
-                                print ("Gene set ", i)
-                            genes = []
-                            for t in feature_transcripts:
-                                try:
-                                    g = get_gene_name(t)
-                                except ValueError:
-                                    g = None
+        print ("Translating into significant genes")
+        significant_genes = []
+        for (i, feature_transcripts) in enumerate(significant_transcripts):
+            if i % 100 == 0:
+                print ("Gene set ", i)
+            genes = []
+            for transcript in feature_transcripts:
+                try:
+                    g = get_gene_name(transcript)
+                except ValueError:
+                    g = None
 
-                                genes.append(g)
-                            significant_genes.append(genes)
+                genes.append(g)
+            significant_genes.append(genes)
 
-                        print ("Looking up gene enrichments")
+        print ("Looking up gene enrichments for {}".format(key))
 
-                        # pool = mp.Pool(processes=8)
-                        pbar = tqdm(total=len(significant_genes))
-                        def pbar_update(x):
-                            pbar.update(1)
+        pbar = tqdm(total=len(significant_genes))
 
 
-                        for gene_set in significant_genes:
-                            lookup_enrichment(gene_set)
-                            pbar.update(1)
-                        # enrichment_results = [p.get() for p in results]
-                        # logger.info(results)
+        with ProcessPool(max_workers=16) as pool:
 
-                        all_results[key] = enrichment_results
+            future = pool.map(lookup_enrichment, significant_genes, timeout=10)
+            future_results = future.result()
+
+            enrichment_results = []
+            while True:
+                try:
+                    result = next(future_results)
+                    enrichment_results.append(result)
+                    pbar.update(1)
+                except StopIteration:
+                    break
+                except TimeoutError as error:
+                    enrichment_results.append(None)
+                    pbar.update(1)
+                    print("function took longer than %d seconds" % error.args[1])
+                except ProcessExpired as error:
+                    enrichment_results.append(None)
+                    pbar.update(1)
+                    print("%s. Exit code: %d" % (error, error.exitcode))
+                except Exception as error:
+                    enrichment_results.append(None)
+                    print("function raised %s" % error)
+                    print(error)  # Python's traceback of remote process
+
+        del pool
+        all_results[key] = enrichment_results
 
         pickle.dump(all_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 

@@ -18,6 +18,11 @@ from gprofiler import GProfiler
 data = EnsemblRelease(77)
 import multiprocess as mp
 from tqdm import tqdm
+# from gevent import Timeout
+# from gevent import monkey
+# monkey.patch_all(thread=False)
+from pebble import ProcessPool
+from concurrent.futures import TimeoutError
 
 
 
@@ -42,6 +47,8 @@ def lookup_enrichment(gene_set):
     gp = GProfiler("GTEx/wj")
     enrichment_results = gp.gprofile(clean_gene_set)
     return enrichment_results
+
+
 
 
 class NIPSQuestion1():
@@ -241,8 +248,10 @@ class NIPSQuestion3A():
 
 class NIPSQuestion5():
     @staticmethod
-    def genetic_association_search():
+    def define_genetic_subset_snps():
+        os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading genotype data")
+
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
 
         association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
@@ -272,23 +281,116 @@ class NIPSQuestion5():
         all_intervals = []
         for gene_set in significant_genes:
             w = 5000
-            try:
-                gene_set_intervals = []
+            gene_set_intervals = []
+            if not None in gene_set:
+
                 for gene in gene_set:
-                    gene_obj = data.genes_by_name(gene[0])[0]
+                    gene_obj = data.genes_by_name(gene)[0]
                     interval_start = gene_obj.start - w
                     interval_end = gene_obj.end + w
                     chrom = gene_obj.contig
                     interval = (interval_start, interval_end, chrom)
-
-
-            except TypeError:
+                    gene_set_intervals.append(interval)
+            else:
                 interval = None
+                gene_set_intervals.append(interval)
 
-            gene_set_intervals.append(interval)
-        all_intervals.append(gene_set_intervals)
+
+            all_intervals.append(gene_set_intervals)
+
+        from tqdm import tqdm
+        pbar = tqdm(total=len(all_intervals))
+
+        g_idx = np.array(range(gIDs.shape[1]))
+
+
+
+        pbar = tqdm(total=len(all_intervals))
+        # pbar = tqdm(total=10)
+
+
+        def get_snp_sets(interval_set):
+            snp_sets = []
+            if interval_set != [] and interval_set[0] is not None:
+                for interval in interval_set:
+                    start = interval[0]
+                    end = interval[1]
+                    chrom = interval[2]
+
+                    chrom_idx = gIDs[0] == chrom.encode('utf-8')
+                    chrom_region = gIDs[:,chrom_idx]
+
+                    snp_idx = np.bitwise_and(chrom_region[1,:].astype(np.int64) > start, chrom_region[1,:].astype(np.int64) < end)
+                    snp_set = g_idx[chrom_idx][snp_idx]
+
+                    snp_sets.extend(snp_set)
+                # pbar.update(1)
+                return snp_sets
+            else:
+                # pbar.update(1)
+                return snp_sets
+
+
+            # all_snp_sets = []
+            # while True:
+            #     try:
+            #         result = next(future_results)
+            #         all_snp_sets.append(result)
+            #         pbar.update(1)
+            #     except StopIteration:
+            #         break
+            #     except TimeoutError as error:
+            #         all_snp_sets.append(None)
+            #         pbar.update(1)
+            #         print("function took longer than %d seconds" % error.args[1])
+            #     except ProcessExpired as error:
+            #         all_snp_sets.append(None)
+            #         pbar.update(1)
+            #         print("%s. Exit code: %d" % (error, error.exitcode))
+            #     except Exception as error:
+            #         all_snp_sets.append(None)
+            #         print("function raised %s" % error)
+            #         print(error)  # Python's traceback of remote process
+
+        all_snp_sets = []
+        for interval_set in all_intervals:
+            snp_sets = get_snp_sets(interval_set)
+            all_snp_sets.append(snp_sets)
+            pbar.update(1)
+
+        pickle.dump(all_snp_sets, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+
+    @staticmethod
+    def perform_association_tests():
+        all_snp_sets = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/define_genetic_subset_snps.pickle', 'rb'))
+        print ("Loading genotype data")
+        Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
+
+
+        all_snps = []
+        for set_set in all_snp_sets:
+            all_snps.extend(set_set)
+
+        all_snps_flat = list(set(all_snps))
+
+        G_candidates = G[:,all_snps_flat]
+        G_candidates[G_candidates == 255] = 0
+
+        from sklearn.preproccessing import normalize
+        G_normalized = normalize(G_candidates)
+        K = np.dot(G_normalized, G_normalized.T)
+
+        from limix.qtl import LMM
+
+        lmm = LMM(G_candidates, Y[:,0], K)
 
         import pdb; pdb.set_trace()
+
+
+
+
+
 
 
 

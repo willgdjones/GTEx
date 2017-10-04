@@ -13,6 +13,7 @@ import matplotlib.gridspec as gridspec
 from matplotlib.colors import Normalize
 sys.path.insert(0, os.getcwd())
 from src.utils.helpers import *
+from tabulate import tabulate
 
 
 GTEx_directory = '.'
@@ -57,6 +58,30 @@ class NIPS():
         plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
+
+    @staticmethod
+    def gene_ontology_analysis():
+        results = pickle.load(open(GTEx_directory + '/results/TFCorrectedFeatureAssociations/gene_ontology_analysis.pickle', 'rb'))
+        ontology_results = results['Lung_mean_retrained_256']
+        min_pvs = []
+        for res in ontology_results:
+            min_pv = 1
+            for term in res:
+
+                pv = term[2]
+                if pv < min_pv:
+                    min_pv = pv
+            min_pvs.append(min_pv)
+
+        idx = np.argsort(min_pvs)
+
+        sorted_results = np.array(ontology_results)[idx]
+
+        for i in range(3):
+            print(tabulate(sorted_results[i]))
+
+        import pdb; pdb.set_trace()
+
 
 
 if __name__ == '__main__':

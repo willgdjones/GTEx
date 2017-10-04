@@ -5,6 +5,7 @@ from src.utils.helpers import *
 import unittest
 import pickle
 from math import isclose
+import pebble
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 
@@ -247,6 +248,47 @@ class FilterCorrectionTestCase(unittest.TestCase):
         k = 1
         filter_and_correct_expression_and_image_features('Lung', 'retrained', 'median', '256', M, k, pc_correction=5, tf_correction=False)
 
+def fibonacci(n):
+    if n == 0: return 0
+    elif n == 1: return 1
+    else: return fibonacci(n - 1) + fibonacci(n - 2)
+
+class GProfilerParallel(unittest.TestCase):
+    def test_parallel(self):
+        from pebble import ProcessPool
+        from concurrent.futures import TimeoutError
+        from tqdm import tqdm
+
+
+        pbar = tqdm(total=50)
+        with ProcessPool(max_workers=16) as pool:
+            future = pool.map(fibonacci, range(30), timeout=10)
+            results = future.result()
+
+            all_results = []
+            while True:
+                try:
+                    result = next(results)
+                    all_results.append(result)
+                    pbar.update(1)
+                except StopIteration:
+                    break
+                except TimeoutError as error:
+                    all_results.append(None)
+                    pbar.update(1)
+                    print("function took longer than %d seconds" % error.args[1])
+                except ProcessExpired as error:
+                    all_results.append(None)
+                    pbar.update(1)
+                    print("%s. Exit code: %d" % (error, error.exitcode))
+                except Exception as error:
+                    all_results.append(None)
+                    print("function raised %s" % error)
+                    print(error.traceback)  # Python's traceback of remote process
+            print (all_results)
+            print (len(all_results))
+            import pdb; pdb.set_trace()
+            # all_results
 
 
 
