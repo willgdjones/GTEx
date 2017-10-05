@@ -34,10 +34,12 @@ class NIPS():
         import seaborn as sns
         sns.set_style("dark")
 
+
         SIZES = ['128', '256', '512', '1024', '2048', '4096']
 
-        raw_results = pickle.load(open(GTEx_directory + '/results/NIPSQuestion1/calculate_variance_explained.pickle', 'rb'))
+        [variance_explained, raw_results] = pickle.load(open(GTEx_directory + '/results/NIPSQuestion1/calculate_variance_explained.pickle', 'rb'))
         corrected_results = pickle.load(open(GTEx_directory + '/results/NIPSQuestion2/shared_variability.pickle', 'rb'))
+        import pdb; pdb.set_trace()
 
         raw_variance_explained = [raw_results['Lung_mean_retrained_{}'.format(s)] for s in SIZES]
         corrected_variance_explained = [corrected_results['Lung_mean_retrained_{}'.format(s)] for s in SIZES]

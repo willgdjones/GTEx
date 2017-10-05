@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  8 SEP 2017 14:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  5 OCT 2017 10:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -442,11 +442,7 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 
 
 Writing index file author.idx
-(./author.aux
-
-LaTeX Warning: Label `fig:associations_raw_vs_retrained' multiply defined.
-
-)
+No file author.aux.
 \openout1 = `author.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
@@ -462,7 +458,7 @@ LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 50.
- (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -621,14 +617,69 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
- [1
+
+
+LaTeX Warning: Citation `imaging-as-a-tool' on page 1 undefined on input line 8
+2.
+
+
+LaTeX Warning: Citation `imaging-genetics' on page 1 undefined on input line 82
+.
+
+
+LaTeX Warning: Citation `imaging-genetics-parkinsons' on page 1 undefined on in
+put line 82.
+
+
+LaTeX Warning: Citation `hematoxylin-and-eosin-staining' on page 1 undefined on
+ input line 84.
+
+[1
 
 
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `histopathological-image-analysis' on page 2 undefined 
+on input line 88.
+
+
+LaTeX Warning: Citation `gene-expression-parkinsons' on page 2 undefined on inp
+ut line 90.
+
+
+LaTeX Warning: Citation `what-is-complex-about-complex-disorders' on page 2 und
+efined on input line 90.
+
+
+LaTeX Warning: Citation `GTEx-project' on page 2 undefined on input line 94.
+
+
+LaTeX Warning: Citation `GTEx-histology' on page 2 undefined on input line 96.
+
+
+LaTeX Warning: Citation `complex-sources-of-variation' on page 2 undefined on i
+nput line 98.
+
+
+LaTeX Warning: Citation `image-net' on page 2 undefined on input line 100.
+
+
+LaTeX Warning: Citation `deep-inside-convolutional-networks' on page 2 undefine
+d on input line 100.
+
+
+LaTeX Warning: Citation `network-in-network' on page 2 undefined on input line 
+100.
+
+[2]
+
+LaTeX Warning: Citation `scalable-unsupervised-learning' on page 3 undefined on
+ input line 102.
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 120.
- [3]
+[3]
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting_tis
 sue_patches.png, id=14, 1445.4pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extractin
@@ -639,6 +690,11 @@ _tissue_patches.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
 ploration/extracting_tissue_patches.png used on input line 129.
 (pdftex.def)             Requested size: 1445.39648pt x 722.69823pt.
+
+
+LaTeX Warning: Reference `patches-different-scales' on page 4 undefined on inpu
+t line 137.
+
 
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at_dif
 ferent_scales.png, id=16, 722.7pt x 216.81pt>
@@ -651,13 +707,115 @@ Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
 ploration/patches_at_different_scales.png used on input line 142.
 (pdftex.def)             Requested size: 722.69823pt x 216.80946pt.
  [4 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
-_tissue_patches.png>] [5 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureE
-xploration/patches_at_different_scales.png>] [6]
+_tissue_patches.png>]
+
+LaTeX Warning: Citation `shapiro-computer-vision' on page 5 undefined on input 
+line 149.
+
+
+LaTeX Warning: Citation `otsu-method' on page 5 undefined on input line 149.
+
+
+LaTeX Warning: Reference `fig:extracting_tissue_patches' on page 5 undefined on
+ input line 149.
+
+
+LaTeX Warning: Citation `fine-tuning-deep-convolutional-neural-networks' on pag
+e 5 undefined on input line 156.
+
+
+LaTeX Warning: Citation `network-in-network' on page 5 undefined on input line 
+156.
+
+[5 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at_
+different_scales.png>]
+
+LaTeX Warning: Citation `keras' on page 6 undefined on input line 172.
+
+
+LaTeX Warning: Citation `openslide' on page 6 undefined on input line 172.
+
+
+LaTeX Warning: Reference `fig:expression_means_and_stds' on page 6 undefined on
+ input line 200.
+
+[6]
 
 LaTeX Warning: Reference `fig:validation_accuracy_across_patchsize' on page 7 u
 ndefined on input line 230.
 
-[7] [8] [9]
+
+LaTeX Warning: Reference `fig:aggregated_features_across_samples' on page 7 und
+efined on input line 238.
+
+
+LaTeX Warning: Reference `fig:features_across_patches' on page 7 undefined on i
+nput line 240.
+
+[7]
+
+LaTeX Warning: Reference `fig:feature_crosscorrelation' on page 8 undefined on 
+input line 243.
+
+
+LaTeX Warning: Reference `fig:expression_PCs_vs_image_feature_PCs' on page 8 un
+defined on input line 247.
+
+
+LaTeX Warning: Citation `complex-sources-of-variation' on page 8 undefined on i
+nput line 250.
+
+
+LaTeX Warning: Reference `fig:expression_PCs_vs_TFs' on page 8 undefined on inp
+ut line 250.
+
+
+LaTeX Warning: Reference `fig:image_feature_PCs_vs_TFs' on page 8 undefined on 
+input line 250.
+
+
+LaTeX Warning: Reference `fig:expression_PCs_vs_TFs' on page 8 undefined on inp
+ut line 250.
+
+
+LaTeX Warning: Reference `fig:image_feature_PCs_vs_TFs' on page 8 undefined on 
+input line 250.
+
+[8]
+
+LaTeX Warning: Reference `fig:expression_cutoff_and_raw_significant_association
+s' on page 9 undefined on input line 256.
+
+
+LaTeX Warning: Reference `fig:associations_raw_vs_retrained' on page 9 undefine
+d on input line 260.
+
+
+LaTeX Warning: Reference `fig:associations_mean_vs_median' on page 9 undefined 
+on input line 263.
+
+
+LaTeX Warning: Reference `fig:feature_crosscorrelation' on page 9 undefined on 
+input line 265.
+
+
+LaTeX Warning: Reference `fig:features_with_significant_transcripts' on page 9 
+undefined on input line 271.
+
+[9]
+
+LaTeX Warning: Reference `fig:transcripts_with_significant_features' on page 10
+ undefined on input line 274.
+
+
+LaTeX Warning: Reference `fig:image_feature_796_vs_SMTSISCH' on page 10 undefin
+ed on input line 283.
+
+
+LaTeX Warning: Reference `fig:top5_bottom5_feature796' on page 10 undefined on 
+input line 285.
+
+
 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_bottom5_f
 eature796.png, id=44, 1445.4pt x 433.62pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_bott
@@ -686,7 +844,42 @@ Overfull \hbox (1.90001pt too wide) in paragraph at lines 288--300
 
 [10 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_botto
 m5_feature796.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAsso
-ciations/image_feature_796_vs_SMTSISCH.png>] [11] [12] [13]
+ciations/image_feature_796_vs_SMTSISCH.png>]
+
+LaTeX Warning: Reference `fig:transcripts_with_significant_features' on page 11
+ undefined on input line 329.
+
+[11] [12]
+
+LaTeX Warning: Citation `mendelian-randomization' on page 13 undefined on input
+ line 357.
+
+
+LaTeX Warning: Citation `fully-convolutional-networks' on page 13 undefined on 
+input line 377.
+
+
+LaTeX Warning: Citation `sparse-autoencoders' on page 13 undefined on input lin
+e 377.
+
+
+LaTeX Warning: Citation `segmenting-classifying-epithelial' on page 13 undefine
+d on input line 377.
+
+[13]
+
+LaTeX Warning: Citation `generative-adverserial-networks' on page 14 undefined 
+on input line 380.
+
+
+LaTeX Warning: Citation `variational-autoencoders' on page 14 undefined on inpu
+t line 380.
+
+
+LaTeX Warning: Citation `gans-biological-image-synthesis' on page 14 undefined 
+on input line 380.
+
+
 </Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png, id=62, 746.79pt 
 x 253.9086pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png Graphic file
@@ -777,119 +970,15 @@ Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
 ploration/expression_means_and_stds.png used on input line 458.
 (pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
 
-</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_associ
-ations_across_patchsizes.png, id=80, 1011.78pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_a
-ssociations_across_patchsizes.png Graphic file (type png)
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
+ns_across_patchsizes.png, id=80, 1011.78pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
+iations_across_patchsizes.png Graphic file (type png)
 
-<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/raw_as
-sociations_across_patchsizes.png>
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
+ations_across_patchsizes.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/raw_associations_across_patchsizes.png used on input line 465.
+eAssociations/associations_across_patchsizes.png used on input line 465.
 (pdftex.def)             Requested size: 1011.77753pt x 722.69823pt.
  [16 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
-ssion_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureA
-ssociations/image_feature_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/
-plotting/PCAFeatureAssociations/expression_PCs_vs_image_feature_PCs.png>]
-</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
-ns_raw_vs_retrained.png, id=87, 1156.32pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
-iations_raw_vs_retrained.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
-ations_raw_vs_retrained.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/associations_raw_vs_retrained.png used on input line 477.
-(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
-
-Underfull \hbox (badness 3482) in paragraph at lines 478--478
-[]\OT1/ptm/m/n/10 Fig. 10: |Com-par-ing the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 478--478
-\OT1/ptm/m/n/10 sig-nif-i-cant as-so-ci-a-tion
- []
-
-
-</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
-ns_mean_vs_median.png, id=88, 1156.32pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
-iations_mean_vs_median.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
-ations_mean_vs_median.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/associations_mean_vs_median.png used on input line 482.
-(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
-
-Underfull \hbox (badness 3482) in paragraph at lines 483--483
-[]\OT1/ptm/m/n/10 Fig. 11: |Com-par-ing the
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--483
-\OT1/ptm/m/n/10 sig-nif-i-cant as-so-ci-a-tion
- []
-
-
-Underfull \hbox (badness 3323) in paragraph at lines 483--483
-\OT1/ptm/m/n/10 and me-dian ag-gre-ga-tion.
- []
-
-
-</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/features_w
-ith_significant_transcripts.png, id=89, 1156.32pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featu
-res_with_significant_transcripts.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/featur
-es_with_significant_transcripts.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/features_with_significant_transcripts.png used on input line 487.
-
-(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
-
-</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transcript
-s_with_significant_features.png, id=90, 1156.32pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/trans
-cripts_with_significant_features.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/transc
-ripts_with_significant_features.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/transcripts_with_significant_features.png used on input line 492.
-
-(pdftex.def)             Requested size: 1156.31718pt x 722.69823pt.
-
-
-./author.tex:558: LaTeX Error: File `example_inflation_lung_256_mean' not found
-.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.558 ...xtwidth]{example_inflation_lung_256_mean}
-                                                  
-? 
-./author.tex:558: Emergency stop.
- ...                                              
-                                                  
-l.558 ...xtwidth]{example_inflation_lung_256_mean}
-                                                  
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
- 
-Here is how much of TeX's memory you used:
- 6571 strings out of 493089
- 107691 string characters out of 6134843
- 182073 words of memory out of 5000000
- 9871 multiletter control sequences out of 15000+600000
- 38276 words of font info for 81 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 59i,8n,94p,2176b,517s stack positions out of 5000i,500n,10000p,200000b,80000s
-./author.tex:558:  ==> Fatal error occurred, no output PDF file produced!
+ssion_PCs_vs_TFs.png>

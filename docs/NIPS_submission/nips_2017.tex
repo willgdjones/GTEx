@@ -20,6 +20,9 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+\usepackage{graphicx}
+\usepackage{float} 
+\graphicspath{{/Users/fonz/Documents/Projects/GTEx/plotting/}}
 
 \title{Associating gene expression to neural network derived image features}
 
@@ -130,7 +133,24 @@ I will be updating this document with the progress of  my NIPS 2017 submission.
 
 \end{itemize}
 
+\section*{Methods}
 
+\subsection*{Assessing shared variability between image features and expression}
+We calculate principle components that capture 99.9\% of variation in the image features and expression features respectively. We repeat this after fitting a linear model containing known technical confounders to both the image features and expression, and regressing out these effects.
+
+We choose the top 2000 transcripts with mean expression greater than one, and look for associations with the image features across tissue samples. For image features generated from Lung tissue, we plot a QQ-plot with 
+
+\section*{Results}
+
+Investigating Lung, at a patch size of 256, we see across all patch-sizes that these technical factors account for ??? \% of the variation that exists in the image features.
+
+\begin{figure}[H]
+  \centering
+
+
+    \includegraphics[width=0.5\linewidth]{/NIPS/compare_variance_explained} 
+  \caption{Sample figure caption.}
+\end{figure}
 
 
 
