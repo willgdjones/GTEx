@@ -93,16 +93,21 @@ class NIPSQuestion1():
                                 R_matrix[i,j] = R
 
                         print ("Calculating variance of image features explained by expression ")
-                        variance_explained = pca_exp.explained_variance_
+                        im_variance_explained = pca_im.explained_variance_
+                        exp_variance_explained = pca_exp.explained_variance_
 
                         #sum(R_matrix[k,:]) ~ 1 for all k.
-                        total = sum([variance_explained[k] * sum(R_matrix[:,k]**2) for k in range(len(variance_explained))])
-                        import pdb; pdb.set_trace()
+                        componentwise_variance_explained = []
+                        for i in range(len(im_variance_explained)):
+                            component_variance_explained = im_variance_explained[i] * sum(R_matrix[:,i]**2)
+                            componentwise_variance_explained.append(component_variance_explained)
 
+                        total = sum(componentwise_variance_explained)
+                        frac = total / sum(im_variance_explained)
 
-                        print (total)
+                        print (total, frac)
 
-                        results[key] = total
+                        results[key] = [total, frac]
 
 
         pickle.dump([variance_explained, results], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
@@ -437,8 +442,10 @@ class NIPSQuestion5():
             y = Y[:, indicies[0]]
             gID = gIDs_candidates[:, indicies[1]]
             top_betas.append((indicies, g, gID, y))
-            pbar1.update(2)
-        import pdb; pdb.set_trace()
+            pbar2.update(1)
+
+        pickle.dump([top_pvs, top_betas], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
 
 
 
