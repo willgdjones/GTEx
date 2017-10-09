@@ -8,7 +8,7 @@ import argparse
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 from matplotlib.colors import Normalize
-
+sys.path.insert(0, os.getcwd())
 from src.utils.helpers import *
 
 
@@ -149,6 +149,33 @@ class FeatureExploration():
     def top5_bottom5_feature671():
         results = top5_bottom5_image('Lung', 'retrained', '256', 671)
         pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+    @staticmethod
+    def image_feature_gradient796():
+        print('Calculating tissue gradients')
+        thumbnails796 = display_tissue_feature_gradient(796, 'Lung')
+        pickle.dump(thumbnails796, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+
+    @staticmethod
+    def image_feature_gradient211():
+        print('Calculating tissue gradients')
+        thumbnails211 = display_tissue_feature_gradient(211, 'Lung')
+        pickle.dump(thumbnails211, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+
+    @staticmethod
+    def image_feature_gradient671():
+        print('Calculating tissue gradients')
+        thumbnails671 = display_tissue_feature_gradient(671, 'Lung')
+        pickle.dump(thumbnails671, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+    @staticmethod
+    def image_feature_gradient501():
+        print('Calculating tissue gradients')
+        thumbnails671 = display_tissue_feature_gradient(501, 'Lung')
+        pickle.dump(thumbnails671, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
 
     @staticmethod
     def patches_at_different_scales():

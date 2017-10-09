@@ -123,9 +123,6 @@ class RawFeatureAssociations():
         plt.show()
 
 
-
-
-
     @staticmethod
     def image_feature_796_vs_SMTSISCH():
         import seaborn as sns

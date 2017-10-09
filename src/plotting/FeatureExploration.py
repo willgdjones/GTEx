@@ -6,7 +6,8 @@ import numpy as np
 import h5py
 import argparse
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from utils.helpers import *
+sys.path.insert(0, os.getcwd())
+from src.utils.helpers import *
 import pylab as PL
 import matplotlib
 from matplotlib import cbook
@@ -307,6 +308,64 @@ class FeatureExploration():
         plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
+
+
+    @staticmethod
+    def image_feature_gradient671():
+
+        thumbnails = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        f,a = plt.subplots(19,15,figsize=(30,30))
+        for (i, th) in enumerate(thumbnails):
+            a.flatten()[i].imshow(th[0])
+            a.flatten()[i].set_title(th[1], size=5)
+            a.flatten()[i].axis('off')
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.show()
+
+    @staticmethod
+    def image_feature_gradient796():
+
+        thumbnails = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        f,a = plt.subplots(19,15,figsize=(30,30))
+        for (i, th) in enumerate(thumbnails):
+            a.flatten()[i].imshow(th[0])
+            a.flatten()[i].set_title(th[1], size=5)
+            a.flatten()[i].axis('off')
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.show()
+
+    @staticmethod
+    def image_feature_gradient211():
+
+        thumbnails = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        f,a = plt.subplots(19,15,figsize=(30,30))
+        for (i, th) in enumerate(thumbnails):
+            a.flatten()[i].imshow(th[0])
+            a.flatten()[i].set_title(th[1], size=5)
+            a.flatten()[i].axis('off')
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.show()
+
+    @staticmethod
+    def image_feature_gradient501():
+
+        thumbnails = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+        f,a = plt.subplots(19,15,figsize=(30,30))
+        for (i, th) in enumerate(thumbnails):
+            a.flatten()[i].imshow(th[0])
+            a.flatten()[i].set_title(th[1], size=5)
+            a.flatten()[i].axis('off')
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.show()
+
+        import pdb; pdb.set_trace()
+
+
+
 
 
 if __name__ == '__main__':

@@ -128,16 +128,27 @@ class TFCorrectedFeatureAssociations():
         import seaborn as sns
         sns.set_style("dark")
 
-        fig, ax = plt.subplots(2,5,figsize=(25,8))
+        import matplotlib as mpl
+        label_size = 10
+        mpl.rcParams['xtick.labelsize'] = label_size
+        mpl.rcParams['ytick.labelsize'] = label_size
+
+        fig, ax = plt.subplots(2,5,figsize=(12,5))
 
         for i in range(10):
             feature, feature_name, transcript, transcript_name, pv, R = top10associations[i]
-            ax.flatten()[i].scatter(feature, transcript)
-            ax.flatten()[i].set_title("R: {:0.2} pv: {:0.2} {}".format(R, pv, transcript_name), size=15)
-            ax.flatten()[i].set_xlabel("Image feature {}".format(feature_name), size=15)
-            ax.flatten()[i].set_ylabel("Bulk RNA expression", size=15)
+            ax.flatten()[i].scatter(feature, transcript, s=5)
+            ax.flatten()[i].set_title("R={:0.2} p={:0.1}".format(R, pv), size=15)
+            ax.flatten()[i].set_xlabel("Feature {}".format(feature_name), size=15)
+            ax.flatten()[i].set_ylabel(transcript_name, size=15)
 
         plt.tight_layout()
+        # plt.subplots_adjust(left=0.25)
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+
         plt.show()
 
 
@@ -154,30 +165,40 @@ class TFCorrectedFeatureAssociations():
         image_feature_var_explained = [x[0] for x in image_feature_ordered_choices]
         image_feature_ordered_tfs = [x[1] for x in image_feature_ordered_choices]
 
-
-        f, a = plt.subplots(1,2,figsize=(30,10))
-        a[0].plot(expression_var_explained)
-        a[0].set_xticks(list(range(len(expression_ordered_tfs))))
-        a[0].set_xticklabels(expression_ordered_tfs, rotation=90)
-        a[0].set_ylabel('Extra variance explained', size=15)
-        a[0].set_title('Technical factors in order of importance to explain expression variation', size=20)
+        import matplotlib as mpl
+        label_size = 15
+        mpl.rcParams['xtick.labelsize'] = label_size
+        mpl.rcParams['ytick.labelsize'] = label_size
 
 
+        plt.figure(figsize=(20,10))
+        plt.plot(expression_var_explained)
+        plt.xticks(list(range(len(expression_ordered_tfs))), expression_ordered_tfs, rotation=90, size=15)
+        # plt.xticklabels(expression_ordered_tfs, rotation=90)
+        plt.ylabel('Extra variance explained', size=15)
+        plt.title('Technical factors in order of importance to explain expression variation', size=20)
+        plt.subplots_adjust(bottom=0.25)
 
-        a[1].plot(image_feature_var_explained)
-        a[1].set_xticks(list(range(len(image_feature_ordered_tfs))))
-        a[1].set_xticklabels(image_feature_ordered_tfs, rotation=90)
-        a[1].set_ylabel('Cumulative variance explained', size=15)
-        a[1].set_title('Technical factors in order of importance to explain image feature variation', size=20)
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_expression.eps'.format(group=group), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_expression.png'.format(group=group), format='png', dpi=100)
+
+
+        plt.figure(figsize=(20,10))
+        plt.plot(image_feature_var_explained)
+        plt.xticks(list(range(len(image_feature_ordered_tfs))), image_feature_ordered_tfs, rotation=90, size=15)
+        plt.ylabel('Cumulative variance explained', size=15)
+        plt.title('Technical factors in order of importance to explain image feature variation', size=20)
+        plt.subplots_adjust(bottom=0.25)
+
+
 
 
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_image_features.eps'.format(group=group), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_image_features.png'.format(group=group), format='png', dpi=100)
 
-        plt.show()
 
-    
 
 
 

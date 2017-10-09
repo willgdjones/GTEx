@@ -21,7 +21,10 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
-\usepackage{float} 
+\usepackage{pgfplotstable}
+\usepackage{float}
+\usepackage{csvsimple}
+\usepackage[normalem]{ulem}
 \graphicspath{{/Users/fonz/Documents/Projects/GTEx/plotting/}}
 
 \title{Associating gene expression to neural network derived image features}
@@ -80,37 +83,37 @@ I will be updating this document with the progress of  my NIPS 2017 submission.
 
 \subsection*{Q1: How much variability is shared between image features and expression?} 
 \begin{enumerate}
-\item Calculate PCA of image features and expression
+\item \sout{Calculate PCA of image features and expression}
 
-\item Calculate cross correlations between the PCs until 99.9\% variance is explained.
+\item \sout{Calculate cross correlations between the PCs until 99.9\% variance is explained.}
 
-\item Use the cross correlation measurements to derive total fraction of variance explained of images by expression: calculate $\sum_i \lambda_i \sum_j r^2_{ij} $ where $\lambda_i$ is the $i$th eigenvalue of the image feature PCA, $r^2_{ij}$ is the correlation of image feature PC $i$ with expression feature PC $j$.
+\item \sout{Use the cross correlation measurements to derive total fraction of variance explained of images by expression: calculate $\sum_i \lambda_i \sum_j r^2_{ij} $ where $\lambda_i$ is the $i$th eigenvalue of the image feature PCA, $r^2_{ij}$ is the correlation of image feature PC $i$ with expression feature PC $j$.}
 
-\item Make all of the above one-line-to-run for any combination of patch size, feature layer, tissue
+\item \sout{Make all of the above one-line-to-run for any combination of patch size, feature layer, tissue}
 
-\item Report the value for each patch size, feature layer, tissue; interpret findings
+\item \sout{Report the value for each patch size, feature layer, tissue;} interpret findings
 
 \end{enumerate}
 
-\subsection*{Q2: How much variability is shared between image features and expression?} 
+\subsection*{Q2: How much of the shared variability is due to technical confounders?} 
 
 \begin{enumerate}
-\item Regress out known confounders $C$ from the image feature $F$ and expression data E. I.e., fit models $F \sim C + \epsilon$ and $E \sim C + \epsilon$. Use log scale for Ischemic time, monitor all scatter plots for confounders that are included in the model that the linear model assumptions hold. Decide whether to retain full model of all confounders x all genes/features, retain only significant associations, or do forward feature selection.
+\item \sout{Regress out known confounders $C$ from the image feature $F$ and expression data E. I.e., fit models $F \sim C + \epsilon$ and $E \sim C + \epsilon$. Use log scale for Ischemic time, monitor all scatter plots for confounders that are included in the model that the linear model assumptions hold. Decide whether to retain full model of all confounders x all genes/features, retain only significant associations, or do forward feature selection.}
 
-\item Repeat steps Q1:1-5 above using the residuals of this model. 
+\item \sout{Repeat steps Q1:1-5 above using the residuals of this model. }
 
-\item Create a scatter plot of total shared variance vs. technical shared variance [again, all tissues etc.]
+\item \sout{Create a scatter plot of total shared variance vs. technical shared variance [again, all tissues etc.]}
 
 \item Interpret findings in context of many tissues, scales, feature layers
 \end{enumerate}
 
 \subsection*{Q3: What genes share expression variability to visual features, and at which scales?}
 \begin{enumerate}
-\item Using residuals of technical confounders, fit linear model of expression vs. image feature - calculate effect sizes and p-values
+\item \sout{Using residuals of technical confounders, fit linear model of expression vs. image feature - calculate effect sizes and p-values}
 
-\item Apply multiple testing correction to derive a list of image feature associated genes.
+\item \sout{Apply multiple testing correction to derive a list of image feature associated genes.}
 
-\item Sort genes based on variance explained by each image feature, perform GSEA or gProfiler ranked gene list analysis to test whether particular aspects of biology are enriched. Interpret
+\item \sout{Sort genes based on variance explained by each image feature, perform GSEA or gProfiler ranked gene list analysis to test whether particular aspects of biology are enriched.} Interpret
 
 \item Assess number of associations [total and per-feature] for different tissues, feature scales. Assess overlap of findings from gene list analyses. Interpret.
 \end{enumerate}
@@ -142,15 +145,66 @@ We choose the top 2000 transcripts with mean expression greater than one, and lo
 
 \section*{Results}
 
-Investigating Lung, at a patch size of 256, we see across all patch-sizes that these technical factors account for ??? \% of the variation that exists in the image features.
+Variability in expression explains a substantial amount of variability in the image features (Figure ???). Furthermore, almost 50\% of the variability in expression, and almost 40\% of the variability in the image features, is explained by 51 known technical factors (Figure ???)
 
 \begin{figure}[H]
   \centering
-
-
     \includegraphics[width=0.5\linewidth]{/NIPS/compare_variance_explained} 
   \caption{Sample figure caption.}
 \end{figure}
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1\linewidth]{/TFCorrectedFeatureAssociations/tf_feature_selection_expression} 
+  \caption{Sample figure caption.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=1\linewidth]{/TFCorrectedFeatureAssociations/tf_feature_selection_image_features} 
+  \caption{Sample figure caption.}
+\end{figure}
+
+%\pgfplotstableset{col sep=comma}{plotting/NIPS/ontology_results.csv}
+
+
+\begin{table}[H]
+\caption{Enriched Ontology terms for image feature 501}
+\label{tab:image_feature_pcs_and_tfs}       % Give a unique label
+
+\begin{tabular}{p{2cm}p{6cm}p{6cm}}
+\hline\noalign{\smallskip}
+p-value & Ontology & Genes  \\
+1.21e-15 & lamellar body & LAMP3,CTSH,SFTPA1,NAPSA,SFTPD  \\
+6.87e-09 & Defective ABCA3 causes pulmonary surfactant metabolism dysfunction type 3 (SMDP3) & SFTPA1,SFTPD,SFTPB,SFTPA2 \\
+
+
+%\noalign{\smallskip}\svhline\noalign{\smallskip}
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+% $^a$ Table foot note (with superscript)
+\end{table}
+
+\begin{table}[H]
+\caption{Enriched Ontology terms for image feature 3}
+\label{tab:image_feature_pcs_and_tfs}       % Give a unique label
+
+\begin{tabular}{p{2cm}p{6cm}p{6cm}}
+\hline\noalign{\smallskip}
+p-value & Ontology & Genes  \\
+0.0498 & BRONCHIECTASIS WITH OR WITHOUT ELEVATED SWEAT CHLORIDE 3; BESC3;;CYSTIC FIBROSIS-LIKE SYNDROME & SCNN1G \\
+
+
+%\noalign{\smallskip}\svhline\noalign{\smallskip}
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+% $^a$ Table foot note (with superscript)
+\end{table}
+
+
+
+
 
 
 
@@ -168,5 +222,8 @@ Investigating Lung, at a patch size of 256, we see across all patch-sizes that t
 %learning and recall at excitatory recurrent synapses and cholinergic
 %modulation in rat hippocampal region CA3. {\it Journal of
 %  Neuroscience} {\bf 15}(7):5249-5262.
+
+
+
 
 \end{document}

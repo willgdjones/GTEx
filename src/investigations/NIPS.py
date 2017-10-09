@@ -110,7 +110,7 @@ class NIPSQuestion1():
                         results[key] = [total, frac]
 
 
-        pickle.dump([variance_explained, results], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump([results], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
@@ -143,9 +143,8 @@ class NIPSQuestion2():
                         tf_idx = [list(ths).index(x) for x in TFs]
 
                         # Take log of SMTSISH
-                        tfs[tfs.index('SMTSISCH')] = np.log2(tfs[tfs.index('SMTSISCH')] + 1)
-                        tf_predictors = tfs[:,tf_idx]
-                        # tf_predictors = np.array([t[np.random.permutation(tf_predictors_raw.shape[0])] for t in tf_predictors.T]).T
+                        tfs[list(ths).index('SMTSISCH')] = np.log2(tfs[list(ths).index('SMTSISCH')] + 1)
+                        tf_predictors = tfs
 
                         lr_X = LinearRegression()
 
@@ -181,15 +180,21 @@ class NIPSQuestion2():
                                 R, pv = pearsonr(pca_corrected_Y[:,i], pca_corrected_X[:,j])
                                 R_matrix[i,j] = R
 
-                        print ("Calculating variance explained")
-                        variance_explained = pca_X.explained_variance_
+                        print ("Calculating variance of image features explained by expression ")
+                        Y_variance_explained = pca_Y.explained_variance_
+                        X_variance_explained = pca_X.explained_variance_
 
+                        componentwise_variance_explained = []
+                        for i in range(len(Y_variance_explained)):
+                            component_variance_explained = Y_variance_explained[i] * sum(R_matrix[:,i]**2)
+                            componentwise_variance_explained.append(component_variance_explained)
 
-                        total = sum([variance_explained[k] * sum(R_matrix[:,k]**2) for k in range(len(variance_explained))])
+                        total = sum(componentwise_variance_explained)
+                        frac = total / sum(Y_variance_explained)
 
-                        print (total)
+                        print (total, frac)
 
-                        results[key] = total
+                        results[key] = [total, frac]
 
 
         pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
@@ -369,9 +374,35 @@ class NIPSQuestion5():
 
     @staticmethod
     def perform_association_tests():
+        from scipy.stats import norm
+
         all_snp_sets = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/define_genetic_subset_snps.pickle', 'rb'))
         print ("Loading genotype data")
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
+
+        def quantile_normalize_using_target(x, target):
+            """
+            Both `x` and `target` are numpy arrays of equal lengths.
+            """
+
+            target_sorted = np.sort(target)
+
+            return target_sorted[x.argsort().argsort()]
+
+        def normalize_feature(original_feature):
+            mu, std = norm.fit(original_feature)
+            target = [np.random.normal()*std + mu for i in range(271)]
+            result = quantile_normalize_using_target(original_feature, target)
+            return result
+
+
+        print ("Normalising data")
+
+        n_Y = np.zeros_like(Y)
+        for i in range(1024):
+            original_feature = Y[:,i]
+            normalized_feature = normalize_feature(original_feature)
+            n_Y[:,i] = normalized_feature
 
 
         all_snps = []
@@ -389,8 +420,9 @@ class NIPSQuestion5():
 
         from limix.qtl import LMM
 
-        lmm = LMM(np.asarray(G_candidates, np.float64), np.asarray(Y, np.float64), np.asarray(K, np.float64))
-        import pdb; pdb.set_trace()
+        print ("Performing associations")
+
+        lmm = LMM(np.asarray(G_candidates, np.float64), np.asarray(n_Y, np.float64), np.asarray(K, np.float64))
         pvalues = lmm.getPv()
         betas = lmm.getBetaSNP()
 
@@ -432,7 +464,7 @@ class NIPSQuestion5():
             g = G_candidates[:, indicies[1]]
             y = Y[:, indicies[0]]
             gID = gIDs_candidates[:, indicies[1]]
-            top_pvs.append((indicies, g, gID, y))
+            top_pvs.append((pv, indicies, g, gID, y))
             pbar1.update(1)
 
         top_betas = []
@@ -441,7 +473,7 @@ class NIPSQuestion5():
             g = G_candidates[:, indicies[1]]
             y = Y[:, indicies[0]]
             gID = gIDs_candidates[:, indicies[1]]
-            top_betas.append((indicies, g, gID, y))
+            top_betas.append((b, indicies, g, gID, y))
             pbar2.update(1)
 
         pickle.dump([top_pvs, top_betas], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))

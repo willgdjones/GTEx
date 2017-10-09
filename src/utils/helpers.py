@@ -13,6 +13,7 @@ import cv2
 import mahotas
 import scipy.stats as st
 import scipy as sp
+from tqdm import tqdm
 
 
 
@@ -99,7 +100,7 @@ def extract_final_layer_data(t, m, a, ps, genotypes=False):
         Y = size_group[m][a]['ordered_aggregated_features'].value
         Y[Y < 0] = 0
         if genotypes:
-            
+
             G = f[t]['ordered_genotypes'].value
             gIDs = f[t]['genotype_locations'].value
             return Y, X, G, dIDs, tIDs, gIDs, \
@@ -400,3 +401,45 @@ def estimate_lambda(pv):
     null_median = st.chi2.median(1)
     L = (LOD2 / null_median)
     return L
+
+
+def display_tissue_feature_gradient(feature, tissue):
+    from openslide import open_slide
+    features, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(tissue, 'retrained', 'mean', '256')
+    sorted_idx = np.argsort(features[:,feature - 1])
+    donorIDs_ordered = donorIDs[sorted_idx]
+    gradient_IDs = [donorIDs_ordered[20*i] for i in range(13)]
+
+    tissue_filepath = os.path.join(GTEx_directory,'data','raw',tissue)
+    LungGTExIDs = os.listdir(tissue_filepath)
+    LungdonorIDs = [x.split('.')[0].split('-')[1] for x in LungGTExIDs]
+
+    ordered_GTExIDs = np.array(LungGTExIDs)[[LungdonorIDs.index(x.decode('utf-8')) for x in donorIDs_ordered]]
+
+    thumbnails = []
+    pbar = tqdm(total=len(ordered_GTExIDs))
+    for (k,ID) in enumerate(ordered_GTExIDs):
+        image_filepath = os.path.join(GTEx_directory,'data','raw','Lung', ID)
+        slide = open_slide(image_filepath)
+        thumbnail = slide.get_thumbnail(size=(400,400))
+        feature_value = features[:,feature - 1][sorted_idx[k]]
+        thumbnails.append((thumbnail, feature_value))
+        pbar.update(1)
+
+    return thumbnails
+
+
+def bmatrix(a):
+    """Returns a LaTeX bmatrix
+    https://stackoverflow.com/questions/17129290/numpy-2d-and-1d-array-to-latex-bmatrix
+
+    :a: numpy array
+    :returns: LaTeX bmatrix as a string
+    """
+    if len(a.shape) > 2:
+        raise ValueError('bmatrix can at most display two dimensions')
+    lines = str(a).replace('[', '').replace(']', '').splitlines()
+    rv = [r'\begin{bmatrix}']
+    rv += ['  ' + ' & '.join(l.split()) + r'\\' for l in lines]
+    rv +=  [r'\end{bmatrix}']
+    return '\n'.join(rv)
