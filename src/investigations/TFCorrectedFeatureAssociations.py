@@ -373,6 +373,8 @@ class TFCorrectedFeatureAssociations():
 
         print ("Performing feature selection")
 
+        extra_frac_variance_explained = np.inf
+
         for i in range(51):
             print ("Iteration {}".format(i))
         #
@@ -390,6 +392,8 @@ class TFCorrectedFeatureAssociations():
             max_frac_var_explained, max_choice = [0, None]
             unselected_c = np.argwhere(idx == 0).flatten()
             print ("{} choices left".format(len(unselected_c)))
+
+            variance_of_choices = []
 
             for choice in unselected_c:
 
@@ -409,15 +413,29 @@ class TFCorrectedFeatureAssociations():
 
                 frac_var_explained = np.dot(PCA_Y.explained_variance_, var_explained_per_PC) / sum(PCA_Y.explained_variance_)
 
+                variance_of_choices.append((choice, frac_var_explained))
+
 
                 if frac_var_explained > max_frac_var_explained:
                     max_frac_var_explained, max_choice = frac_var_explained, choice
+
+            max_idx = np.argmax([x[1] for x in variance_of_choices])
+
+
+            max_choice = variance_of_choices[max_idx][0]
+            max_frac_var_explained = variance_of_choices[max_idx][1]
 
 
 
             print ((max_frac_var_explained, max_choice))
             print ("With {}, can explain {} of variance".format(ths[max_choice], max_frac_var_explained))
             ordered_choices.append((max_frac_var_explained, ths[max_choice]))
+            new_extra_frac_variance_explained = max_frac_var_explained - ordered_choices[i][0]
+
+            if new_extra_frac_variance_explained >= extra_frac_variance_explained:
+                import pdb; pdb.set_trace()
+            print("Extra variance explained: {}".format(extra_frac_variance_explained))
+            extra_frac_variance_explained = new_extra_frac_variance_explained
             idx[max_choice] = 1
 
         pickle.dump(ordered_choices, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))

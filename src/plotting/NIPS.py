@@ -117,7 +117,7 @@ class NIPS():
 
     @staticmethod
     def top_genetic_associations():
-        [top_pvs, top_betas] = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/top_association_results.pickle', 'rb'))
+        [top_pvs, top_betas, feature_idx] = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/top_association_results.pickle', 'rb'))
 
         import matplotlib as mpl
         label_size = 5

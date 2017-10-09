@@ -291,7 +291,7 @@ class NIPSQuestion5():
 
         all_intervals = []
         for gene_set in significant_genes:
-            w = 5000
+            w = 1000
             gene_set_intervals = []
             if not None in gene_set:
 
@@ -375,10 +375,18 @@ class NIPSQuestion5():
     @staticmethod
     def perform_association_tests():
         from scipy.stats import norm
-
+        association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
         all_snp_sets = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/define_genetic_subset_snps.pickle', 'rb'))
         print ("Loading genotype data")
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
+
+        print ("Calculating significant transcripts")
+        significant_indicies = [smm.multipletests(association_results['Lung_mean_retrained_256'][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
+        significant_counts = [sum(x) for x in significant_indicies]
+        significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
+
+
+        feature_idx = np.array(significant_counts) > 0
 
         def quantile_normalize_using_target(x, target):
             """
@@ -411,6 +419,7 @@ class NIPSQuestion5():
 
         all_snps_flat = list(set(all_snps))
 
+
         G_candidates = G[:,all_snps_flat]
         G_candidates[G_candidates == 255] = 0
 
@@ -422,16 +431,16 @@ class NIPSQuestion5():
 
         print ("Performing associations")
 
-        lmm = LMM(np.asarray(G_candidates, np.float64), np.asarray(n_Y, np.float64), np.asarray(K, np.float64))
+        lmm = LMM(np.asarray(G_candidates, np.float64), np.asarray(n_Y[:,feature_idx], np.float64), np.asarray(K, np.float64))
         pvalues = lmm.getPv()
         betas = lmm.getBetaSNP()
 
         os.makedirs(GTEx_directory + '/intermediate_results/{}'.format(group), exist_ok=True)
-        pickle.dump([pvalues, betas], open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump([pvalues, betas, feature_idx], open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
     @staticmethod
     def top_association_results():
-        [pvalues, betas] = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/perform_association_tests.pickle'.format(group=group), 'rb'))
+        [pvalues, betas, feature_idx] = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/perform_association_tests.pickle'.format(group=group), 'rb'))
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
         all_snp_sets = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/define_genetic_subset_snps.pickle', 'rb'))
 
@@ -449,8 +458,15 @@ class NIPSQuestion5():
         flat_pvalues = np.array(pvalues).flatten()
         flat_betas = np.array(betas).flatten()
 
+
+        association_resultsbh01 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.01)
+        association_resultsbh05 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.05)
+        import pdb; pdb.set_trace()
+
         unique_sorted_pvalues = np.unique(flat_pvalues)
         unique_sorted_betas = np.unique(flat_betas)
+
+        fdr_bh
 
         gIDs_candidates = gIDs[:,all_snps_flat]
 
@@ -476,7 +492,7 @@ class NIPSQuestion5():
             top_betas.append((b, indicies, g, gID, y))
             pbar2.update(1)
 
-        pickle.dump([top_pvs, top_betas], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump([top_pvs, top_betas, feature_idx], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 
