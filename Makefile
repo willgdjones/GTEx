@@ -31,12 +31,13 @@ generate_features:
 	while IFS= read -r pair; \
 		do bsub -o "log/$${pair}.out" -e "log/$${pair}.err" -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/features/generate_features.py -p '$${pair}'"; \
 		 done < textfiles/ID_tissue_list.txt
-#bsub -Is -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/features/generate_features.py -p 'GTEX-QDVN-0726 Lung'"
-#bsub -Is -M 110000 -R 'rusage[mem=110000]' -P gpu "python src/features/generate_features.py -p 'GTEX-S7SF-2226 Artery - Tibial'"
-#8676344
-#8676347
-#8676394
+
 
 overnight:
 	bsub -Is -M 80000 -R "rusage[mem=80000]" 'python src/features/collect_features.py'
 	bsub -Is -M 80000 -R "rusage[mem=80000]" 'python src/features/aggregate_features.py'
+
+expression_associations:
+	while IFS= read -r key; \
+		do bsub -o "log/expression_associations_$${key}.out" -e "log/expression_associations_$${key}.err" -M 10000 -R "rusage[mem=10000]" "python src/investigations/TFCorrectedFeatureAssociations.py -g TFCorrectedFeatureAssociations -n compute_pvalues -p '$${key}'"; \
+		 done < textfiles/parameter_combinations.txt

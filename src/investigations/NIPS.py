@@ -247,8 +247,8 @@ class NIPSQuestion3A():
             return enrichments
 
 
-        # pool = mp.Pool(processes=2)
-        # pbar = tqdm(total=len(list(ths)))
+        pool = mp.Pool(processes=2)
+        pbar = tqdm(total=len(list(ths)))
 
 
         print ("Looking up gene enrichments")
@@ -441,6 +441,7 @@ class NIPSQuestion5():
     @staticmethod
     def top_association_results():
         [pvalues, betas, feature_idx] = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/perform_association_tests.pickle'.format(group=group), 'rb'))
+
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
         all_snp_sets = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/define_genetic_subset_snps.pickle', 'rb'))
 
@@ -453,20 +454,17 @@ class NIPSQuestion5():
         gID_candidates = gIDs[:,all_snps_flat]
         G_candidates = G[:,all_snps_flat]
         G_candidates[G_candidates == 255] = 0
-
-        [pvalues, betas] = pickle.load(open(GTEx_directory + '/intermediate_results/NIPSQuestion5//perform_association_tests.pickle', 'rb'))
         flat_pvalues = np.array(pvalues).flatten()
         flat_betas = np.array(betas).flatten()
 
 
         association_resultsbh01 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.01)
         association_resultsbh05 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.05)
-        import pdb; pdb.set_trace()
+
+
 
         unique_sorted_pvalues = np.unique(flat_pvalues)
         unique_sorted_betas = np.unique(flat_betas)
-
-        fdr_bh
 
         gIDs_candidates = gIDs[:,all_snps_flat]
 

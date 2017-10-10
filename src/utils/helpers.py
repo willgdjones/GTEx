@@ -14,6 +14,8 @@ import mahotas
 import scipy.stats as st
 import scipy as sp
 from tqdm import tqdm
+from pebble import ProcessPool, ProcessExpired
+from concurrent.futures import TimeoutError
 
 
 
@@ -208,14 +210,12 @@ def filter_and_correct_expression_and_image_features(tissue, model, aggregation,
         final_Y = corrected_Y
 
     elif tf_correction:
-        print('Correcting with 5 technical factors')
-        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
+        print('Correcting with all technical factors')
         tf_Y = Y[t_idx,:]
         tf_filt_X = filt_X[t_idx,:]
 
-        tfs[TFs.index('SMTSISCH')] = np.log2(tfs[TFs.index('SMTSISCH')] + 1)
-        tf_idx = [list(ths).index(x) for x in TFs]
-        tf_predictors = tfs[:,tf_idx]
+        tfs[list(ths).index('SMTSISCH')] = np.log2(tfs[list(ths).index('SMTSISCH')] + 1)
+        tf_predictors = tfs
 
         #Correct Y
         lr_Y = LinearRegression()
@@ -265,6 +265,7 @@ def filter_expression(X, tIDs, M, k):
 
 
 
+
 def compute_pearsonR(Y, X):
     """
     Perform pairwise associations between filt_features and filt_expression.
@@ -275,9 +276,11 @@ def compute_pearsonR(Y, X):
 
     N = Y.shape[1]
     M = X.shape[1]
+
     results = {}
     shuffle = ['real', 1, 2, 3]
     for sh in shuffle:
+        print ("Shuffle: {}".format(sh))
         R_mat = np.zeros((N, M))
         pvs = np.zeros((N, M))
         Y_copy = Y.copy()
@@ -286,11 +289,43 @@ def compute_pearsonR(Y, X):
             np.random.shuffle(shuf_idx)
         Y_copy = Y_copy[shuf_idx, :]
 
+        pbar = tqdm(total=N*M)
+
         for i in range(N):
             for j in range(M):
                 R, pv = pearsonr(Y_copy[:, i], X[:, j])
                 R_mat[i, j] = R
                 pvs[i, j] = pv
+                pbar.update(1)
+        pbar.close()
+
+        # with ProcessPool(max_workers=16) as pool:
+        #
+        #     future = pool.map(perform_pearsonr, indicies, timeout=5)
+        #     future_results = future.result()
+        #
+        #     parallel_results = []
+        #     while True:
+        #         try:
+        #             result = next(future_results)
+        #             parallel_results.append(result)
+        #         except StopIteration:
+        #             break
+        #         except TimeoutError as error:
+        #             parallel_results.append(None)
+        #             print("function took longer than %d seconds" % error.args[1])
+        #         except ProcessExpired as error:
+        #             parallel_results.append(None)
+        #             print("%s. Exit code: %d" % (error, error.exitcode))
+        #         except Exception as error:
+        #             parallel_results.append(None)
+        #             print("function raised %s" % error)
+        #             print(error)  # Python's traceback of remote process
+        #
+        # R_mat = np.array([x[0] for x in parallel_results]).reshape(N,M)
+        # pvs = np.array([x[1] for x in parallel_results]).reshape(N,M)
+
+
         results['Rs_{}'.format(sh)] = R_mat
         results['pvs_{}'.format(sh)] = pvs
 
@@ -427,19 +462,3 @@ def display_tissue_feature_gradient(feature, tissue):
         pbar.update(1)
 
     return thumbnails
-
-
-def bmatrix(a):
-    """Returns a LaTeX bmatrix
-    https://stackoverflow.com/questions/17129290/numpy-2d-and-1d-array-to-latex-bmatrix
-
-    :a: numpy array
-    :returns: LaTeX bmatrix as a string
-    """
-    if len(a.shape) > 2:
-        raise ValueError('bmatrix can at most display two dimensions')
-    lines = str(a).replace('[', '').replace(']', '').splitlines()
-    rv = [r'\begin{bmatrix}']
-    rv += ['  ' + ' & '.join(l.split()) + r'\\' for l in lines]
-    rv +=  [r'\end{bmatrix}']
-    return '\n'.join(rv)

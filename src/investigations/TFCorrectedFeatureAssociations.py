@@ -20,17 +20,16 @@ import time
 from pebble import ProcessPool, ProcessExpired
 from concurrent.futures import TimeoutError
 
-# import eventlet
-# eventlet.monkey_patch()
-
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 
 parser = argparse.ArgumentParser(description='Collection of experiments. Runs on the cluster.')
 parser.add_argument('-g', '--group', help='Experiment group', required=True)
 parser.add_argument('-n', '--name', help='Experiment name', required=True)
+parser.add_argument('-p', '--params', help='Parameters')
 args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
+parameter_key = args['params']
 
 
 
@@ -54,32 +53,28 @@ class TFCorrectedFeatureAssociations():
     def compute_pvalues():
 
         os.makedirs(GTEx_directory + '/intermediate_results/{}'.format(group), exist_ok=True)
+        TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
         SIZES = ['128', '256', '512', '1024', '2048', '4096']
         AGGREGATIONS = ['mean', 'median']
         MODELS = ['raw', 'retrained']
 
-        N = 500
         M = 2000
         k = 1
 
         print('Computing technical factor corrected associations')
 
-        association_results = {}
-        most_varying_feature_indexes = {}
 
-        for a in AGGREGATIONS:
-            for m in MODELS:
-                for s in SIZES:
-                    key = '{}_{}_{}_{}'.format('Lung', a, m, s)
-                    Y, X, dIDs, filt_tIDs, tfs, ths, t_idx = filter_and_correct_expression_and_image_features('Lung', m, a, s, M, k, pc_correction=False, tf_correction=True)
-                    N = Y.shape[1]
-                    print('Computing {} x {} = {} associations for: Lung'.format(N, M, N*M), a, m, s)
-                    res = compute_pearsonR(Y, X)
-                    association_results[key] = res
+        t, a, m, s = parameter_key.split('_')
+
+        Y, X, dIDs, filt_tIDs, tfs, ths, t_idx = filter_and_correct_expression_and_image_features('Lung', m, a, s, M, k, pc_correction=False, tf_correction=True)
+        N = Y.shape[1]
+        print('Computing {} x {} = {} associations for: Lung'.format(N, M, N*M), a, m, s)
+        res = compute_pearsonR(Y, X)
 
 
-        results = [association_results, filt_tIDs]
-        pickle.dump(results, open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+
+        results = [res, filt_tIDs]
+        pickle.dump(results, open(GTEx_directory + '/intermediate_results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
 
     @staticmethod
     def associations_across_patchsizes():
@@ -443,39 +438,19 @@ class TFCorrectedFeatureAssociations():
     @staticmethod
     def gene_ontology_analysis():
 
-        # import logging
-
-        # logger = mp.log_to_stderr(logging.DEBUG)
-
-
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
         print ("Loading association data")
-        association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues.pickle', 'rb'))
+        association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/compute_pvalues_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'rb'))
 
-        TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
-        SIZES = ['128', '256', '512', '1024', '2048', '4096']
-        AGGREGATIONS = ['mean', 'median']
-        MODELS = ['raw', 'retrained']
-        TFs = ['SMTSISCH', 'SMNTRNRT', 'SMEXNCRT', 'SMRIN', 'SMATSSCR']
-
-        all_results = {}
-
-        # for t in TISSUES:
-        #     for a in AGGREGATIONS:
-        #         for m in MODELS:
-        #             for s in SIZES:
-        key = '{}_{}_{}_{}'.format('Lung','mean','retrained','256')
 
         print ("Calculating significant transcripts")
-        significant_indicies = [smm.multipletests(association_results[key][1][i,:],method='bonferroni',alpha=0.01)[0] for i in range(1024)]
+        significant_indicies = [smm.multipletests(association_results[1][i,:],method='bonferroni',alpha=0.001)[0] for i in range(1024)]
         significant_counts = [sum(x) for x in significant_indicies]
         significant_transcripts = [filt_transcriptIDs[x] for x in significant_indicies]
 
         print ("Translating into significant genes")
         significant_genes = []
         for (i, feature_transcripts) in enumerate(significant_transcripts):
-            if i % 100 == 0:
-                print ("Gene set ", i)
             genes = []
             for transcript in feature_transcripts:
                 try:
@@ -486,7 +461,7 @@ class TFCorrectedFeatureAssociations():
                 genes.append(g)
             significant_genes.append(genes)
 
-        print ("Looking up gene enrichments for {}".format(key))
+        print ("Looking up gene enrichments for {}".format(parameter_key))
 
         pbar = tqdm(total=len(significant_genes))
 
@@ -518,32 +493,8 @@ class TFCorrectedFeatureAssociations():
                     print(error)  # Python's traceback of remote process
 
         del pool
-        all_results[key] = enrichment_results
 
-        pickle.dump(all_results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        pickle.dump(enrichment_results, open(GTEx_directory + '/results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
 
 
 
