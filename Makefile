@@ -41,3 +41,16 @@ expression_associations:
 	while IFS= read -r key; \
 		do bsub -o "log/expression_associations_$${key}.out" -e "log/expression_associations_$${key}.err" -M 10000 -R "rusage[mem=10000]" "python src/investigations/TFCorrectedFeatureAssociations.py -g TFCorrectedFeatureAssociations -n compute_pvalues -p '$${key}'"; \
 		 done < textfiles/parameter_combinations.txt
+
+expression_ontology_analysis:
+	while IFS= read -r key; \
+	do bsub -n 20 -o "log/expression_ontology_analysis_$${key}.out" -e "log/expression_ontology_analysis_$${key}.err" -Is -M 100000 -R "rusage[mem=100000]" "python src/investigations/GeneOntologyAnalysis.py -g GeneOntologyAnalysis -n gene_ontology_analysis -p '$${key}'"
+		 done < textfiles/parameter_combinations.txt
+
+
+genetic_subsets:
+	while IFS= read -r key; \
+	do bsub -o "log/genetic_subsets_$${key}.out" -e "log/genetic_subsets_$${key}.err" -Is -M 100000 -R "rusage[mem=100000]" "python src/investigations/GeneticAssociations.py -g GeneticAssociations -n define_genetic_subset_snps -p '$${key}'"
+		 done < textfiles/parameter_combinations.txt
+
+genetic_association_analysis:

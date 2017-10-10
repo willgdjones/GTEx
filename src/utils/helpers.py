@@ -10,16 +10,18 @@ from scipy.stats import pearsonr
 from sklearn.linear_model import LinearRegression
 from sklearn.decomposition import PCA
 import cv2
-import mahotas
+# import mahotas
 import scipy.stats as st
 import scipy as sp
 from tqdm import tqdm
 from pebble import ProcessPool, ProcessExpired
 from concurrent.futures import TimeoutError
-
+from pyensembl import EnsemblRelease
+data = EnsemblRelease(77)
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
+os.environ['PYENSEMBL_CACHE_DIR'] = GTEx_directory
 
 class MidPointNorm(Normalize):
 
@@ -266,7 +268,7 @@ def filter_expression(X, tIDs, M, k):
 
 
 
-def compute_pearsonR(Y, X):
+def compute_pearsonR(Y, X, parallel=False):
     """
     Perform pairwise associations between filt_features and filt_expression.
     Also computes pvalues for 3 random shuffles.
@@ -277,60 +279,63 @@ def compute_pearsonR(Y, X):
     N = Y.shape[1]
     M = X.shape[1]
 
+    if parallel:
+        print('Computing in parallel')
+
     results = {}
-    shuffle = ['real', 1, 2, 3]
+    shuffle = ['real', 'shuffle']
     for sh in shuffle:
         print ("Shuffle: {}".format(sh))
-        R_mat = np.zeros((N, M))
-        pvs = np.zeros((N, M))
+
         Y_copy = Y.copy()
         shuf_idx = list(range(Y.shape[0]))
         if sh != 'real':
             np.random.shuffle(shuf_idx)
         Y_copy = Y_copy[shuf_idx, :]
 
-        pbar = tqdm(total=N*M)
+        if parallel:
 
-        for i in range(N):
-            for j in range(M):
+            pbar = tqdm(total=N*M)
+
+            def perform_pearsonr(idx):
+                i, j = idx
                 R, pv = pearsonr(Y_copy[:, i], X[:, j])
-                R_mat[i, j] = R
-                pvs[i, j] = pv
                 pbar.update(1)
-        pbar.close()
 
-        # with ProcessPool(max_workers=16) as pool:
-        #
-        #     future = pool.map(perform_pearsonr, indicies, timeout=5)
-        #     future_results = future.result()
-        #
-        #     parallel_results = []
-        #     while True:
-        #         try:
-        #             result = next(future_results)
-        #             parallel_results.append(result)
-        #         except StopIteration:
-        #             break
-        #         except TimeoutError as error:
-        #             parallel_results.append(None)
-        #             print("function took longer than %d seconds" % error.args[1])
-        #         except ProcessExpired as error:
-        #             parallel_results.append(None)
-        #             print("%s. Exit code: %d" % (error, error.exitcode))
-        #         except Exception as error:
-        #             parallel_results.append(None)
-        #             print("function raised %s" % error)
-        #             print(error)  # Python's traceback of remote process
-        #
-        # R_mat = np.array([x[0] for x in parallel_results]).reshape(N,M)
-        # pvs = np.array([x[1] for x in parallel_results]).reshape(N,M)
+                return R, pv
+
+            indicies = []
+            for i in range(N):
+                for j in range(M):
+                    idx = (i,j)
+                    indicies.append(idx)
+
+            import pathos
+            import time
+
+            pool = pathos.pools.ProcessPool(node=32)
+            results = pool.map(perform_pearsonr, indicies)
+            pbar.close()
+            R_mat = np.array([x[0] for x in results]).reshape(N,M)
+            pvs = np.array([x[1] for x in parallel_results]).reshape(N,M)
+
+        else:
+            pbar = tqdm(total=N*M)
+            R_mat = np.zeros((N, M))
+            pvs = np.zeros((N, M))
+            for i in range(N):
+                for j in range(M):
+                    R, pv = pearsonr(Y_copy[:, i], X[:, j])
+                    R_mat[i, j] = R
+                    pvs[i, j] = pv
+                    pbar.update(1)
+            pbar.close()
 
 
         results['Rs_{}'.format(sh)] = R_mat
         results['pvs_{}'.format(sh)] = pvs
 
-    return results['Rs_real'], results['pvs_real'], results['pvs_1'], \
-        results['pvs_2'], results['pvs_3']
+    return results['Rs_real'], results['pvs_real'], results['pvs_shuffle']
 
 
 def create_tissue_boundary(ID, tissue, patchsize):
@@ -462,3 +467,12 @@ def display_tissue_feature_gradient(feature, tissue):
         pbar.update(1)
 
     return thumbnails
+
+
+def get_gene_name(transcript):
+    transcript_id = transcript.decode('utf-8').split('.')[0]
+    try:
+        gene_name = data.gene_name_of_gene_id(transcript_id)
+    except:
+        gene_name = transcript_id
+    return gene_name
