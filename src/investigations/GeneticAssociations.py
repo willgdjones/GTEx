@@ -19,6 +19,7 @@ data = EnsemblRelease(77)
 import multiprocess as mp
 from tqdm import tqdm
 from pebble import ProcessPool
+import pathos
 from concurrent.futures import TimeoutError
 
 
@@ -79,12 +80,17 @@ class GeneticAssociations():
             if not None in gene_set:
 
                 for gene in gene_set:
-                    gene_obj = data.genes_by_name(gene)[0]
-                    interval_start = gene_obj.start - w
-                    interval_end = gene_obj.end + w
-                    chrom = gene_obj.contig
-                    interval = (interval_start, interval_end, chrom)
-                    gene_set_intervals.append(interval)
+                    try:
+                        gene_obj = data.genes_by_name(gene)[0]
+                        interval_start = gene_obj.start - w
+                        interval_end = gene_obj.end + w
+                        chrom = gene_obj.contig
+                        interval = (interval_start, interval_end, chrom)
+                        gene_set_intervals.append(interval)
+                    except:
+                        gene_set_intervals.append(None)
+
+
             else:
                 interval = None
                 gene_set_intervals.append(interval)
@@ -107,6 +113,8 @@ class GeneticAssociations():
             snp_sets = []
             if interval_set != [] and interval_set[0] is not None:
                 for interval in interval_set:
+                    if interval == None:
+                        continue
                     start = interval[0]
                     end = interval[1]
                     chrom = interval[2]
@@ -124,6 +132,14 @@ class GeneticAssociations():
                 # pbar.update(1)
                 return snp_sets
 
+
+        # pool = pathos.pools.ProcessPool(node=8)
+
+        # all_snp_sets = pool.imap(get_snp_sets, all_intervals)
+
+        # for i, _ in enumerate(all_snp_sets):
+        #     pbar.update(1)
+        # import pdb; pdb.set_trace()
 
             # all_snp_sets = []
             # while True:
@@ -147,22 +163,22 @@ class GeneticAssociations():
             #         print(error)  # Python's traceback of remote process
 
         all_snp_sets = []
-        for interval_set in all_intervals[0:10]:
+        for interval_set in all_intervals:
             snp_sets = get_snp_sets(interval_set)
             all_snp_sets.append(snp_sets)
             pbar.update(1)
 
-        pickle.dump(all_snp_sets, open(GTEx_directory + '/results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
+        pickle.dump(all_snp_sets, open(GTEx_directory + '/intermediate_results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
 
 
     @staticmethod
     def perform_association_tests():
-        from scipy.stats import norm
+        
 
         t, a, m, s = parameter_key.split('_')
 
         association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues_{key}.pickle'.format(key=parameter_key), 'rb'))
-        all_snp_sets = pickle.load(open(GTEx_directory + '/results/GeneticAssociations/define_genetic_subset_snps_{key}.pickle'.format(key=parameter_key), 'rb'))
+        all_snp_sets = pickle.load(open(GTEx_directory + '/intermediate_results/GeneticAssociations/define_genetic_subset_snps_{key}.pickle'.format(key=parameter_key), 'rb'))
         print ("Loading genotype data")
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s, genotypes=True)
 
@@ -173,21 +189,6 @@ class GeneticAssociations():
 
 
         feature_idx = np.array(significant_counts) > 0
-
-        def quantile_normalize_using_target(x, target):
-            """
-            Both `x` and `target` are numpy arrays of equal lengths.
-            """
-
-            target_sorted = np.sort(target)
-
-            return target_sorted[x.argsort().argsort()]
-
-        def normalize_feature(original_feature):
-            mu, std = norm.fit(original_feature)
-            target = [np.random.normal()*std + mu for i in range(271)]
-            result = quantile_normalize_using_target(original_feature, target)
-            return result
 
 
         print ("Normalising data")
@@ -215,7 +216,6 @@ class GeneticAssociations():
 
         from limix.qtl import LMM
 
-        import pdb; pdb.set_trace()
 
         print ("Performing associations")
 
@@ -224,15 +224,16 @@ class GeneticAssociations():
         betas = lmm.getBetaSNP()
 
         os.makedirs(GTEx_directory + '/intermediate_results/{}'.format(group), exist_ok=True)
-        pickle.dump([pvalues, betas, feature_idx], open(GTEx_directory + '/intermediate_results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump([pvalues, betas, feature_idx], open(GTEx_directory + '/intermediate_results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
 
     @staticmethod
     def top_association_results():
-        [pvalues, betas, feature_idx] = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/perform_association_tests.pickle'.format(group=group), 'rb'))
+        [pvalues, betas, feature_idx] = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/perform_association_tests_{key}.pickle'.format(group=group, key=parameter_key), 'rb'))
 
+        t, a, m, s = parameter_key.split('_')
 
-        Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data('Lung', 'retrained', 'mean', '256', genotypes=True)
-        all_snp_sets = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/define_genetic_subset_snps.pickle', 'rb'))
+        Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s, genotypes=True)
+        all_snp_sets = pickle.load(open(GTEx_directory + '/results/GeneticAssociations/define_genetic_subset_snps_{key}.pickle'.format(key=parameter_key), 'rb'))
 
         all_snps = []
         for set_set in all_snp_sets:
@@ -248,7 +249,7 @@ class GeneticAssociations():
 
 
         association_resultsbh01 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.01)
-        association_resultsbh05 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.05)
+        import pdb; pdb.set_trace()
 
         unique_sorted_pvalues = np.unique(flat_pvalues)
         unique_sorted_betas = np.unique(flat_betas)
@@ -277,7 +278,7 @@ class GeneticAssociations():
             top_betas.append((b, indicies, g, gID, y))
             pbar2.update(1)
 
-        pickle.dump([top_pvs, top_betas, feature_idx], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump([top_pvs, top_betas, feature_idx], open(GTEx_directory + '/results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
 
 
 

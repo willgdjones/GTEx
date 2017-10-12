@@ -18,6 +18,7 @@ from pebble import ProcessPool, ProcessExpired
 from concurrent.futures import TimeoutError
 from pyensembl import EnsemblRelease
 data = EnsemblRelease(77)
+from scipy.stats import norm
 
 
 GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
@@ -476,3 +477,18 @@ def get_gene_name(transcript):
     except:
         gene_name = transcript_id
     return gene_name
+
+def normalize_feature(original_feature):
+    mu, std = norm.fit(original_feature)
+    target = [np.random.normal()*std + mu for i in range(271)]
+    result = quantile_normalize_using_target(original_feature, target)
+    return result
+
+def quantile_normalize_using_target(x, target):
+    """
+    Both `x` and `target` are numpy arrays of equal lengths.
+    """
+
+    target_sorted = np.sort(target)
+
+    return target_sorted[x.argsort().argsort()]

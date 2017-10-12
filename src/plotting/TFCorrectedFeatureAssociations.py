@@ -1,3 +1,4 @@
+
 import os
 import sys
 import pickle
@@ -20,9 +21,11 @@ GTEx_directory = '.'
 parser = argparse.ArgumentParser(description='Collection of plotting results. Runs on local computer.')
 parser.add_argument('-g', '--group', help='Plotting group', required=True)
 parser.add_argument('-n', '--name', help='Plotting name', required=True)
+parser.add_argument('-p', '--params', help='Parameters')
 args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
+parameter_key = args['params']
 
 class TFCorrectedFeatureAssociations():
 
@@ -123,7 +126,9 @@ class TFCorrectedFeatureAssociations():
 
     @staticmethod
     def top_corrected_associations():
-        top10associations = pickle.load(open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'rb'))
+
+
+        top10associations = pickle.load(open(GTEx_directory + '/results/{group}/top10associations_{key}.pickle'.format(group=group, key=parameter_key), 'rb'))
 
         import seaborn as sns
         sns.set_style("dark")
@@ -145,9 +150,9 @@ class TFCorrectedFeatureAssociations():
         plt.tight_layout()
         # plt.subplots_adjust(left=0.25)
 
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        # os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        # plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        # plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
 
         plt.show()
 

@@ -27,7 +27,7 @@
 \usepackage[normalem]{ulem}
 \graphicspath{{/Users/fonz/Documents/Projects/GTEx/plotting/}}
 
-\title{Associating gene expression to neural network derived image features}
+\title{Explaining gene expression variation to neural network derived image features}
 
 % The \author macro works with any number of authors. There are two
 % commands used to separate the names and addresses of multiple
@@ -40,7 +40,7 @@
 % author name.
 
 \author{
-  David S.~Hippocampus\thanks{Use footnote for providing further
+  William Jones\thanks{Use footnote for providing further
     information about author (webpage, alternative
     address)---\emph{not} for acknowledging funding agencies.} \\
   Department of Computer Science\\
@@ -76,8 +76,21 @@
 \maketitle
 
 \begin{abstract}
-I will be updating this document with the progress of  my NIPS 2017 submission.
+How does gene expression influence visual characteristic of tissues? Can the variation in expression be explaining using data extracting from these images alone? To what extent is this possible? In this work, I am to answer these questions, by employing neural networks on a dataset of biomedical images annotated with genotype and gene expression data.
 \end{abstract}
+
+\section{Introduction}
+Biomedical images are routinely used by doctors in pathology to diagnose diseases. For example, lung biopsies are taken from patients when grading different levels of lung cancers. Specifically for lung cancer, a great deal of work has focussed on the identification of specific tissue characteristics which are indicative of metastasis. Indeed, this has been the topic of many supervised machine learning competition and approaches. We can now accurately identify metastatic regions from high resolution histopathology lung images, with the state of the art being achieve by Convolutional Neural Networks (CNNs).
+
+What other types of information can be estimated from these high resolution images? We explore this direction using a datasets of.....
+
+
+\section{Results}
+We find that across 10 different tissue types, large amount of variation in expression can be explained in large part with a combination of technical factors and image features. Gene expression reflects the biological activity of a cell at a given point in time. Technical factors are already known to have a large impact on gene expression. For example, Ischemic time (SMTISCH), reflects the period time between the donor's death, and tissue extraction. During apoptosis, multiple biological pathways are activated which have a profound impact on the biological activity within a cell. This is reflected by the fact that Ischemic time explains the largest amount of variance in expression out of all of the technical factors. With respect to the image features using the described method, more variance is explained when using large patch-sizes. This is surprising because intuitively one might imagine that variation in gene expression might affect only characteristics in tissues visible at smaller scales. However, these results provide evidence against this intuition.
+
+\section{Future work}
+This study motivates further work that aims to close the information boundary between biomedical images and gene expression. Future work will aim to predict variation in other forms of biomarkers, for example expression of particular genes that might be biomarkers for a given diagnosis. This work will require more comprehensive datasets, but with modern day neural networks able to successfully perform function approximation for a wide variety of complex tasks, this might soon become a reality. 
+
 
 \section*{Plan}
 

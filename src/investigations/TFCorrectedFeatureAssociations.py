@@ -32,12 +32,6 @@ name = args['name']
 parameter_key = args['params']
 parallel = args['parallel']
 
-
-def get_gene_name(transcript):
-    transcript_id = transcript.decode('utf-8').split('.')[0]
-    return data.gene_name_of_gene_id(transcript_id)
-
-
 class TFCorrectedFeatureAssociations():
 
     @staticmethod
@@ -56,7 +50,16 @@ class TFCorrectedFeatureAssociations():
         Y, X, dIDs, filt_tIDs, tfs, ths, t_idx = filter_and_correct_expression_and_image_features(t, m, a, s, M, k, pc_correction=False, tf_correction=True)
         N = Y.shape[1]
         print('Computing {} x {} = {} associations for: '.format(N, M, N*M), t, a, m, s)
-        res = compute_pearsonR(Y, X)
+
+        print ("Normalising data")
+
+        n_Y = np.zeros_like(Y)
+        for i in range(1024):
+            original_feature = Y[:,i]
+            normalized_feature = normalize_feature(original_feature)
+            n_Y[:,i] = normalized_feature
+
+        res = compute_pearsonR(n_Y, X)
         results = [res, filt_tIDs]
         pickle.dump(results, open(GTEx_directory + '/intermediate_results/{group}/{name}_{key}.pickle'.format(group=group, name=name, key=parameter_key), 'wb'))
 
@@ -73,7 +76,7 @@ class TFCorrectedFeatureAssociations():
 
             f, t = np.argwhere(Rs_real == expected_R)[0]
             print (f,t)
-            feature = Y[:,f]
+            feature = n_Y[:,f]
             transcript = X[:,t]
 
             R, pv = pearsonr(feature, transcript)

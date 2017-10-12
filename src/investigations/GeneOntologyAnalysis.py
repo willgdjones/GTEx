@@ -81,7 +81,7 @@ class GeneOntologyAnalysis():
 
         with ProcessPool(max_workers=16) as pool:
 
-            future = pool.map(lookup_enrichment, significant_genes, timeout=10)
+            future = pool.map(lookup_enrichment, significant_genes, timeout=60)
             future_results = future.result()
 
             enrichment_results = []
