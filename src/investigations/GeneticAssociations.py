@@ -75,7 +75,7 @@ class GeneticAssociations():
 
         all_intervals = []
         for gene_set in significant_genes:
-            w = 1000
+            w = 50
             gene_set_intervals = []
             if not None in gene_set:
 
@@ -173,7 +173,7 @@ class GeneticAssociations():
 
     @staticmethod
     def perform_association_tests():
-        
+
 
         t, a, m, s = parameter_key.split('_')
 
@@ -233,7 +233,7 @@ class GeneticAssociations():
         t, a, m, s = parameter_key.split('_')
 
         Y, X, G, dIDs, tIDs, gIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s, genotypes=True)
-        all_snp_sets = pickle.load(open(GTEx_directory + '/results/GeneticAssociations/define_genetic_subset_snps_{key}.pickle'.format(key=parameter_key), 'rb'))
+        all_snp_sets = pickle.load(open(GTEx_directory + '/intermediate_results/GeneticAssociations/define_genetic_subset_snps_{key}.pickle'.format(key=parameter_key), 'rb'))
 
         all_snps = []
         for set_set in all_snp_sets:
@@ -248,7 +248,7 @@ class GeneticAssociations():
         flat_betas = np.array(betas).flatten()
 
 
-        association_resultsbh01 = smm.multipletests(flat_pvalues, method='fdr_bh',alpha=0.01)
+        association_resultsbh05 = smm.multipletests(flat_pvalues, method='bonferroni',alpha=0.01)
         import pdb; pdb.set_trace()
 
         unique_sorted_pvalues = np.unique(flat_pvalues)

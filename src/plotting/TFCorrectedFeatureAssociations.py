@@ -163,45 +163,47 @@ class TFCorrectedFeatureAssociations():
         image_feature_ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/tf_feature_selection_image_features.pickle'.format(group=group), 'rb'))
 
         #Extract order of importance of technical factors for expression
-        expression_var_explained = [x[0] for x in expression_ordered_choices]
-        expression_ordered_tfs = [x[1] for x in expression_ordered_choices]
+        expression_var_explained = [x[0]*100 for x in expression_ordered_choices][0:8]
+        expression_ordered_tfs = [x[1] for x in expression_ordered_choices][0:8]
 
         #Extract order of importance of technical factors for image features
-        image_feature_var_explained = [x[0] for x in image_feature_ordered_choices]
-        image_feature_ordered_tfs = [x[1] for x in image_feature_ordered_choices]
+        image_feature_var_explained = [x[0]*100 for x in image_feature_ordered_choices][0:8]
+        image_feature_ordered_tfs = [x[1] for x in image_feature_ordered_choices][0:8]
 
         import matplotlib as mpl
-        label_size = 15
+
+
+        label_size = 20
         mpl.rcParams['xtick.labelsize'] = label_size
         mpl.rcParams['ytick.labelsize'] = label_size
 
 
-        plt.figure(figsize=(20,10))
-        plt.plot(expression_var_explained)
-        plt.xticks(list(range(len(expression_ordered_tfs))), expression_ordered_tfs, rotation=90, size=15)
-        # plt.xticklabels(expression_ordered_tfs, rotation=90)
-        plt.ylabel('Extra variance explained', size=15)
-        plt.title('Technical factors in order of importance to explain expression variation', size=20)
-        plt.subplots_adjust(bottom=0.25)
+        fig, ax = plt.subplots(1,2, figsize=(20,10))
+        ax[0].plot(expression_var_explained)
+        ax[0].set_xticks(list(range(len(expression_ordered_tfs))))
+        ax[0].set_xticklabels(expression_ordered_tfs, rotation=90, size=20)
+        ax[0].set_ylabel('Cumulative variance explained', size=30)
+
+
+        ax[0].set_title('Expression variation', size=20)
+        # ax[0].subplots_adjust(bottom=0.25)
+
+
+
+        ax[1].plot(image_feature_var_explained)
+        ax[1].set_xticks(list(range(len(image_feature_ordered_tfs))))
+        ax[1].set_xticklabels(image_feature_ordered_tfs, rotation=90, size=20)
+        ax[1].set_title('Image feature variation', size=20)
+
+        plt.subplots_adjust(bottom=0.30)
+
+
+
+
 
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_expression.eps'.format(group=group), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_expression.png'.format(group=group), format='png', dpi=100)
-
-
-        plt.figure(figsize=(20,10))
-        plt.plot(image_feature_var_explained)
-        plt.xticks(list(range(len(image_feature_ordered_tfs))), image_feature_ordered_tfs, rotation=90, size=15)
-        plt.ylabel('Cumulative variance explained', size=15)
-        plt.title('Technical factors in order of importance to explain image feature variation', size=20)
-        plt.subplots_adjust(bottom=0.25)
-
-
-
-
-        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_image_features.eps'.format(group=group), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection_image_features.png'.format(group=group), format='png', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection.eps'.format(group=group), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection.png'.format(group=group), format='png', dpi=100)
 
 
 

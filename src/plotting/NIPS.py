@@ -21,10 +21,11 @@ GTEx_directory = '.'
 parser = argparse.ArgumentParser(description='Collection of plotting results. Runs on local computer.')
 parser.add_argument('-g', '--group', help='Plotting group', required=True)
 parser.add_argument('-n', '--name', help='Plotting name', required=True)
+parser.add_argument('-p', '--params', help='Parameters')
 args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
-
+parameter_key = args['params']
 
 
 class NIPS():
@@ -117,7 +118,8 @@ class NIPS():
 
     @staticmethod
     def top_genetic_associations():
-        [top_pvs, top_betas, feature_idx] = pickle.load(open(GTEx_directory + '/results/NIPSQuestion5/top_association_results.pickle', 'rb'))
+        t, a, m, s = parameter_key.split('_')
+        [top_pvs, top_betas, feature_idx] = pickle.load(open(GTEx_directory + '/results/GeneticAssociations/top_association_results_{key}.pickle'.format(key=parameter_key), 'rb'))
 
         import matplotlib as mpl
         label_size = 5
@@ -144,8 +146,8 @@ class NIPS():
         plt.subplots_adjust(top=0.90)
 #
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/top_pvalues.eps'.format(group=group), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/top_pvalues.png'.format(group=group), format='png', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/top_pvalues_{key}.eps'.format(group=group, key=parameter_key), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/top_pvalues_{key}.png'.format(group=group, key=parameter_key), format='png', dpi=100)
 
 
 
@@ -167,8 +169,8 @@ class NIPS():
         plt.subplots_adjust(top=0.90)
 
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
-        plt.savefig(GTEx_directory + '/plotting/{group}/top_betas.eps'.format(group=group), format='eps', dpi=100)
-        plt.savefig(GTEx_directory + '/plotting/{group}/top_betas.png'.format(group=group), format='png', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/top_betas_{key}.eps'.format(group=group, key=parameter_key), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/top_betas_{key}.png'.format(group=group, key=parameter_key), format='png', dpi=100)
 
 
 

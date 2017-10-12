@@ -53,3 +53,8 @@ genetic_association_analysis:
 	while IFS= read -r key; \
 	do bsub -o "log/genetic_associations_$${key}.out" -e "log/genetic_associations_$${key}.err" -M 100000 -R "rusage[mem=100000]" "python src/investigations/GeneticAssociations.py -g GeneticAssociations -n perform_association_tests -p '$${key}'"; \
 	done < textfiles/parameter_combinations.txt
+
+top_genetic_associations:
+	while IFS= read -r key; \
+	do bsub -o "log/top_genetic_associations_$${key}.out" -e "log/top_genetic_associations_$${key}.err" -M 100000 -R "rusage[mem=100000]" "python src/investigations/GeneticAssociations.py -g GeneticAssociations -n top_association_results -p '$${key}'"; \
+	done < textfiles/parameter_combinations.txt

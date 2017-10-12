@@ -89,6 +89,43 @@ class TFCorrectedFeatureAssociations():
 
         pickle.dump(top10associations, open(GTEx_directory + '/results/{group}/top10associations_{key}.pickle'.format(group=group, key=parameter_key), 'wb'))
 
+
+    @staticmethod
+    def top10associations():
+
+        t, a, m, s = parameter_key.split('_')
+
+        results = pickle.load(open(GTEx_directory + '/intermediate_results/{group}/compute_pvalues_{key}.pickle'.format(group=group, key=parameter_key), 'rb'))
+        res, filt_tIDs = results
+        Rs_real, pvs_real, pvs_1 = res
+
+        Rs_real[np.isnan(Rs_real)] = 0
+        sorted_idx = np.argsort(Rs_real.flatten()**2)[::-1]
+
+        import pdb; pdb.set_trace()
+
+
+        top10associations = []
+        for i in range(10):
+            position = sorted_idx[i]
+            expected_R = Rs_real.flatten()[sorted_idx[i]]
+
+            f, t = np.argwhere(Rs_real == expected_R)[0]
+            print (f,t)
+            feature = n_Y[:,f]
+            transcript = X[:,t]
+
+            R, pv = pearsonr(feature, transcript)
+            assert R == expected_R
+
+
+            transcript_name = get_gene_name(filt_tIDs[t])
+            association_data = [feature, f, transcript, transcript_name, pv, R]
+            top10associations.append(association_data)
+
+        pickle.dump(top10associations, open(GTEx_directory + '/results/{group}/top10associations_{key}.pickle'.format(group=group, key=parameter_key), 'wb'))
+
+
     @staticmethod
     def associations_across_patchsizes():
 
