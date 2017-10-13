@@ -119,13 +119,16 @@ class VarianceComposition():
             ind = np.arange(N)    # the x locations for the groups
             width = 0.35       # the width of the bars: can also be len(x) sequence
 
-            p11 = ax.flatten()[i].bar(ind-(width/2), explained_raw, width, color='green', label='explained')
-            p11 = ax.flatten()[i].bar(ind+(width/2), explained_retrained, width, color='green')
-            p21 = ax.flatten()[i].bar(ind-(width/2), technical_raw, width, bottom=explained_raw, color='blue', label='technical')
-            p22 = ax.flatten()[i].bar(ind+(width/2), technical_retrained, width, bottom=explained_retrained, color='blue')
+            greencolor = [0.106, 0.62, 0.467]
+            orangecolor = [0.851, 0.373, 0.008]
+            purplecolor = [0.459, 0.439, 0.702]
+            p11 = ax.flatten()[i].bar(ind-(width/2), explained_raw, width, color=greencolor, label='explained')
+            p11 = ax.flatten()[i].bar(ind+(width/2), explained_retrained, width, color=greencolor)
+            p21 = ax.flatten()[i].bar(ind-(width/2), technical_raw, width, bottom=explained_raw, color=purplecolor, label='technical')
+            p22 = ax.flatten()[i].bar(ind+(width/2), technical_retrained, width, bottom=explained_retrained, color=purplecolor)
 
-            p31 = ax.flatten()[i].bar(ind-(width/2), unexplained_raw, width, bottom=list(np.array(technical_raw) + np.array(explained_raw)), color='red', label='unexplained')
-            p32 = ax.flatten()[i].bar(ind+(width/2), unexplained_retrained, width, bottom=list(np.array(technical_retrained) + np.array(explained_retrained)), color='red')
+            p31 = ax.flatten()[i].bar(ind-(width/2), unexplained_raw, width, bottom=list(np.array(technical_raw) + np.array(explained_raw)), color=orangecolor, label='unexplained')
+            p32 = ax.flatten()[i].bar(ind+(width/2), unexplained_retrained, width, bottom=list(np.array(technical_retrained) + np.array(explained_retrained)), color=orangecolor)
             ax.flatten()[i].set_title(TISSUE_TITLES[i], size=20)
             ax.flatten()[i].set_xticks(range(len(SIZES)))
             ax.flatten()[i].set_xticklabels(SIZES, size=15, rotation=90)

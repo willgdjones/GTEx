@@ -171,6 +171,8 @@ class TFCorrectedFeatureAssociations():
         image_feature_ordered_tfs = [x[1] for x in image_feature_ordered_choices][0:8]
 
         import matplotlib as mpl
+        import seaborn as sns
+        sns.set_style("dark")
 
 
         label_size = 20
@@ -185,7 +187,7 @@ class TFCorrectedFeatureAssociations():
         ax[0].set_ylabel('Cumulative variance explained', size=30)
 
 
-        ax[0].set_title('Expression variation', size=20)
+        ax[0].set_title('Expression variation', size=30)
         # ax[0].subplots_adjust(bottom=0.25)
 
 
@@ -193,7 +195,7 @@ class TFCorrectedFeatureAssociations():
         ax[1].plot(image_feature_var_explained)
         ax[1].set_xticks(list(range(len(image_feature_ordered_tfs))))
         ax[1].set_xticklabels(image_feature_ordered_tfs, rotation=90, size=20)
-        ax[1].set_title('Image feature variation', size=20)
+        ax[1].set_title('Image feature variation', size=30)
 
         plt.subplots_adjust(bottom=0.30)
 

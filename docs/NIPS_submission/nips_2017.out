@@ -1,15 +1,4 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Methods Overview}{}% 2
+\BOOKMARK [1][-]{section.2}{Methods}{}% 2
 \BOOKMARK [1][-]{section.3}{Results}{}% 3
 \BOOKMARK [1][-]{section.4}{Discussion}{}% 4
-\BOOKMARK [1][-]{section.5}{Figures}{}% 5
-\BOOKMARK [1][-]{section.6}{Extended Methods}{}% 6
-\BOOKMARK [2][-]{subsubsection.6.0.1}{Training data generation}{section.6}% 7
-\BOOKMARK [3][-]{subsubsection.6.0.2}{Neural network model}{subsubsection.6.0.1}% 8
-\BOOKMARK [3][-]{subsubsection.6.0.3}{Training and Evaluation}{subsubsection.6.0.1}% 9
-\BOOKMARK [2][-]{subsection.6.1}{Latent factors}{section.6}% 10
-\BOOKMARK [3][-]{subsubsection.6.1.1}{Tools}{subsection.6.1}% 11
-\BOOKMARK [2][-]{subsection.6.2}{Latent factors}{section.6}% 12
-\BOOKMARK [2][-]{subsection.6.3}{Associating features to RNA}{section.6}% 13
-\BOOKMARK [3][-]{subsubsection.6.3.1}{RNA expression data}{subsection.6.3}% 14
-\BOOKMARK [3][-]{subsubsection.6.3.2}{Association tests}{subsection.6.3}% 15

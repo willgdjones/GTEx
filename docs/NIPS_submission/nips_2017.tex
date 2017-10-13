@@ -26,10 +26,13 @@
 
 \graphicspath{{/Users/fonz/Documents/Projects/GTEx/plotting/}}
 
-\title{Explaining gene expression variation to neural network derived image features}
+\title{Explaining gene expression variation using neural network derived image features}
 
 % to compile a camera-ready version, add the [final] optio name.
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{figgreen}{rgb}{0.106, 0.62, 0.467}
+\definecolor{figorange}{rgb}{0.851, 0.373, 0.008}
+\definecolor{figpurple}{rgb}{0.459, 0.439, 0.702}
 \author{
   William Jones\\
   Wellcome Trust Sanger Institute\\
@@ -68,40 +71,34 @@
 How does gene expression influence visual characteristic of tissues? Can the variation in expression be explaining using data extracting from these images alone? To what extent is this possible? We find that across 10 different tissue types, substation amount of variation of gene expression can be explained using a combination of neural network derived image features and known technical factors. This work indicates that expression biomarkers could soon be well estimated using biomedical images. \end{abstract}
 
 \section{Introduction}
-Biomedical images are routinely used by doctors in pathology to diagnose diseases. For example, lung biopsies are taken from patients when grading different levels of lung cancers. Specifically for lung cancer, a great deal of work has focussed on the identification of specific tissue characteristics which are indicative of metastasis. Indeed, this has been the topic of many supervised machine learning competition and approaches. We can now accurately identify metastatic regions from high resolution histopathology lung images, with the state of the art being achieve by Convolutional Neural Networks (CNNs).
+Biomedical images are routinely used by doctors in pathology to diagnose disease. For example, Lung biopsies are taken from patients when grading severities of Lung cancers \cite{histology-classification-lung-cancer}. Specifically for lung cancer, a great deal of work has focussed on the identification of specific tissue characteristics which are indicative of metastasis. Indeed, this has been the topic of many supervised machine learning competition and approaches. We can now accurately identify metastatic regions from high resolution histopathology lung images, with the state of the art achieved by Convolutional Neural Networks (CNNs) \cite{detecting-cancer-metastases}.
 
-What other types of information can be estimated from these high resolution images? To what extent are the visual characteristics of biomedical images influenced by our DNA, and the transcript levels within our tissues? Pathologists are trained to identify visual characteristics in histological slides that are indicative of disease onset. It is known that disease onset triggers changes in bulk RNA expression data in tissues where the diseases present. \cite{gene-expression-parkinsons} Furthermore, in many cases that the onset of disease has a genetic component \cite{what-is-complex-about-complex-disorders}. 
+What other types of information and biomarkers can be estimated from these high resolution images? To what extent are the visual characteristics of biomedical images influenced by our DNA, and gene expression levels within our tissues? Pathologists are trained to identify visual characteristics in histological slides that are indicative of disease, and it is known that disease onset triggers changes in bulk RNA expression data in tissues where the disease presents. \cite{gene-expression-parkinsons} Furthermore, in many cases the onset of these has a genetic component \cite{what-is-complex-about-complex-disorders}. Therefore, it is reasonable to conclude that high resolution images contain information pertaining to the bulk RNA expression profile taken from the sample, and perhaps even the donor genotype.
 
-Owing to the absence such datasets, investigating the interplay between these data modalities intertwined with imaging genetics and histopathology has until been impossible to answer until recently.
- 
-We  research question by using a dataset of high resolution histopathology images annotated with genotype expression data, and genotypes, as part of the Genotype Tissue Expression Project (GTEx) \cite{GTEx-project}. At the time of analysis, the repository v6, consists of 449 genotyped individuals, and bulk RNA expression from 44 tissue types \cite{GTEx-histology}.
-A median of 15 tissues is given per individual, and a median of 155 samples per tissue type. High resolution histopathology images were available for 34 of these tissue types.
+Until recently the absence such datasets has prohibited work in this direction. With the addition of high resolution histopathology images annotated with gene expression data, and genotypes, as part of the Genotype Tissue Expression Project (GTEx Project) \cite{GTEx-project}, it is now possible to investigate the interplay of histopathology images, gene expression and genetics. At the time of analysis, the repository v6, consists of 449 genotyped individuals, and bulk RNA expression from 44 tissue types \cite{GTEx-histology}. A median of 15 tissues is given per individual, and a median of 155 samples per tissue type. High resolution histopathology images were available for 34 of these tissue types.
 
-\section{Methods Overview}
+\section{Methods}
 
-
-
-
+We generated image features using the 1024 final layer activations of an InceptioNet CNN retrained to differentiate between square patches originating from 10 different tissue types. We aggregated these activation across all patches situated within the tissue boundary (Figure \ref{fig:extracting_tissue_patches}). For each image sample, this results in a length 1024 vector representation that we use for downstream association analyses. Detailed methods description contained in the Extended Methods section.
 
 \section{Results}
-We find that across 10 different tissue types, large amount of variation in expression can be explained in large part with a combination of technical factors and image features. Gene expression reflects the biological activity of a cell at a given point in time. Technical factors are already known to have a large impact on gene expression. For example, Ischemic time (SMTISCH), reflects the period time between the donor's death, and tissue extraction. During apoptosis, multiple biological pathways are activated which have a profound impact on the biological activity within a cell. This is reflected by the fact that Ischemic time explains the largest amount of variance in expression out of all of the technical factors. With respect to the image features using the described method, more variance is explained when using large patch-sizes. This is surprising because intuitively one might imagine that variation in gene expression might affect only characteristics in tissues visible at smaller scales. However, these results provide evidence against this intuition.
+We find that across 10 different tissue types, large amount of variation in expression can be explained in large part with a combination of known technical factors and image features. (Figure \ref{fig:variance_composition})
 
-Futhermore, we compared the effect of using image features extracted from an Inceptionet model without retraining it to differentiate tissue types. We find that we can actually explain more expression variation in this case - perhaps because the output of the raw Inceptionet is a length 2048 vectors, as opposed to a length 1024 vector.
+Futhermore, we compared the effect of using image features extracted from an Inceptionet model without retraining it to differentiate tissue types. We find that we can actually explain more expression variation in this case - perhaps because the output of the raw Inceptionet is a length 2048 vectors, as opposed to a length 1024 vector. 
 
-We investigated which technical factors impact both the image feature and expression. RNA degradation number (SMRIN) was the factor that explained the most (11.8\%) variation in the image features, wheres Ischemic time explained the most the variance (12.7\%) in the expression data. In total, technical factors explained 51.1\% of the variation in expression and 40.6\% of the variation in the image features.
+RNA degradation number (SMRIN) was the factor that explained the most (11.8\%) variation in the image features, wheres Ischemic time explained the most the variance (12.7\%) in the expression data (Figure \ref{fig:tf_feature_selection}). In total, technical factors explained 51.1\% of the variation in expression and 40.6\% of the variation in the image features.
 
-After regression out the effect of technical covariates from both the image features and expression, we find that for some transcripts as much as 66\% of individual transcript can be explained by individual image features. For example (Liver, mean aggregation, retrained at a patch size of 256).
+After regressing out the effect of technical covariates from both the image features and expression, we find that for some transcripts as much as 66\% of the variation can be explained by individual image features.
 
-We investigated whether gene transcripts that had a statistically significant amount of variation explained by the image features were enriched for specific biological pathways. For Lung tissue, we find that feature 501 explains a significant amount of variation for gene transcripts that are enriched for the gene ontology term: Defective ABCA3 causes pulmonary surfactant metabolism dysfunction type 3 (SMDP3). This condition is already know to be identifiable by pathologists via histopathology. (Table \ref{tab:image_feature_pcs_and_tfs})
+For Lung tissue, we find that feature 501 explains a significant amount of variation for gene transcripts that are enriched for the gene ontology term: Defective ABCA3 causes pulmonary surfactant metabolism dysfunction type 3 (SMDP3) (Table \ref{tab:image_feature_pcs_and_tfs}). This condition is known to be identifiable by pathologists via histopathology \cite{surfectant-dysfunction}.  Also in tissue, a specific image feature that was highly predictive of Ischemic time (the duration of time between donor death and tissue harvesting) appearing to capture the global colour (Figure \ref{fig:image_feature_796_vs_SMTSISCH}) across the entire tissue area (Figure \ref{fig:top5_bottom5_feature796}).
 
-We investigate what visual characteristics individual image features capture. In Lung, a specific image feature that was highly predictive of Ischemic time (the duration of time between donor death and tissue harvesting) appeared to capture the colour (Figure \ref{fig:image_feature_796_vs_SMTSISCH}) of the Lung tissue across the tissue area (Figure \ref{fig:top5_bottom5_feature796}).
-
-We investigated the genetic basis of variation for individual image features, but found that we did not find any statistically significant associations with genotypes that fall within genes for which the transcript of this gene was significantly associated with expression.
+We investigated the genetic basis of variation for individual image features. However we found that no associations passed Benjamini-Hochberg correction at a 5\% FDR rate.
 
 \section{Discussion}
-This study motivates further work that aims to close the information boundary between biomedical images and gene expression. Future work will aim to predict variation in other forms of biomarkers, for example expression of particular genes that might be biomarkers for a given diagnosis. This work will require more comprehensive datasets, but with modern day neural networks able to successfully perform function approximation for a wide variety of complex tasks, this might soon be possible.
 
-\section{Figures}
+Gene expression reflects the biological activity of a cell at a given point in time. Technical factors are already known to have a large impact on gene expression. For example, Ischemic time (SMTISCH), reflects the period time between the donor's death, and tissue extraction. During apoptosis, multiple biological pathways are activated which have a profound impact on the biological activity within a cell. This is reflected by the fact that Ischemic time explains the largest amount of variance in expression out of all of the technical factors. With respect to the image features using the described method, more variance is explained when using large patch-sizes. This is surprising because intuitively one might imagine that variation in gene expression might affect only characteristics in tissues visible at smaller scales. However, these results provide evidence against this intuition.
+
+This study motivates further work that aims to close the information boundary between biomedical images and gene expression markers. Future work will aim to predict variation of specific markers for a given disease for a given diagnosis. This work will require more comprehensive datasets, but with modern day neural networks able to successfully perform function approximation for a wide variety of complex tasks, this might soon be possible.
 
 %\begin{figure}[h]
 %\figuretitle{Filtering expression matrix}
@@ -117,7 +114,7 @@ This study motivates further work that aims to close the information boundary be
 %\end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{subfigure}{0.65\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{/FeatureExploration/top5_bottom5_feature796}
@@ -133,23 +130,25 @@ This study motivates further work that aims to close the information boundary be
  \caption{}
 \end{figure}
 
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.7\linewidth]{/FeatureExploration/extracting_tissue_patches} 
-  \caption{\textcolor{ao(english)}{A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \textcolor{ao(english)}{B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary.}
-  \label{fig:extracting_tissue_patches}
-\end{figure}
+%\begin{figure}[h]
+%  \centering
+%    \includegraphics[width=0.7\linewidth]{/FeatureExploration/extracting_tissue_patches} 
+%  \caption{\textcolor{ao(english)}{A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \textcolor{ao(english)}{B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary.}
+%  \label{fig:extracting_tissue_patches}
+%\end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
   \centering
     \includegraphics[width=1\linewidth]{/VarianceComposition/compare_expression_variance_composition_across_tissues_by_model} 
-  \caption{}
+  \caption{Proportion of the variation in expression \textcolor{figgreen}{explained by image features}, \textcolor{figpurple}{explained by technical factors}, \textcolor{figorange}{unexplained}, for 10 different tissue types using image features from 6 different patch-sizes. For each patch-size, the left stacked bar uses retrained InceptioNet features, and the right bar uses raw Inception features.}
+  \label{fig:variance_composition}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
       \includegraphics[width=1\linewidth]{/TFCorrectedFeatureAssociations/tf_feature_selection} 
         \caption{Only displaying the top 8 technical factors. In total, technical factors account for 40.6\% of variation in the image features and 51.1\% of variation in expression.}
+        \label{fig:tf_feature_selection}
 \end{figure}
 
 
@@ -170,48 +169,48 @@ p-value & Ontology & Genes  \\
 % $^a$ Table foot note (with superscript)
 \end{table}
 
-\section{Extended Methods}
-
-\subsubsection{Training data generation}
-
-\begin{enumerate}
-\item We segment the tissue slice into foreground and background by grayscaling the image, using a Gaussian blur \cite{shapiro-computer-vision} with kernel (51,51), followed by Otsu thresholding \cite{otsu-method} (Figure \ref{fig:extracting_tissue_patches}).
-\item Given a patch size, $s$, we find all patches of size $s$ that lie within the tissue boundary. 
-\end{enumerate}
-
-\subsubsection{Neural network model}
-We use Inceptionet-v3, a 220-layer Convolutional Neural Network with pre-trained weights to distinguish everyday objects in images. We follow the common practice of adjusting the network architecture in order to fine-tune the network and repurpose it for a different task \cite{fine-tuning-deep-convolutional-neural-networks}. To finetune this network, we add a GlobalAveragePooling layer \cite{network-in-network} followed by a Dense layer a neural network, and a final softmax layer with 10 classification neurons.
-
-When varying the size of patches, we re-scale all patches to be 299x299 pixels. This means that if we classify a patch of size 4096, the size is drastically reduced to be 299x299. If the patch-size is 128x128, then we use bi-linear interpolation to resize the patch to be 299x299 pixels. 
-
-\subsubsection{Training and Evaluation}
-We fine-tuned our modified version of InceptioNet to classify square image patches into their originating tissue types. We use the categorical cross-entropy loss function with Stochastic Gradient Descent with learning rate 0.0001 and momentum = 0.9. We run the back-propagation algorithm to fine-tune the network in the following two steps:
-
-We evaluate the performance of the trained network on a validation set
-\begin{enumerate}
- \item Update the final-layer weights for 10 epochs.
- \item Update the InceptionNet-v3 layer weights for 30 epochs.
-\end{enumerate}
-
-We assess the performance of the classifier on the held-out validation set by reporting the percentage of correctly classified tissues.
-
-\subsection{Latent factors}
-
-We choose Lung as the exemplary tissue in which to explore this method. We have a high number of images from this tissue, and the image slices tend to be large. Concretely, we generated image features for each Lung image, using individual lung patches via the following steps.
-
-\begin{enumerate}
-\item We pass every patch that lies within a tissue boundary through the raw and retrained InceptioNet networks, and at each patch-size, to obtain an image feature vector of length $1024$ for each patch.
- \item We aggregate the image feature across all image patches using the mean and the median.
-\end{enumerate}
-In detail, for image $i$, patch $j$, I obtain the $k$th raw patch feature as:
-
-$$r_{ijk} =  InceptioNet(x_{ij})_k$$
-
-and, when using the mean aggregation, the final image level features is defined as:
-
-$$f_{ik} = \frac{1}{J}\sum_j r_{ijk}$$
-
-where $J$ is the total number of patches lying within a tissue boundary.
+%\section{Extended Methods}
+%
+%\subsubsection{Training data generation}
+%
+%\begin{enumerate}
+%\item We segment the tissue slice into foreground and background by grayscaling the image, using a Gaussian blur \cite{shapiro-computer-vision} with kernel (51,51), followed by Otsu thresholding \cite{otsu-method} (Figure \ref{fig:extracting_tissue_patches}).
+%\item Given a patch size, $s$, we find all patches of size $s$ that lie within the tissue boundary. 
+%\end{enumerate}
+%
+%\subsubsection{Neural network model}
+%We use Inceptionet-v3, a 220-layer Convolutional Neural Network with pre-trained weights to distinguish everyday objects in images. We follow the common practice of adjusting the network architecture in order to fine-tune the network and repurpose it for a different task \cite{fine-tuning-deep-convolutional-neural-networks}. To finetune this network, we add a GlobalAveragePooling layer \cite{network-in-network} followed by a Dense layer a neural network, and a final softmax layer with 10 classification neurons.
+%
+%When varying the size of patches, we re-scale all patches to be 299x299 pixels. This means that if we classify a patch of size 4096, the size is drastically reduced to be 299x299. If the patch-size is 128x128, then we use bi-linear interpolation to resize the patch to be 299x299 pixels. 
+%
+%\subsubsection{Training and Evaluation}
+%We fine-tuned our modified version of InceptioNet to classify square image patches into their originating tissue types. We use the categorical cross-entropy loss function with Stochastic Gradient Descent with learning rate 0.0001 and momentum = 0.9. We run the back-propagation algorithm to fine-tune the network in the following two steps:
+%
+%We evaluate the performance of the trained network on a validation set
+%\begin{enumerate}
+% \item Update the final-layer weights for 10 epochs.
+% \item Update the InceptionNet-v3 layer weights for 30 epochs.
+%\end{enumerate}
+%
+%We assess the performance of the classifier on the held-out validation set by reporting the percentage of correctly classified tissues.
+%
+%\subsection{Latent factors}
+%
+%We choose Lung as the exemplary tissue in which to explore this method. We have a high number of images from this tissue, and the image slices tend to be large. Concretely, we generated image features for each Lung image, using individual lung patches via the following steps.
+%
+%\begin{enumerate}
+%\item We pass every patch that lies within a tissue boundary through the raw and retrained InceptioNet networks, and at each patch-size, to obtain an image feature vector of length $1024$ for each patch.
+% \item We aggregate the image feature across all image patches using the mean and the median.
+%\end{enumerate}
+%In detail, for image $i$, patch $j$, I obtain the $k$th raw patch feature as:
+%
+%$$r_{ijk} =  InceptioNet(x_{ij})_k$$
+%
+%and, when using the mean aggregation, the final image level features is defined as:
+%
+%$$f_{ik} = \frac{1}{J}\sum_j r_{ijk}$$
+%
+%where $J$ is the total number of patches lying within a tissue boundary.
 
 
 %\begin{figure}{l}{0.6\textwidth}
@@ -222,98 +221,98 @@ where $J$ is the total number of patches lying within a tissue boundary.
 %\end{figure}
 
 
-\subsubsection{Tools}
-We used Keras 2.0 \cite{keras} to build and train the neural networks. We use OpenSlide Python \cite{openslide}  version 1.1.1 to read in the whole slide images.
+%\subsubsection{Tools}
+%We used Keras 2.0 \cite{keras} to build and train the neural networks. We use OpenSlide Python \cite{openslide}  version 1.1.1 to read in the whole slide images.
+%
+%\subsection{Latent factors}
+%
+%We choose Lung as the exemplary tissue in which to explore this method. We have a high number of images from this tissue, and the image slices tend to be large. Concretely, we generated image features for each Lung image, using individual lung patches via the following steps.
+%
+%\begin{enumerate}
+%\item We pass every patch that lies within a tissue boundary through the raw and retrained InceptioNet networks, and at each patch-size, to obtain an image feature vector of length $1024$ for each patch.
+% \item We aggregate the image feature across all image patches using the mean and the median.
+%\end{enumerate}
+%In detail, for image $i$, patch $j$, I obtain the $k$th raw patch feature as:
+%
+%$$r_{ijk} =  InceptioNet(x_{ij})_k$$
+%
+%and, when using the mean aggregation, the final image level features is defined as:
+%
+%$$f_{ik} = \frac{1}{J}\sum_j r_{ijk}$$
+%
+%where $J$ is the total number of patches lying within a tissue boundary.
+%
+%\subsection{Associating features to RNA}
+%
+%\subsubsection{RNA expression data}
+%
+%The RNA expression data was download from the GTEx portal and are recorded in log RPKM values.
+%
+%\subsubsection{Association tests}
+%
+%To investigate strong drivers of variation between the the expression data and the image features, we performed Pearson Correlation tests between the principal components describing the 95\% of the variation in the image features and expression respectively. To investigate individual transcript-feature relationships, using the method described in the previous section, we generated sample level features in Lung tissue, for a patch-size of 256x256 pixels with the mean as the aggregation method. We selected the top 500 varying features across all patch sizes, and selected the top 2000 varying transcripts which had mean expression greater than $1$. Figure \ref{fig:expression_means_and_stds} displays where the expression cutoff fall on the histograms of expression mean standard deviations respectively. We investigate the Pearson Correlation tests for each of these pairs or transcript and features (500x2000 in total). These correlations are reported together with a p-value representing the probability that the R score was found by chance.
+%
+%
 
-\subsection{Latent factors}
-
-We choose Lung as the exemplary tissue in which to explore this method. We have a high number of images from this tissue, and the image slices tend to be large. Concretely, we generated image features for each Lung image, using individual lung patches via the following steps.
-
-\begin{enumerate}
-\item We pass every patch that lies within a tissue boundary through the raw and retrained InceptioNet networks, and at each patch-size, to obtain an image feature vector of length $1024$ for each patch.
- \item We aggregate the image feature across all image patches using the mean and the median.
-\end{enumerate}
-In detail, for image $i$, patch $j$, I obtain the $k$th raw patch feature as:
-
-$$r_{ijk} =  InceptioNet(x_{ij})_k$$
-
-and, when using the mean aggregation, the final image level features is defined as:
-
-$$f_{ik} = \frac{1}{J}\sum_j r_{ijk}$$
-
-where $J$ is the total number of patches lying within a tissue boundary.
-
-\subsection{Associating features to RNA}
-
-\subsubsection{RNA expression data}
-
-The RNA expression data was download from the GTEx portal and are recorded in log RPKM values.
-
-\subsubsection{Association tests}
-
-To investigate strong drivers of variation between the the expression data and the image features, we performed Pearson Correlation tests between the principal components describing the 95\% of the variation in the image features and expression respectively. To investigate individual transcript-feature relationships, using the method described in the previous section, we generated sample level features in Lung tissue, for a patch-size of 256x256 pixels with the mean as the aggregation method. We selected the top 500 varying features across all patch sizes, and selected the top 2000 varying transcripts which had mean expression greater than $1$. Figure \ref{fig:expression_means_and_stds} displays where the expression cutoff fall on the histograms of expression mean standard deviations respectively. We investigate the Pearson Correlation tests for each of these pairs or transcript and features (500x2000 in total). These correlations are reported together with a p-value representing the probability that the R score was found by chance.
-
-
-
-\section*{Plan}
-
-\subsection*{Q1: How much variability is shared between image features and expression?} 
-\begin{enumerate}
-\item \sout{Calculate PCA of image features and expression}
-
-\item \sout{Calculate cross correlations between the PCs until 99.9\% variance is explained.}
-
-\item \sout{Use the cross correlation measurements to derive total fraction of variance explained of images by expression: calculate $\sum_i \lambda_i \sum_j r^2_{ij} $ where $\lambda_i$ is the $i$th eigenvalue of the image feature PCA, $r^2_{ij}$ is the correlation of image feature PC $i$ with expression feature PC $j$.}
-
-\item \sout{Make all of the above one-line-to-run for any combination of patch size, feature layer, tissue}
-
-\item \sout{Report the value for each patch size, feature layer, tissue;} interpret findings
-
-\end{enumerate}
-
-\subsection*{Q2: How much of the shared variability is due to technical confounders?} 
-
-\begin{enumerate}
-\item \sout{Regress out known confounders $C$ from the image feature $F$ and expression data E. I.e., fit models $F \sim C + \epsilon$ and $E \sim C + \epsilon$. Use log scale for Ischemic time, monitor all scatter plots for confounders that are included in the model that the linear model assumptions hold. Decide whether to retain full model of all confounders x all genes/features, retain only significant associations, or do forward feature selection.}
-
-\item \sout{Repeat steps Q1:1-5 above using the residuals of this model. }
-
-\item \sout{Create a scatter plot of total shared variance vs. technical shared variance [again, all tissues etc.]}
-
-\item Interpret findings in context of many tissues, scales, feature layers
-\end{enumerate}
-
-\subsection*{Q3: What genes share expression variability to visual features, and at which scales?}
-\begin{enumerate}
-\item \sout{Using residuals of technical confounders, fit linear model of expression vs. image feature - calculate effect sizes and p-values}
-
-\item \sout{Apply multiple testing correction to derive a list of image feature associated genes.}
-
-\item \sout{Sort genes based on variance explained by each image feature, perform GSEA or gProfiler ranked gene list analysis to test whether particular aspects of biology are enriched.} Interpret
-
-\item Assess number of associations [total and per-feature] for different tissues, feature scales. Assess overlap of findings from gene list analyses. Interpret.
-\end{enumerate}
-
-\subsection*{Q3A: What genes are influenced by technical confounders?}
-\begin{enumerate}
-
-\item For each confounder, calculate the fraction of variance it explains for each gene expression level. 
-
-\item Sort genes based on variance explained by confounder, perform GSEA or gProfiler ranked gene list analysis to test whether particular aspects of biology are enriched.]
-
-\end{enumerate}
-
-\subsection*{Once these done}
-\begin{itemize}
-\item Q4: What do the image features represent?
-\item Q5: Is there a genetic basis to the image features?
-\item Q6: Are there gene expression levels that cause image feature changes, or vice versa?
-\item Q7: Are there image features that are associated with clinical annotations? Are any causal?
-
-\end{itemize}
-
-
-\section*{Results}
+%\section*{Plan}
+%
+%\subsection*{Q1: How much variability is shared between image features and expression?} 
+%\begin{enumerate}
+%\item \sout{Calculate PCA of image features and expression}
+%
+%\item \sout{Calculate cross correlations between the PCs until 99.9\% variance is explained.}
+%
+%\item \sout{Use the cross correlation measurements to derive total fraction of variance explained of images by expression: calculate $\sum_i \lambda_i \sum_j r^2_{ij} $ where $\lambda_i$ is the $i$th eigenvalue of the image feature PCA, $r^2_{ij}$ is the correlation of image feature PC $i$ with expression feature PC $j$.}
+%
+%\item \sout{Make all of the above one-line-to-run for any combination of patch size, feature layer, tissue}
+%
+%\item \sout{Report the value for each patch size, feature layer, tissue;} interpret findings
+%
+%\end{enumerate}
+%
+%\subsection*{Q2: How much of the shared variability is due to technical confounders?} 
+%
+%\begin{enumerate}
+%\item \sout{Regress out known confounders $C$ from the image feature $F$ and expression data E. I.e., fit models $F \sim C + \epsilon$ and $E \sim C + \epsilon$. Use log scale for Ischemic time, monitor all scatter plots for confounders that are included in the model that the linear model assumptions hold. Decide whether to retain full model of all confounders x all genes/features, retain only significant associations, or do forward feature selection.}
+%
+%\item \sout{Repeat steps Q1:1-5 above using the residuals of this model. }
+%
+%\item \sout{Create a scatter plot of total shared variance vs. technical shared variance [again, all tissues etc.]}
+%
+%\item Interpret findings in context of many tissues, scales, feature layers
+%\end{enumerate}
+%
+%\subsection*{Q3: What genes share expression variability to visual features, and at which scales?}
+%\begin{enumerate}
+%\item \sout{Using residuals of technical confounders, fit linear model of expression vs. image feature - calculate effect sizes and p-values}
+%
+%\item \sout{Apply multiple testing correction to derive a list of image feature associated genes.}
+%
+%\item \sout{Sort genes based on variance explained by each image feature, perform GSEA or gProfiler ranked gene list analysis to test whether particular aspects of biology are enriched.} Interpret
+%
+%\item Assess number of associations [total and per-feature] for different tissues, feature scales. Assess overlap of findings from gene list analyses. Interpret.
+%\end{enumerate}
+%
+%\subsection*{Q3A: What genes are influenced by technical confounders?}
+%\begin{enumerate}
+%
+%\item For each confounder, calculate the fraction of variance it explains for each gene expression level. 
+%
+%\item Sort genes based on variance explained by confounder, perform GSEA or gProfiler ranked gene list analysis to test whether particular aspects of biology are enriched.]
+%
+%\end{enumerate}
+%
+%\subsection*{Once these done}
+%\begin{itemize}
+%\item Q4: What do the image features represent?
+%\item Q5: Is there a genetic basis to the image features?
+%\item Q6: Are there gene expression levels that cause image feature changes, or vice versa?
+%\item Q7: Are there image features that are associated with clinical annotations? Are any causal?
+%
+%\end{itemize}
+%
+%
+%\section*{Results}
 
 
 %\begin{figure}[H]
