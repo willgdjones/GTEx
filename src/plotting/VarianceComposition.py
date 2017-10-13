@@ -116,6 +116,10 @@ class VarianceComposition():
             technical_retrained = [r[1][1] for r in res_retrained]
             unexplained_retrained = [r[1][2] for r in res_retrained]
 
+            if tissue == 'Ovary':
+                import pdb; pdb.set_trace()
+
+
             ind = np.arange(N)    # the x locations for the groups
             width = 0.35       # the width of the bars: can also be len(x) sequence
 

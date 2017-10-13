@@ -68,37 +68,37 @@
 \maketitle
 
 \begin{abstract}
-How does gene expression influence visual characteristic of tissues? Can the variation in expression be explaining using data extracting from these images alone? To what extent is this possible? We find that across 10 different tissue types, substation amount of variation of gene expression can be explained using a combination of neural network derived image features and known technical factors. This work indicates that expression biomarkers could soon be well estimated using biomedical images. \end{abstract}
+How does gene expression influence visual characteristics of human tissues? To what extent can the variation in expression be explained using features extracted from these images alone? We find that across 10 different tissue types, a substantial amount of variation of gene expression can be explained using a combination of neural network derived image features and known technical covariates. After taking into account technical variation, we find over 66\% of the variation of certain transcripts can be explained with technica This work indicates that expression biomarkers could soon be well estimated using biomedical images. \end{abstract}
 
 \section{Introduction}
 Biomedical images are routinely used by doctors in pathology to diagnose disease. For example, Lung biopsies are taken from patients when grading severities of Lung cancers \cite{histology-classification-lung-cancer}. Specifically for lung cancer, a great deal of work has focussed on the identification of specific tissue characteristics which are indicative of metastasis. Indeed, this has been the topic of many supervised machine learning competition and approaches. We can now accurately identify metastatic regions from high resolution histopathology lung images, with the state of the art achieved by Convolutional Neural Networks (CNNs) \cite{detecting-cancer-metastases}.
 
 What other types of information and biomarkers can be estimated from these high resolution images? To what extent are the visual characteristics of biomedical images influenced by our DNA, and gene expression levels within our tissues? Pathologists are trained to identify visual characteristics in histological slides that are indicative of disease, and it is known that disease onset triggers changes in bulk RNA expression data in tissues where the disease presents. \cite{gene-expression-parkinsons} Furthermore, in many cases the onset of these has a genetic component \cite{what-is-complex-about-complex-disorders}. Therefore, it is reasonable to conclude that high resolution images contain information pertaining to the bulk RNA expression profile taken from the sample, and perhaps even the donor genotype.
 
-Until recently the absence such datasets has prohibited work in this direction. With the addition of high resolution histopathology images annotated with gene expression data, and genotypes, as part of the Genotype Tissue Expression Project (GTEx Project) \cite{GTEx-project}, it is now possible to investigate the interplay of histopathology images, gene expression and genetics. At the time of analysis, the repository v6, consists of 449 genotyped individuals, and bulk RNA expression from 44 tissue types \cite{GTEx-histology}. A median of 15 tissues is given per individual, and a median of 155 samples per tissue type. High resolution histopathology images were available for 34 of these tissue types.
+Until recently the absence such datasets has prohibited work in this direction. With the addition of high resolution histopathology images annotated with gene expression data, and genotypes, as part of the Genotype Tissue Expression Project (GTEx Project) \cite{GTEx-project}, it is now possible to investigate the interplay of histopathology images, gene expression and genetics. At the time of analysis, the repository (v6), consisted of 449 genotyped individuals, along with bulk RNA expression from 44 tissue types \cite{GTEx-histology}. A median of 15 tissues were donated per individual, and a median of 155 samples of each tissue are available in total. High resolution histopathology images were available for 34 of these tissue types.
 
 \section{Methods}
 
-We generated image features using the 1024 final layer activations of an InceptioNet CNN retrained to differentiate between square patches originating from 10 different tissue types. We aggregated these activation across all patches situated within the tissue boundary (Figure \ref{fig:extracting_tissue_patches}). For each image sample, this results in a length 1024 vector representation that we use for downstream association analyses. Detailed methods description contained in the Extended Methods section.
+We generated image features using the 1024 penultimate layer activations of an InceptioNet CNN retrained to differentiate between square patches originating from 10 different tissue types. These activations are the output of the layer just before the classification layer. We mean aggregate these activations across all patches situated within the tissue boundary for each image sample (Figure \ref{fig:extracting_tissue_patches}). This results in a length 1024 vector representation that we use for downstream association analyses.
+
+To investigate the amount of shared variation between the the expression data and these image features, we performed Pearson Correlation tests between the principal components describing the 99.9\% of the variation in the image features and expression respectively. To investigate individual transcript-feature relationships for a given tissue, we select the top $2000$ varying transcripts with mean expression greater than $1$. We calculate the Pearson Correlation for each of these pairs or transcript and feature.
 
 \section{Results}
-We find that across 10 different tissue types, large amount of variation in expression can be explained in large part with a combination of known technical factors and image features. (Figure \ref{fig:variance_composition})
+We find that across 10 different tissue types, a large amount of variation in expression can be explained in large part with a combination of known technical factors and image features. (Figure \ref{fig:variance_composition}). We find a greater amount of variance is explained after the InceptioNet model is retrained to differentiation between tissue type, but also find that raw InceptioNet feature explain a large amount of residual variance.
 
-Futhermore, we compared the effect of using image features extracted from an Inceptionet model without retraining it to differentiate tissue types. We find that we can actually explain more expression variation in this case - perhaps because the output of the raw Inceptionet is a length 2048 vectors, as opposed to a length 1024 vector. 
-
-RNA degradation number (SMRIN) was the factor that explained the most (11.8\%) variation in the image features, wheres Ischemic time explained the most the variance (12.7\%) in the expression data (Figure \ref{fig:tf_feature_selection}). In total, technical factors explained 51.1\% of the variation in expression and 40.6\% of the variation in the image features.
+RNA degradation number (SMRIN) was the factor that explained the most (11.8\%) variation in the image features, wheres Ischemic time explained the most the variance (12.7\%) in the expression data (Figure \ref{fig:tf_feature_selection}). For Lung tissue, technical factors explained 51.1\% of the variation in expression and 40.6\% of the variation in the image features generated at a patch size of $256$.
 
 After regressing out the effect of technical covariates from both the image features and expression, we find that for some transcripts as much as 66\% of the variation can be explained by individual image features.
 
-For Lung tissue, we find that feature 501 explains a significant amount of variation for gene transcripts that are enriched for the gene ontology term: Defective ABCA3 causes pulmonary surfactant metabolism dysfunction type 3 (SMDP3) (Table \ref{tab:image_feature_pcs_and_tfs}). This condition is known to be identifiable by pathologists via histopathology \cite{surfectant-dysfunction}.  Also in tissue, a specific image feature that was highly predictive of Ischemic time (the duration of time between donor death and tissue harvesting) appearing to capture the global colour (Figure \ref{fig:image_feature_796_vs_SMTSISCH}) across the entire tissue area (Figure \ref{fig:top5_bottom5_feature796}).
+For Lung tissue, we find that feature 501 explains a significant amount of variation for gene transcripts that are enriched for the gene ontology term: Defective ABCA3 causes pulmonary surfactant metabolism dysfunction type 3 (SMDP3) (Table \ref{tab:image_feature_pcs_and_tfs}). This condition is known to be visually identifiable by pathologists via histopathology \cite{surfectant-dysfunction}.  Also in Lung tissue, a specific image feature that was highly predictive of Ischemic time (the duration of time between donor death and tissue harvesting) appeared to capture the global colour (Figure \ref{fig:image_feature_796_vs_SMTSISCH}) across the entire tissue area (Figure \ref{fig:top5_bottom5_feature796}).
 
 We investigated the genetic basis of variation for individual image features. However we found that no associations passed Benjamini-Hochberg correction at a 5\% FDR rate.
 
 \section{Discussion}
 
-Gene expression reflects the biological activity of a cell at a given point in time. Technical factors are already known to have a large impact on gene expression. For example, Ischemic time (SMTISCH), reflects the period time between the donor's death, and tissue extraction. During apoptosis, multiple biological pathways are activated which have a profound impact on the biological activity within a cell. This is reflected by the fact that Ischemic time explains the largest amount of variance in expression out of all of the technical factors. With respect to the image features using the described method, more variance is explained when using large patch-sizes. This is surprising because intuitively one might imagine that variation in gene expression might affect only characteristics in tissues visible at smaller scales. However, these results provide evidence against this intuition.
+Gene expression reflects the biological activity of a cell at a given point in time. Technical factors are already known to have a large impact on gene expression. For example, Ischemic time (SMTISCH), reflects the period time between the donor's death, and tissue extraction. During apoptosis, multiple biological pathways are activated which have a profound impact on the biological activity within a cell. In our data, this technical factor explains the largest amount of variance in expression out of all over technical factors (Figure \ref{fig:tf_feature_selection}). Across all tissue types, more variance is explained by image features generated from large sized patches (Figure \ref{fig:variance_composition}). This is surprising because intuitively one might imagine that variation in gene expression would only affect visual characteristics in tissues at smaller scales. However, these results provide evidence against this intuition. It is also possible that features generated by patches at larger scales are more robust to the mean aggregation, and so are more representative of the entire tissue.
 
-This study motivates further work that aims to close the information boundary between biomedical images and gene expression markers. Future work will aim to predict variation of specific markers for a given disease for a given diagnosis. This work will require more comprehensive datasets, but with modern day neural networks able to successfully perform function approximation for a wide variety of complex tasks, this might soon be possible.
+This study motivates further work that aims to close the information boundary between biomedical images and gene expression markers. Future work will aim to predict the variation of specific expression markers for a given disease for diagnosis. This work will require more comprehensive datasets, but with modern day neural networks able to successfully perform function approximation for a wide variety of complex tasks, this might soon be possible.
 
 %\begin{figure}[h]
 %\figuretitle{Filtering expression matrix}
@@ -112,39 +112,39 @@ This study motivates further work that aims to close the information boundary be
 %    \includegraphics[width=0.8\linewidth]{/FeatureExploration/expression_means_and_stds}
 %  \caption{Summary statistics of expression levels used for gene filtering \textcolor{ao(english)}{A} Frequency (y-axis) of mean transcript expression across samples (x-axis). Red vertical line corresponds to x=1, and was used as a minimum expression level cutoff for inclusion in the analysed dataset. \textcolor{ao(english)}{B} Frequency (y-axis) of the standard deviation of transcript expression across samples (x-axis) that have mean expression greater than 1. Samples to the right of the vertical red line correspond to the 2000 most varying transcripts.}
 %\end{figure}
-
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\linewidth]{/FeatureExploration/extracting_tissue_patches} 
+  \caption{\textcolor{ao(english)}{A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \textcolor{ao(english)}{B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary.}
+  \label{fig:extracting_tissue_patches}
+\end{figure}
 
 \begin{figure}[h]
-\begin{subfigure}{0.65\textwidth}
+\begin{subfigure}{0.6\textwidth}
     \centering
     \includegraphics[width=1\textwidth]{/FeatureExploration/top5_bottom5_feature796}
-    \caption{Image feature 796 appears to capture global tissue colour.}
+    \caption{Image feature 796 appears to capture global tissue colour. Top row displays top five samples for the feature, bottom row displays bottom five lung samples for the feature.}
     \label{fig:top5_bottom5_feature796}
 \end{subfigure}
 \begin{subfigure}{0.3\textwidth}
     \centering
-    \includegraphics[width=1\textwidth]{/RawFeatureAssociations/image_feature_796_vs_SMTSISCH}
-    \caption{Image feature 796 strongly predicts Ischemic time.}
+    \includegraphics[width=0.75\textwidth]{/RawFeatureAssociations/image_feature_796_vs_SMTSISCH}
+    \caption{Image feature 796 strongly predicts Ischemic time (SMTSISCH).}
     \label{fig:image_feature_796_vs_SMTSISCH}
  \end{subfigure}
  \caption{}
 \end{figure}
 
-%\begin{figure}[h]
-%  \centering
-%    \includegraphics[width=0.7\linewidth]{/FeatureExploration/extracting_tissue_patches} 
-%  \caption{\textcolor{ao(english)}{A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \textcolor{ao(english)}{B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary.}
-%  \label{fig:extracting_tissue_patches}
-%\end{figure}
+
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=1\linewidth]{/VarianceComposition/compare_expression_variance_composition_across_tissues_by_model} 
-  \caption{Proportion of the variation in expression \textcolor{figgreen}{explained by image features}, \textcolor{figpurple}{explained by technical factors}, \textcolor{figorange}{unexplained}, for 10 different tissue types using image features from 6 different patch-sizes. For each patch-size, the left stacked bar uses retrained InceptioNet features, and the right bar uses raw Inception features.}
+  \caption{Proportion of the variation in expression \textcolor{figgreen}{explained by image features}, \textcolor{figpurple}{explained by technical factors}, \textcolor{figorange}{unexplained}, for 10 different tissue types using image features from 6 different patch-sizes. For each patch-size, the \textbf{left stacked bar} uses retrained InceptioNet features, and \textbf{right stacked bar} uses raw Inception features.}
   \label{fig:variance_composition}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
       \includegraphics[width=1\linewidth]{/TFCorrectedFeatureAssociations/tf_feature_selection} 
         \caption{Only displaying the top 8 technical factors. In total, technical factors account for 40.6\% of variation in the image features and 51.1\% of variation in expression.}
