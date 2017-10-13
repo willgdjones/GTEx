@@ -26,7 +26,7 @@
 
 \graphicspath{{/Users/fonz/Documents/Projects/GTEx/plotting/}}
 
-\title{Explaining gene expression variation using neural network derived image features}
+\title{Explaining gene expression variation using neural network derived image features in histopathology}
 
 % to compile a camera-ready version, add the [final] optio name.
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
@@ -68,7 +68,7 @@
 \maketitle
 
 \begin{abstract}
-How does gene expression influence visual characteristics of human tissues? To what extent can the variation in expression be explained using features extracted from these images alone? We find that across 10 different tissue types, a substantial amount of variation of gene expression can be explained using a combination of neural network derived image features and known technical covariates. After taking into account technical variation, we find over 66\% of the variation of certain transcripts can be explained with technica This work indicates that expression biomarkers could soon be well estimated using biomedical images. \end{abstract}
+How does gene expression influence visual characteristics of human tissues? To what extent can the variation in expression be predicted using features extracted from these images alone? We use data from the Genotype Tissue Expression (GTEx) project which contains high resolution histopathology images annotated with bulk RNA expression and genotype data. We define image features by taking the penultimate layer activation from InceptioNet-v3, after retraining it to differentiate between 10 different tissue types. Across all tissues, we find that a substantial amount of variation of gene expression can be explained using a combination of neural network derived image features and known technical covariates. After taking into account technical variation, we find over 66\% (in Liver)of the variation of certain transcripts can be explained by individual image features. This work indicates that expression biomarkers could soon be well estimated using biomedical images. \end{abstract}
 
 \section{Introduction}
 Biomedical images are routinely used by doctors in pathology to diagnose disease. For example, Lung biopsies are taken from patients when grading severities of Lung cancers \cite{histology-classification-lung-cancer}. Specifically for lung cancer, a great deal of work has focussed on the identification of specific tissue characteristics which are indicative of metastasis. Indeed, this has been the topic of many supervised machine learning competition and approaches. We can now accurately identify metastatic regions from high resolution histopathology lung images, with the state of the art achieved by Convolutional Neural Networks (CNNs) \cite{detecting-cancer-metastases}.
@@ -81,7 +81,7 @@ Until recently the absence such datasets has prohibited work in this direction. 
 
 We generated image features using the 1024 penultimate layer activations of an InceptioNet CNN retrained to differentiate between square patches originating from 10 different tissue types. These activations are the output of the layer just before the classification layer. We mean aggregate these activations across all patches situated within the tissue boundary for each image sample (Figure \ref{fig:extracting_tissue_patches}). This results in a length 1024 vector representation that we use for downstream association analyses.
 
-To investigate the amount of shared variation between the the expression data and these image features, we performed Pearson Correlation tests between the principal components describing the 99.9\% of the variation in the image features and expression respectively. To investigate individual transcript-feature relationships for a given tissue, we select the top $2000$ varying transcripts with mean expression greater than $1$. We calculate the Pearson Correlation for each of these pairs or transcript and feature.
+To investigate the amount of shared variation between the the expression data and these image features, we performed Pearson Correlation tests between the principal components describing the 99.9\% of the variation in the image features and expression respectively. To investigate individual transcript-feature relationships for a given tissue, we select the top $2000$ varying transcripts with mean expression greater than $1$ (log RPKMs). We calculate the Pearson Correlation for each of these pairs or transcript and feature.
 
 \section{Results}
 We find that across 10 different tissue types, a large amount of variation in expression can be explained in large part with a combination of known technical factors and image features. (Figure \ref{fig:variance_composition}). We find a greater amount of variance is explained after the InceptioNet model is retrained to differentiation between tissue type, but also find that raw InceptioNet feature explain a large amount of residual variance.
