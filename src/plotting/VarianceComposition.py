@@ -25,8 +25,8 @@ args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
 
-TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Stomach']
-TISSUE_TITLES = ['Lung', 'Artery', 'Heart', 'Breast', 'Brain', 'Pancreas', 'Testis', 'Liver', 'Stomach']
+TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
+TISSUE_TITLES = ['Lung', 'Artery', 'Heart', 'Breast', 'Brain', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
 SIZES = ['128', '256', '512', '1024', '2048', '4096']
 AGGREGATIONS = ['mean', 'median']
 MODELS = ['raw', 'retrained']
@@ -63,8 +63,8 @@ class VarianceComposition():
 
         fig, ax = plt.subplots(2,5, figsize=(20,5))
         for (i, tissue) in enumerate(TISSUES):
-            res_mean = [results['{}_{}_{}_{}'.format(tissue, 'mean', 'retrained', s)] for s in SIZES]
-            res_median = [results['{}_{}_{}_{}'.format(tissue, 'median', 'retrained', s)] for s in SIZES]
+            results = [results['{}_{}_{}_{}'.format(tissue, 'mean', 'retrained', s)] for s in SIZES]
+
 
             N = 6
             explained_mean = [r[1][0] for r in res_mean]
@@ -94,13 +94,14 @@ class VarianceComposition():
 
     @staticmethod
     def compare_expression_variance_composition_across_tissues_by_model():
-        results = pickle.load(open(GTEx_directory + '/results/VarianceComposition/calculate_variance_explained.pickle'.format(group=group), 'rb'))
+        component_results = pickle.load(open(GTEx_directory + '/results/VarianceComposition/calculate_variance_explained.pickle'.format(group=group), 'rb'))
 
 
-        fig, ax = plt.subplots(3,3, figsize=(12,9))
+        fig, ax = plt.subplots(2,5, figsize=(12,5))
         for (i, tissue) in enumerate(TISSUES):
-            res_raw = [results['{}_{}_{}_{}'.format(tissue, 'mean', 'raw', s)] for s in SIZES]
-            res_retrained = [results['{}_{}_{}_{}'.format(tissue, 'mean', 'retrained', s)] for s in SIZES]
+
+            results = [component_results['{}_{}_{}_{}'.format(tissue, 'mean', 'retrained', s)] for s in SIZES]
+
 
             import matplotlib as mpl
             label_size = 15
@@ -108,18 +109,14 @@ class VarianceComposition():
             mpl.rcParams['ytick.labelsize'] = label_size
 
             N = 6
-            explained_raw = [r[1][0] for r in res_raw]
-            technical_raw = [r[1][1] for r in res_raw]
-            unexplained_raw = [r[1][2] for r in res_raw]
 
-            explained_retrained = [r[1][0] for r in res_retrained]
-            technical_retrained = [r[1][1] for r in res_retrained]
-            unexplained_retrained = [r[1][2] for r in res_retrained]
+            explained_real = [r[0][1][0] for r in results]
+            technical_real = [r[0][1][1] for r in results]
+            unexplained_real = [r[0][1][2] for r in results]
 
-            print(unexplained_retrained)
-
-
-
+            explained_shuffle = [r[1][1][0] for r in results]
+            technical_shuffle = [r[1][1][1] for r in results]
+            unexplained_shuffle = [r[1][1][2] for r in results]
 
             ind = np.arange(N)    # the x locations for the groups
             width = 0.35       # the width of the bars: can also be len(x) sequence
@@ -127,13 +124,13 @@ class VarianceComposition():
             greencolor = [0.106, 0.62, 0.467]
             orangecolor = [0.851, 0.373, 0.008]
             purplecolor = [0.459, 0.439, 0.702]
-            p11 = ax.flatten()[i].bar(ind-(width/2), explained_raw, width, color=greencolor, label='explained')
-            p11 = ax.flatten()[i].bar(ind+(width/2), explained_retrained, width, color=greencolor)
-            p21 = ax.flatten()[i].bar(ind-(width/2), technical_raw, width, bottom=explained_raw, color=purplecolor, label='technical')
-            p22 = ax.flatten()[i].bar(ind+(width/2), technical_retrained, width, bottom=explained_retrained, color=purplecolor)
+            p11 = ax.flatten()[i].bar(ind-(width/2), explained_real, width, color=greencolor, label='explained')
+            p11 = ax.flatten()[i].bar(ind+(width/2), explained_shuffle, width, color=greencolor)
+            p21 = ax.flatten()[i].bar(ind-(width/2), technical_real, width, bottom=explained_real, color=purplecolor, label='technical')
+            p22 = ax.flatten()[i].bar(ind+(width/2), technical_shuffle, width, bottom=explained_shuffle, color=purplecolor)
 
-            p31 = ax.flatten()[i].bar(ind-(width/2), unexplained_raw, width, bottom=list(np.array(technical_raw) + np.array(explained_raw)), color=orangecolor, label='unexplained')
-            p32 = ax.flatten()[i].bar(ind+(width/2), unexplained_retrained, width, bottom=list(np.array(technical_retrained) + np.array(explained_retrained)), color=orangecolor)
+            p31 = ax.flatten()[i].bar(ind-(width/2), unexplained_real, width, bottom=list(np.array(technical_real) + np.array(explained_real)), color=orangecolor, label='unexplained')
+            p32 = ax.flatten()[i].bar(ind+(width/2), unexplained_shuffle, width, bottom=list(np.array(technical_shuffle) + np.array(explained_shuffle)), color=orangecolor)
             ax.flatten()[i].set_title(TISSUE_TITLES[i], size=20)
             ax.flatten()[i].set_xticks(range(len(SIZES)))
             ax.flatten()[i].set_ylabel('Total variance', size=12)

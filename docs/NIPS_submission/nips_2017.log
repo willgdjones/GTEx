@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  13 OCT 2017 16:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  15 OCT 2017 18:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -691,12 +691,20 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks36
 \@floatcapt=\box39
 )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen193
+\WF@size=\dimen194
+\c@WF@wrappedlines=\count135
+\WF@box=\box40
+\WF@everypar=\toks37
+Package: wrapfig 2003/01/31  v 3.6
+)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/csvsimple/csvsimple.sty
 Package: csvsimple 2014/07/14 version 1.12 LaTeX CSV file processing
 \csv@file=\read2
-\c@csvinputline=\count135
-\c@csvrow=\count136
-\c@csvcol=\count137
+\c@csvinputline=\count136
+\c@csvrow=\count137
+\c@csvcol=\count138
 \csv@out=\write4
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
@@ -708,50 +716,51 @@ Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen193
-\captionmargin@=\dimen194
-\captionwidth=\dimen195
-\caption@tempdima=\dimen196
-\caption@indent=\dimen197
-\caption@parindent=\dimen198
-\caption@hangindent=\dimen199
+\captionmargin=\dimen195
+\captionmargin@=\dimen196
+\captionwidth=\dimen197
+\caption@tempdima=\dimen198
+\caption@indent=\dimen199
+\caption@parindent=\dimen200
+\caption@hangindent=\dimen201
 )
-\c@ContinuedFloat=\count138
+\c@ContinuedFloat=\count139
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
+Package caption Info: wrapfig package is loaded.
 )
-\c@subfigure=\count139
-\c@subtable=\count140
+\c@subfigure=\count140
+\c@subtable=\count141
 )
 (/usr/local/texlive/2015/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box40
-\UL@hyphenbox=\box41
+\UL@box=\box41
+\UL@hyphenbox=\box42
 \UL@skip=\skip52
-\UL@hook=\toks37
-\UL@height=\dimen200
-\UL@pe=\count141
-\UL@pixel=\dimen201
-\ULC@box=\box42
+\UL@hook=\toks38
+\UL@height=\dimen202
+\UL@pe=\count142
+\UL@pixel=\dimen203
+\ULC@box=\box43
 Package: ulem 2012/05/18
-\ULdepth=\dimen202
+\ULdepth=\dimen204
 ) (./nips_2017.aux)
 \openout1 = `nips_2017.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 65.
-LaTeX Font Info:    ... okay on input line 65.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 65.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 73.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
@@ -821,25 +830,25 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box43
-Package hyperref Info: Link coloring OFF on input line 65.
+\AtBeginShipoutBox=\box44
+Package hyperref Info: Link coloring OFF on input line 73.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count142
+\c@section@level=\count143
 )
-LaTeX Info: Redefining \ref on input line 65.
-LaTeX Info: Redefining \pageref on input line 65.
-LaTeX Info: Redefining \nameref on input line 65.
+LaTeX Info: Redefining \ref on input line 73.
+LaTeX Info: Redefining \pageref on input line 73.
+LaTeX Info: Redefining \nameref on input line 73.
 
 (./nips_2017.out) (./nips_2017.out)
 \@outlinefile=\write5
 \openout5 = `nips_2017.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 65.
+LaTeX Info: Redefining \microtypecontext on input line 73.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -855,17 +864,17 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count143
-\scratchdimen=\dimen203
-\scratchbox=\box44
-\nofMPsegments=\count144
-\nofMParguments=\count145
-\everyMPshowfont=\toks38
-\MPscratchCnt=\count146
-\MPscratchDim=\dimen204
-\MPnumerator=\count147
-\makeMPintoPDFobject=\count148
-\everyMPtoPDFconversion=\toks39
+\scratchcounter=\count144
+\scratchdimen=\dimen205
+\scratchbox=\box45
+\nofMPsegments=\count145
+\nofMParguments=\count146
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count147
+\MPscratchDim=\dimen206
+\MPnumerator=\count148
+\makeMPintoPDFobject=\count149
+\everyMPtoPDFconversion=\toks40
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -886,17 +895,17 @@ ABD: EveryShipout initializing macros
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.12} into 
 your preamble.
- on input line 65.
+ on input line 73.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 69.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 77.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 69.
+LaTeX Font Info:    Try loading font information for U+msa on input line 77.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -904,7 +913,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2015/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 69.
+LaTeX Font Info:    Try loading font information for U+msb on input line 77.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -913,8 +922,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 69.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 69.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 77.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 77.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -924,52 +933,90 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 70.
- [1
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 78.
 
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 90.
+
+[1
+
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 </Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/extracting_ti
-ssue_patches.png, id=64, 1445.4pt x 722.7pt>
+ssue_patches.png, id=74, 1445.4pt x 722.7pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/extracti
 ng_tissue_patches.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/extractin
 g_tissue_patches.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//FeatureE
-xploration/extracting_tissue_patches.png used on input line 117.
-(pdftex.def)             Requested size: 278.23827pt x 139.11191pt.
+xploration/extracting_tissue_patches.png used on input line 103.
+(pdftex.def)             Requested size: 198.7425pt x 99.36879pt.
+
+
+Package wrapfig Warning: Stationary wrapfigure forced to float on input line 11
+0.
+
+[2 </Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/extracting
+_tissue_patches.png>]
+</Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociations/t
+op_corrected_associations.png, id=95, 858.5676pt x 177.7842pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociati
+ons/top_corrected_associations.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociatio
+ns/top_corrected_associations.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrec
+tedFeatureAssociations/top_corrected_associations.png used on input line 153.
+(pdftex.def)             Requested size: 397.48499pt x 82.30527pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociations/t
+f_feature_selection.png, id=97, 1084.05pt x 433.62pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociati
+ons/tf_feature_selection.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociatio
+ns/tf_feature_selection.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrec
+tedFeatureAssociations/tf_feature_selection.png used on input line 163.
+(pdftex.def)             Requested size: 198.7425pt x 79.49062pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/top5_bottom5_
-feature796.png, id=66, 1445.4pt x 433.62pt>
+feature796.png, id=104, 1445.4pt x 433.62pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/top5_bot
 tom5_feature796.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/top5_bott
 om5_feature796.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//FeatureE
-xploration/top5_bottom5_feature796.png used on input line 125.
+xploration/top5_bottom5_feature796.png used on input line 183.
 (pdftex.def)             Requested size: 238.49341pt x 71.5442pt.
 
 </Users/fonz/Documents/Projects/GTEx/plotting//RawFeatureAssociations/image_fea
-ture_796_vs_SMTSISCH.png, id=67, 722.7pt x 505.89pt>
+ture_796_vs_SMTSISCH.png, id=105, 722.7pt x 505.89pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting//RawFeatureAssociations/imag
 e_feature_796_vs_SMTSISCH.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting//RawFeatureAssociations/image
 _feature_796_vs_SMTSISCH.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//RawFeatu
-reAssociations/image_feature_796_vs_SMTSISCH.png used on input line 131.
+reAssociations/image_feature_796_vs_SMTSISCH.png used on input line 189.
 (pdftex.def)             Requested size: 89.43503pt x 62.6031pt.
 
-Underfull \hbox (badness 2173) in paragraph at lines 132--132
+Underfull \hbox (badness 2173) in paragraph at lines 190--190
 \T1/ptm/m/n/9 (+20) pre-dicts Is-chemic time (SMT-
  []
 
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3 </Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociation
+s/top_corrected_associations.png> </Users/fonz/Documents/Projects/GTEx/plotting
+//TFCorrectedFeatureAssociations/tf_feature_selection.png>]
 </Users/fonz/Documents/Projects/GTEx/plotting//VarianceComposition/compare_expr
-ession_variance_composition_across_tissues_by_model.png, id=68, 867.24pt x 650.
-43pt>
+ession_variance_composition_across_tissues_by_model.png, id=118, 867.24pt x 361
+.35pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting//VarianceComposition/compare
 _expression_variance_composition_across_tissues_by_model.png Graphic file (type
  png)
@@ -978,74 +1025,84 @@ _expression_variance_composition_across_tissues_by_model.png Graphic file (type
 expression_variance_composition_across_tissues_by_model.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//Variance
 Composition/compare_expression_variance_composition_across_tissues_by_model.png
- used on input line 142.
-(pdftex.def)             Requested size: 397.48499pt x 298.11963pt.
+ used on input line 216.
+(pdftex.def)             Requested size: 317.9892pt x 132.4954pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-</Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociations/t
-f_feature_selection.png, id=69, 1445.4pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociati
-ons/tf_feature_selection.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrectedFeatureAssociatio
-ns/tf_feature_selection.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting//TFCorrec
-tedFeatureAssociations/tf_feature_selection.png used on input line 149.
-(pdftex.def)             Requested size: 397.48499pt x 198.7376pt.
-
-Underfull \hbox (badness 1448) in paragraph at lines 163--163
+Underfull \hbox (badness 1448) in paragraph at lines 239--239
 \T1/ptm/m/n/10 (+20) fac-tant metabolism dys-func-tion type 3
  []
 
 
-Overfull \hbox (36.85356pt too wide) in paragraph at lines 159--170
+Overfull \hbox (36.85356pt too wide) in paragraph at lines 235--246
 [][] 
  []
 
-[3 </Users/fonz/Documents/Projects/GTEx/plotting//FeatureExploration/extracting
-_tissue_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting//FeatureExpl
-oration/top5_bottom5_feature796.png> </Users/fonz/Documents/Projects/GTEx/plott
-ing//RawFeatureAssociations/image_feature_796_vs_SMTSISCH.png> </Users/fonz/Doc
-uments/Projects/GTEx/plotting//TFCorrectedFeatureAssociations/tf_feature_select
-ion.png>] (./referenc.tex
+(./referenc.tex [4 </Users/fonz/Documents/Projects/GTEx/plotting//FeatureExplor
+ation/top5_bottom5_feature796.png> </Users/fonz/Documents/Projects/GTEx/plottin
+g//RawFeatureAssociations/image_feature_796_vs_SMTSISCH.png> </Users/fonz/Docum
+ents/Projects/GTEx/plotting//VarianceComposition/compare_expression_variance_co
+mposition_across_tissues_by_model.png>]
 Underfull \hbox (badness 1881) in paragraph at lines 20--21
 \T1/ptm/m/n/10 (+20) The Genotype-Tissue Ex-pres-sion (GTEx) project. Na-ture G
 e-net-ics, 45(6), 580?585.
  []
 
-[4 </Users/fonz/Documents/Projects/GTEx/plotting//VarianceComposition/compare_e
-xpression_variance_composition_across_tissues_by_model.png>]) [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 327.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 327.
 
-(./nips_2017.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 327.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 327.
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+[]\T1/ptm/m/n/10 (+20) Otsu, N. (1979). A Thresh-old Se-lec-tion Method from Gr
+ay-Level His-
+ []
+
+
+Underfull \hbox (badness 7151) in paragraph at lines 38--39
+\T1/ptm/m/n/10 (+20) tograms. IEEE Trans-ac-tions on Sys-tems, Man, and Cy-ber-
+net-ics, 9(1), 62?66.
+ []
+
+
+Underfull \hbox (badness 3679) in paragraph at lines 43--45
+[]\T1/ptm/m/n/10 (+20) Christian Szegedy, Vin-cent Van-houcke, Sergey Ioffe, Jo
+nathon Shlens, Zbig-niew
+ []
+
+
+Underfull \hbox (badness 2608) in paragraph at lines 43--45
+\T1/ptm/m/n/10 (+20) Wo-jna (2 Dec 2015). Re-think-ing the In-cep-tion Ar-chi-t
+ec-ture for Com-puter Vi-sion
+ []
+
+) [5]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 322.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 322.
+ (./nips_2017.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 322.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 322.
 Package rerunfilecheck Info: File `nips_2017.out' has not changed.
-(rerunfilecheck)             Checksum: BACC3CCFE9E44672BF13C6E7F92E4121;176.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 327.
+(rerunfilecheck)             Checksum: CDDFD91ECFC56DA30688B30C61F1B3A5;704.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 322.
  ) 
 Here is how much of TeX's memory you used:
- 28445 strings out of 493089
- 677344 string characters out of 6134843
- 858837 words of memory out of 5000000
- 31321 multiletter control sequences out of 15000+600000
- 28018 words of font info for 104 fonts, out of 8000000 for 9000
+ 28535 strings out of 493089
+ 679054 string characters out of 6134843
+ 861723 words of memory out of 5000000
+ 31389 multiletter control sequences out of 15000+600000
+ 28214 words of font info for 107 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,10n,79p,1153b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,10n,79p,1149b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texm
-f-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on nips_2017.pdf (5 pages, 1744959 bytes).
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015
+/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/
+fonts/type1/urw/times/utmr8a.pfb>
+Output written on nips_2017.pdf (5 pages, 1777452 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
- 25 named destinations out of 1000 (max. 500000)
- 14406 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 173 PDF objects out of 1000 (max. 8388607)
+ 144 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 14459 words of extra memory for PDF output out of 17280 (max. 10000000)
 

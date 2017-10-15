@@ -1,4 +1,10 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Methods}{}% 2
-\BOOKMARK [1][-]{section.3}{Results}{}% 3
-\BOOKMARK [1][-]{section.4}{Discussion}{}% 4
+\BOOKMARK [2][-]{subsubsection.2.0.1}{Training data generation}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.0.2}{Neural network model}{subsubsection.2.0.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.0.3}{Training and Evaluation}{subsubsection.2.0.1}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Aggregated features}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Associating aggregated features to RNA expression}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Calculating residual features and estimate variance composition}{section.2}% 8
+\BOOKMARK [1][-]{section.3}{Results}{}% 9
+\BOOKMARK [1][-]{section.4}{Discussion}{}% 10

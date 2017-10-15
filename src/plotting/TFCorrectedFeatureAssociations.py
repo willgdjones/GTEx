@@ -162,13 +162,16 @@ class TFCorrectedFeatureAssociations():
         expression_ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/tf_feature_selection_expression.pickle'.format(group=group), 'rb'))
         image_feature_ordered_choices = pickle.load(open(GTEx_directory + '/results/{group}/tf_feature_selection_image_features.pickle'.format(group=group), 'rb'))
 
+
         #Extract order of importance of technical factors for expression
         expression_var_explained = [x[0]*100 for x in expression_ordered_choices][0:8]
         expression_ordered_tfs = [x[1] for x in expression_ordered_choices][0:8]
 
+
         #Extract order of importance of technical factors for image features
         image_feature_var_explained = [x[0]*100 for x in image_feature_ordered_choices][0:8]
         image_feature_ordered_tfs = [x[1] for x in image_feature_ordered_choices][0:8]
+        image_feature_ordered_tfs[3] = 'Sample_ID'
 
         import matplotlib as mpl
         import seaborn as sns
@@ -180,11 +183,11 @@ class TFCorrectedFeatureAssociations():
         mpl.rcParams['ytick.labelsize'] = label_size
 
 
-        fig, ax = plt.subplots(1,2, figsize=(20,10))
+        fig, ax = plt.subplots(1,2, figsize=(15,6))
         ax[0].plot(expression_var_explained)
         ax[0].set_xticks(list(range(len(expression_ordered_tfs))))
-        ax[0].set_xticklabels(expression_ordered_tfs, rotation=90, size=20)
-        ax[0].set_ylabel('Cumulative variance explained', size=30)
+        ax[0].set_xticklabels(expression_ordered_tfs, rotation=90, size=25)
+        ax[0].set_ylabel('Cumulative variance explained', size=20)
 
 
         ax[0].set_title('Expression variation', size=30)
@@ -194,10 +197,10 @@ class TFCorrectedFeatureAssociations():
 
         ax[1].plot(image_feature_var_explained)
         ax[1].set_xticks(list(range(len(image_feature_ordered_tfs))))
-        ax[1].set_xticklabels(image_feature_ordered_tfs, rotation=90, size=20)
+        ax[1].set_xticklabels(image_feature_ordered_tfs, rotation=90, size=25)
         ax[1].set_title('Image feature variation', size=30)
 
-        plt.subplots_adjust(bottom=0.30)
+        plt.subplots_adjust(bottom=0.50)
 
 
 
@@ -206,6 +209,8 @@ class TFCorrectedFeatureAssociations():
         os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
         plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection.eps'.format(group=group), format='eps', dpi=100)
         plt.savefig(GTEx_directory + '/plotting/{group}/tf_feature_selection.png'.format(group=group), format='png', dpi=100)
+
+        plt.show()
 
 
 

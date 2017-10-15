@@ -92,7 +92,7 @@ class MidPointNorm(Normalize):
             else:
                 return  val*abs(vmax-midpoint) + midpoint
 
-def extract_final_layer_data(t, m, a, ps, genotypes=False):
+def extract_final_layer_data(t, m, a, ps, genotypes=False, shuffle=False):
     with h5py.File(GTEx_directory +
                 '/data/h5py/aggregated_features.h5py', 'r') as f:
         X = f[t]['ordered_expression'].value
@@ -103,6 +103,11 @@ def extract_final_layer_data(t, m, a, ps, genotypes=False):
             get_technical_factors(t, dIDs)
         size_group = f[t]['-1'][ps]
         Y = size_group[m][a]['ordered_aggregated_features'].value
+        if shuffle:
+            idx = np.array(range(Y.shape[0]))
+            np.random.shuffle(idx)
+            Y = Y[idx,:]
+
         Y[Y < 0] = 0
         if genotypes:
 

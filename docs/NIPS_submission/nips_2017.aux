@@ -22,30 +22,50 @@
 \citation{what-is-complex-about-complex-disorders}
 \citation{GTEx-project}
 \citation{GTEx-histology}
+\citation{shapiro-computer-vision}
+\citation{otsu-method}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
-\citation{surfectant-dysfunction}
+\citation{inception}
+\citation{network-in-network}
+\citation{keras}
+\citation{openslide}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Methods}{2}{section.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Results}{2}{section.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{2}{section.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \leavevmode {\color  {ao(english)}A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \leavevmode {\color  {ao(english)}B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary.\relax }}{3}{figure.caption.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.0.1}Training data generation}{2}{subsubsection.2.0.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.0.2}Neural network model}{2}{subsubsection.2.0.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.0.3}Training and Evaluation}{2}{subsubsection.2.0.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces \relax }}{2}{figure.caption.2}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:extracting_tissue_patches}{{1}{3}{\textcolor {ao(english)}{A} We illustrate how the tissue is segmented into the tissue foreground and background by Gaussian blurring followed by Otsu thresholding. \textcolor {ao(english)}{B} We illustrate where patch centers are located within a tissue boundary. The dots represent patch centers that fit inside the tissue boundary.\relax }{figure.caption.2}{}}
-\newlabel{fig:top5_bottom5_feature796}{{2a}{3}{Image feature 796 appears to capture global tissue colour. Top row displays top five samples for the feature, bottom row displays bottom five lung samples for the feature.\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:top5_bottom5_feature796}{{a}{3}{Image feature 796 appears to capture global tissue colour. Top row displays top five samples for the feature, bottom row displays bottom five lung samples for the feature.\relax }{figure.caption.3}{}}
-\newlabel{fig:image_feature_796_vs_SMTSISCH}{{2b}{3}{Image feature 796 strongly predicts Ischemic time (SMTSISCH).\relax }{figure.caption.3}{}}
-\newlabel{sub@fig:image_feature_796_vs_SMTSISCH}{{b}{3}{Image feature 796 strongly predicts Ischemic time (SMTSISCH).\relax }{figure.caption.3}{}}
+\newlabel{fig:extracting_tissue_patches}{{1}{2}{\relax }{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Aggregated features}{2}{subsection.2.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Associating aggregated features to RNA expression}{2}{subsection.2.2}}
+\citation{surfectant-dysfunction}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Calculating residual features and estimate variance composition}{3}{subsection.2.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Results}{3}{section.3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \relax }}{3}{figure.caption.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Only displaying the top 8 technical factors. In total, technical factors account for 40.6\% of variation in the image features and 51.1\% of variation in expression.\relax }}{3}{figure.caption.5}}
-\newlabel{fig:tf_feature_selection}{{4}{3}{Only displaying the top 8 technical factors. In total, technical factors account for 40.6\% of variation in the image features and 51.1\% of variation in expression.\relax }{figure.caption.5}{}}
+\newlabel{fig:top_corrected_associations}{{2}{3}{\relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \relax }}{3}{figure.caption.4}}
+\newlabel{fig:tf_feature_selection}{{3}{3}{\relax }{figure.caption.4}{}}
 \bibcite{histology-classification-lung-cancer}{1}
 \bibcite{detecting-cancer-metastases}{2}
 \bibcite{gene-expression-parkinsons}{3}
+\newlabel{fig:top5_bottom5_feature796}{{4a}{4}{Image feature 796 appears to capture global tissue colour. Top row displays top five Lung samples that activate the feature, bottom row displays bottom five.\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:top5_bottom5_feature796}{{a}{4}{Image feature 796 appears to capture global tissue colour. Top row displays top five Lung samples that activate the feature, bottom row displays bottom five.\relax }{figure.caption.5}{}}
+\newlabel{fig:image_feature_796_vs_SMTSISCH}{{4b}{4}{Image feature 796 strongly predicts Ischemic time (SMTSISCH).\relax }{figure.caption.5}{}}
+\newlabel{sub@fig:image_feature_796_vs_SMTSISCH}{{b}{4}{Image feature 796 strongly predicts Ischemic time (SMTSISCH).\relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \relax }}{4}{figure.caption.5}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{4}{section.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Proportion of the variation in expression \leavevmode {\color  {figgreen}explained by image features}, \leavevmode {\color  {figpurple}explained by technical factors}, \leavevmode {\color  {figorange}unexplained}, for 10 different tissue types using image features from 6 different patch-sizes (in pixels). For each patch-size, the \textbf  {left stacked bar} uses retrained InceptioNet features, and \textbf  {right stacked bar} uses permuted Inception features.\relax }}{4}{figure.caption.6}}
+\newlabel{fig:variance_composition}{{5}{4}{Proportion of the variation in expression \textcolor {figgreen}{explained by image features}, \textcolor {figpurple}{explained by technical factors}, \textcolor {figorange}{unexplained}, for 10 different tissue types using image features from 6 different patch-sizes (in pixels). For each patch-size, the \textbf {left stacked bar} uses retrained InceptioNet features, and \textbf {right stacked bar} uses permuted Inception features.\relax }{figure.caption.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \relax }}{4}{table.caption.7}}
+\newlabel{tab:image_feature_pcs_and_tfs}{{1}{4}{\relax }{table.caption.7}{}}
 \bibcite{what-is-complex-about-complex-disorders}{4}
 \bibcite{GTEx-project}{5}
 \bibcite{GTEx-histology}{6}
 \bibcite{surfectant-dysfunction}{7}
 \bibcite{complex-sources-of-variation}{8}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Proportion of the variation in expression \leavevmode {\color  {figgreen}explained by image features}, \leavevmode {\color  {figpurple}explained by technical factors}, \leavevmode {\color  {figorange}unexplained}, for 10 different tissue types using image features from 6 different patch-sizes. For each patch-size, the \textbf  {left stacked bar} uses retrained InceptioNet features, and \textbf  {right stacked bar} uses raw Inception features.\relax }}{4}{figure.caption.4}}
-\newlabel{fig:variance_composition}{{3}{4}{Proportion of the variation in expression \textcolor {figgreen}{explained by image features}, \textcolor {figpurple}{explained by technical factors}, \textcolor {figorange}{unexplained}, for 10 different tissue types using image features from 6 different patch-sizes. For each patch-size, the \textbf {left stacked bar} uses retrained InceptioNet features, and \textbf {right stacked bar} uses raw Inception features.\relax }{figure.caption.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Enriched Ontology terms for image feature 501\relax }}{4}{table.caption.6}}
-\newlabel{tab:image_feature_pcs_and_tfs}{{1}{4}{Enriched Ontology terms for image feature 501\relax }{table.caption.6}{}}
+\bibcite{shapiro-computer-vision}{9}
+\bibcite{otsu-method}{10}
+\bibcite{network-in-network}{11}
+\bibcite{inception}{12}
+\bibcite{keras}{13}
+\bibcite{openslide}{14}

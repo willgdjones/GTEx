@@ -35,15 +35,19 @@ parser = argparse.ArgumentParser(description='Collection of experiments. Runs on
 parser.add_argument('-g', '--group', help='Experiment group', required=True)
 parser.add_argument('-n', '--name', help='Experiment name', required=True)
 parser.add_argument('-p', '--params', help='Parameters')
+parser.add_argument('-l', '--parallel', help='Parameters')
+parser.add_argument('-s', '--shuffle', help='Parameters')
 args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
 parameter_key = args['params']
+parallel = args['parallel']
+shuffle = args['shuffle']
 
-def variance_excluding_technical_factor(key):
+def variance_excluding_technical_factor(key, shuffle=False):
     t, a, m, s = key.split('_')
 
-    Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s)
+    Y, X, dIDs, tIDs, tfs, ths, t_idx = extract_final_layer_data(t, m, a, s, shuffle=shuffle)
     Y_prime = Y[t_idx,:]
     X_prime = X[t_idx,:]
 
@@ -86,17 +90,20 @@ def variance_excluding_technical_factor(key):
             R, pv = pearsonr(pca_corrected_Y[:,i], pca_corrected_X[:,j])
             R_matrix[i,j] = R
             # pbar.update(1)
-    # pbar.close()
 
 
     Y_variance_explained = pca_Y.explained_variance_
     X_variance_explained = pca_X.explained_variance_
+
+
 
     # print ("Calculating variance of image features explained by expression ")
     componentwise_variance_explained = []
     for i in range(len(Y_variance_explained)):
         component_variance_explained = Y_variance_explained[i] * sum(R_matrix[i,:]**2)
         componentwise_variance_explained.append(component_variance_explained)
+
+
 
     total = sum(componentwise_variance_explained)
     frac = total / sum(Y_variance_explained)
@@ -116,12 +123,13 @@ def variance_excluding_technical_factor(key):
 
     expression_variation_explained = [total, frac]
 
+
     return image_feature_variation_explained, expression_variation_explained
 
-def variance_including_technical_factor(key):
+def variance_including_technical_factor(key, shuffle=False):
     t, a, m, s = key.split('_')
 
-    image_features, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(t, m, a, s)
+    image_features, expression, donorIDs, transcriptIDs, technical_factors, technical_headers, technical_idx = extract_final_layer_data(t, m, a, s, shuffle=shuffle)
 
     # print ("Calculating PCs that explain 99.9% of image feature variance")
     pca_im = PCA(n_components=0.999)
@@ -174,9 +182,9 @@ def variance_including_technical_factor(key):
 
     return image_feature_variation_explained, expression_variation_explained
 
-def compute_variance_composition(key):
-    var_exc_tf = variance_excluding_technical_factor(key)
-    var_inc_tf = variance_including_technical_factor(key)
+def compute_variance_composition(key, shuffle=False):
+    var_exc_tf = variance_excluding_technical_factor(key, shuffle)
+    var_inc_tf = variance_including_technical_factor(key, shuffle)
 
     total_exp_inc_variation = var_inc_tf[1][0] / var_inc_tf[1][1]
     total_im_inc_variation = var_inc_tf[0][0] / var_inc_tf[0][1]
@@ -194,6 +202,12 @@ def compute_variance_composition(key):
 
     return im_components, exp_components
 
+
+def compute_variance_composition_real_and_shuffle(key):
+    components = compute_variance_composition(key, shuffle=False)
+    shuffled_components = compute_variance_composition(key, shuffle=True)
+    return components, shuffled_components
+
 class VarianceComposition():
 
     @staticmethod
@@ -203,12 +217,10 @@ class VarianceComposition():
 
         TISSUES = ['Lung', 'Artery - Tibial', 'Heart - Left Ventricle', 'Breast - Mammary Tissue', 'Brain - Cerebellum', 'Pancreas', 'Testis', 'Liver', 'Ovary', 'Stomach']
         SIZES = ['128', '256', '512', '1024', '2048', '4096']
-        AGGREGATIONS = ['mean', 'median']
-        MODELS = ['raw', 'retrained']
+        AGGREGATIONS = ['mean']
+        MODELS = ['retrained']
 
         results = {}
-
-
 
         all_keys = []
         for t in TISSUES:
@@ -221,37 +233,45 @@ class VarianceComposition():
         pbar = tqdm(total=len(all_keys))
         results = {}
 
-        with ProcessPool(max_workers=16) as pool:
+        if parallel == '1':
+            import pdb; pdb.set_trace()
+            with ProcessPool(max_workers=16) as pool:
 
-            future = pool.map(compute_variance_composition, all_keys, timeout=600)
-            future_results = future.result()
+                future = pool.map(compute_variance_composition_real_and_shuffle, all_keys, timeout=600)
+                future_results = future.result()
 
-            variance_results = []
-            while True:
-                try:
-                    result = next(future_results)
-                    variance_results.append(result)
-                    pbar.update(1)
-                except StopIteration:
-                    break
-                except TimeoutError as error:
-                    variance_results.append(None)
-                    pbar.update(1)
-                    print("function took longer than %d seconds" % error.args[1])
-                except ProcessExpired as error:
-                    variance_results.append(None)
-                    pbar.update(1)
-                    print("%s. Exit code: %d" % (error, error.exitcode))
-                except Exception as error:
-                    variance_results.append(None)
-                    print("function raised %s" % error)
-                    print(error)  # Python's traceback of remote process
+                variance_results = []
+                while True:
+                    try:
+                        result = next(future_results)
+                        variance_results.append(result)
+                        pbar.update(1)
+                    except StopIteration:
+                        break
+                    except TimeoutError as error:
+                        variance_results.append(None)
+                        pbar.update(1)
+                        print("function took longer than %d seconds" % error.args[1])
+                    except ProcessExpired as error:
+                        variance_results.append(None)
+                        pbar.update(1)
+                        print("%s. Exit code: %d" % (error, error.exitcode))
+                    except Exception as error:
+                        variance_results.append(None)
+                        print("function raised %s" % error)
+                        print(error)  # Python's traceback of remote process
 
-        import pdb; pdb.set_trace()
-        # for key in all_keys:
-        #     components = compute_variance_composition(key)
-        #     results[key] = components
-        #     pbar.update(1)
+                results = dict(zip(all_keys, variance_results))
+        else:
+            for key in all_keys:
+                components = compute_variance_composition(key)
+                shuffled_components = compute_variance_composition(key, shuffle=True)
+
+                results[key] = components
+                pbar.update(1)
+
+
+
 
         pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
