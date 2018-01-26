@@ -15,9 +15,11 @@ GTEx_directory = '/hps/nobackup/research/stegle/users/willj/GTEx'
 parser = argparse.ArgumentParser(description='Collection of experiments. Runs on the cluster.')
 parser.add_argument('-g', '--group', help='Experiment group', required=True)
 parser.add_argument('-n', '--name', help='Experiment name', required=True)
+parser.add_argument('-p', '--params', help='Parameters')
 args = vars(parser.parse_args())
 group = args['group']
 name = args['name']
+parameter_key = args['params']
 
 class InflationPvalues():
 
@@ -40,13 +42,11 @@ class InflationPvalues():
         pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
     @staticmethod
-    def tf_corrected_pvalues():
+    def all_tf_corrected_pvalues():
         os.makedirs(GTEx_directory + '/results/{}'.format(group), exist_ok=True)
-        association_results, most_varying_feature_idx, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/corrected_pvalues.pickle', 'rb'))
-        results = association_results['Lung_mean_retrained_256']
+        association_results, filt_transcriptIDs = pickle.load(open(GTEx_directory + '/intermediate_results/TFCorrectedFeatureAssociations/compute_pvalues_{}.pickle'.format(parameter_key), 'rb'))
 
-
-        pickle.dump(results, open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
+        pickle.dump(association_results[1:], open(GTEx_directory + '/results/{group}/{name}.pickle'.format(group=group, name=name), 'wb'))
 
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  12 OCT 2017 17:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.5.3)  17 OCT 2017 16:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -443,440 +443,111 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 
 Writing index file author.idx
 (./author.aux)
-\openout1 = `author.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 50.
- (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ptm.fd
-File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-)
-(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count158
-\scratchdimen=\dimen174
-\scratchbox=\box62
-\nofMPsegments=\count159
-\nofMParguments=\count160
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count161
-\MPscratchDim=\dimen175
-\MPnumerator=\count162
-\makeMPintoPDFobject=\count163
-\everyMPtoPDFconversion=\toks28
-)
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: <default>
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: twoside 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-24.0pt
-* \headheight=12.0pt
-* \headsep=12.0pt
-* \topskip=10.0pt
-* \footskip=30.0pt
-* \marginparwidth=90.0pt
-* \marginparsep=11.0pt
-* \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidetrue
-* \@mparswitchtrue
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: Incompatible package detected (regarding \@caption).
-(caption)             \@caption = \long macro:#1[#2]#3->\par \addcontentsline {
-\csname ext@#1\endcsname }{#1}{\protect \numberline {\csname the#1\endcsname }{
-\ignorespaces #2}}\begingroup \@parboxrestore \if@minipage \@setminipage \fi \@
-makecaption {\csname fnum@#1\endcsname }{\ignorespaces #3}\par \endgroup .
-
-
-Package caption Warning: Forced redefinition of \caption since the
-(caption)                unsupported(!) package option `compatibility=false'
-(caption)                was given.
-See the caption package documentation for explanation.
-
-Package caption Info: float package is loaded.
-Package caption Info: listings package is loaded.
-Package caption Info: wrapfig package is loaded.
-Package caption Info: End \AtBeginDocument code.
-\big@size=\dimen176
-\c@lstlisting=\count164
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-
-Package mathptmx Warning: There are no bold math fonts on input line 62.
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <16> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 62.
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 62
-.
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
-File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
-)
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 62
-.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omlztmcm.fd
-File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
-)
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 62
-.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsztmcm.fd
-File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
-)
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 62
-.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omxztmcm.fd
-File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
-)
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8.5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.29004> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.10005> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 62.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
-
-
-LaTeX Warning: Citation `imaging-as-a-tool' on page 1 undefined on input line 8
-2.
-
-
-LaTeX Warning: Citation `imaging-genetics' on page 1 undefined on input line 82
-.
-
-
-LaTeX Warning: Citation `imaging-genetics-parkinsons' on page 1 undefined on in
-put line 82.
-
-
-LaTeX Warning: Citation `hematoxylin-and-eosin-staining' on page 1 undefined on
- input line 84.
-
-[1
-
-
-
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `histopathological-image-analysis' on page 2 undefined 
-on input line 88.
-
-
-LaTeX Warning: Citation `gene-expression-parkinsons' on page 2 undefined on inp
-ut line 90.
-
-
-LaTeX Warning: Citation `what-is-complex-about-complex-disorders' on page 2 und
-efined on input line 90.
-
-
-LaTeX Warning: Citation `GTEx-project' on page 2 undefined on input line 94.
-
-
-LaTeX Warning: Citation `GTEx-histology' on page 2 undefined on input line 96.
-
-
-LaTeX Warning: Citation `complex-sources-of-variation' on page 2 undefined on i
-nput line 98.
-
-
-LaTeX Warning: Citation `image-net' on page 2 undefined on input line 100.
-
-
-LaTeX Warning: Citation `deep-inside-convolutional-networks' on page 2 undefine
-d on input line 100.
-
-
-LaTeX Warning: Citation `network-in-network' on page 2 undefined on input line 
-100.
-
-[2]
-
-LaTeX Warning: Citation `scalable-unsupervised-learning' on page 3 undefined on
- input line 102.
-
-LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 120.
-[3]
-</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting_tis
-sue_patches.png, id=14, 1445.4pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extractin
-g_tissue_patches.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
-_tissue_patches.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/extracting_tissue_patches.png used on input line 129.
-(pdftex.def)             Requested size: 1445.39648pt x 722.69823pt.
-
-</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at_dif
-ferent_scales.png, id=16, 722.7pt x 216.81pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_a
-t_different_scales.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at
-_different_scales.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/patches_at_different_scales.png used on input line 142.
-(pdftex.def)             Requested size: 722.69823pt x 216.80946pt.
- [4 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/extracting
-_tissue_patches.png>]
-
-LaTeX Warning: Citation `shapiro-computer-vision' on page 5 undefined on input 
-line 149.
-
-
-LaTeX Warning: Citation `otsu-method' on page 5 undefined on input line 149.
-
-
-LaTeX Warning: Citation `fine-tuning-deep-convolutional-neural-networks' on pag
-e 5 undefined on input line 156.
-
-
-LaTeX Warning: Citation `network-in-network' on page 5 undefined on input line 
-156.
-
-[5 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/patches_at_
-different_scales.png>]
-
-LaTeX Warning: Citation `keras' on page 6 undefined on input line 172.
-
-
-LaTeX Warning: Citation `openslide' on page 6 undefined on input line 172.
-
-
-LaTeX Warning: Reference `fig:expression_means_and_stds' on page 6 undefined on
- input line 200.
-
-[6]
-
-LaTeX Warning: Reference `fig:validation_accuracy_across_patchsize' on page 7 u
-ndefined on input line 230.
-
-[7]
-
-LaTeX Warning: Citation `complex-sources-of-variation' on page 8 undefined on i
-nput line 250.
-
-[8]
-
-LaTeX Warning: Reference `fig:expression_cutoff_and_raw_significant_association
-s' on page 9 undefined on input line 256.
-
-
-LaTeX Warning: Reference `fig:associations_raw_vs_retrained' on page 9 undefine
-d on input line 260.
-
-
-LaTeX Warning: Reference `fig:associations_mean_vs_median' on page 9 undefined 
-on input line 263.
-
-
-LaTeX Warning: Reference `fig:features_with_significant_transcripts' on page 9 
-undefined on input line 271.
-
-[9]
-
-LaTeX Warning: Reference `fig:transcripts_with_significant_features' on page 10
- undefined on input line 274.
-
-
-</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_bottom5_f
-eature796.png, id=44, 1445.4pt x 433.62pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_bott
-om5_feature796.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_botto
-m5_feature796.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/top5_bottom5_feature796.png used on input line 290.
-(pdftex.def)             Requested size: 1445.39648pt x 433.61894pt.
-
-</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/image_feat
-ure_796_vs_SMTSISCH.png, id=45, 722.7pt x 505.89pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/image
-_feature_796_vs_SMTSISCH.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/image_
-feature_796_vs_SMTSISCH.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
-eAssociations/image_feature_796_vs_SMTSISCH.png used on input line 296.
-(pdftex.def)             Requested size: 722.69823pt x 505.88875pt.
-
-Overfull \hbox (1.90001pt too wide) in paragraph at lines 288--300
-[]$[]$ $[]$ 
- []
-
-[10 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/top5_botto
-m5_feature796.png> </Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAsso
-ciations/image_feature_796_vs_SMTSISCH.png>]
-
-LaTeX Warning: Reference `fig:transcripts_with_significant_features' on page 11
- undefined on input line 329.
-
-[11] [12]
-
-LaTeX Warning: Citation `mendelian-randomization' on page 13 undefined on input
- line 357.
-
-
-LaTeX Warning: Citation `fully-convolutional-networks' on page 13 undefined on 
-input line 377.
-
-
-LaTeX Warning: Citation `sparse-autoencoders' on page 13 undefined on input lin
-e 377.
-
-
-LaTeX Warning: Citation `segmenting-classifying-epithelial' on page 13 undefine
-d on input line 377.
-
-[13]
-
-LaTeX Warning: Citation `generative-adverserial-networks' on page 14 undefined 
-on input line 380.
-
-
-LaTeX Warning: Citation `variational-autoencoders' on page 14 undefined on inpu
-t line 380.
-
-
-LaTeX Warning: Citation `gans-biological-image-synthesis' on page 14 undefined 
-on input line 380.
-
-
-</Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png, id=62, 746.79pt 
-x 253.9086pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png Graphic file
- (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gan
-tt.png used on input line 388.
-(pdftex.def)             Requested size: 746.78816pt x 253.90797pt.
-
-</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_acros
-s_patches.png, id=63, 1084.05pt x 289.08pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_
-across_patches.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_a
-cross_patches.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/features_across_patches.png used on input line 399.
-(pdftex.def)             Requested size: 1084.04736pt x 289.07928pt.
- [14 </Users/fonz/Documents/Projects/GTEx/plotting/Gantt/Gantt.png>]
-</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated_fea
-tures_across_samples.png, id=68, 722.7pt x 722.7pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregate
-d_features_across_samples.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/aggregated
-_features_across_samples.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/aggregated_features_across_samples.png used on input line 408.
-(pdftex.def)             Requested size: 722.69823pt x 722.69823pt.
-
-</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_crossc
-orrelation.png, id=69, 361.35pt x 361.35pt>
-File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_c
-rosscorrelation.png Graphic file (type png)
-
-<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/feature_cr
-osscorrelation.png>
-Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
-ploration/feature_crosscorrelation.png used on input line 415.
-(pdftex.def)             Requested size: 361.34912pt x 361.34912pt.
-
+Runaway argument?
+{\contentsline {subsubsection}{\numberline {4.2 
+./author.tex:50: File ended while scanning use of \@writefile.
+<inserted text> 
+                \par 
+l.50 \begin{document}
+                     
+? 
+./author.tex:50: Emergency stop.
+<inserted text> 
+                \par 
+l.50 \begin{document}
+                     
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 5554 strings out of 493089
+ 84343 string characters out of 6134843
+ 160533 words of memory out of 5000000
+ 8976 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 59i,0n,94p,465b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
+./author.tex:50:  ==> Fatal error occurred, no output PDF file produced!
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       size: 578.15858pt x 722.69823pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_feat
+ure_PCs_vs_TFs.png, id=71, 578.16pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image
+_feature_PCs_vs_TFs.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/image_
+feature_PCs_vs_TFs.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
+eAssociations/image_feature_PCs_vs_TFs.png used on input line 437.
+(pdftex.def)             Requested size: 578.15858pt x 722.69823pt.
+ [15 </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/features_
+across_patches.png> </Users/fonz/Documents/Projects/GTEx/plotting/FeatureExplor
+ation/aggregated_features_across_samples.png> </Users/fonz/Documents/Projects/G
+TEx/plotting/FeatureExploration/feature_crosscorrelation.png>]
 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expression
-_PCs_vs_TFs.png, id=70, 578.16pt x 722.7pt>
+_PCs_vs_image_feature_PCs.png, id=78, 1084.05pt x 361.35pt>
 File: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
-ssion_PCs_vs_TFs.png Graphic file (type png)
+ssion_PCs_vs_image_feature_PCs.png Graphic file (type png)
 
 <use /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expres
-sion_PCs_vs_TFs.png>
+sion_PCs_vs_image_feature_PCs.png>
 Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatur
-eAssociations/expression_PCs_vs_TFs.png used on input line 430.
-(pdftex.def)             Requested 
+eAssociations/expression_PCs_vs_image_feature_PCs.png used on input line 449.
+(pdftex.def)             Requested size: 1084.04736pt x 361.34912pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression_mea
+ns_and_stds.png, id=79, 722.7pt x 361.35pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expressio
+n_means_and_stds.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/FeatureExploration/expression
+_means_and_stds.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/FeatureEx
+ploration/expression_means_and_stds.png used on input line 458.
+(pdftex.def)             Requested size: 722.69823pt x 361.34912pt.
+
+</Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associatio
+ns_across_patchsizes.png, id=80, 1011.78pt x 722.7pt>
+File: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/assoc
+iations_across_patchsizes.png Graphic file (type png)
+
+<use /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatureAssociations/associ
+ations_across_patchsizes.png>
+Package pdftex.def Info: /Users/fonz/Documents/Projects/GTEx/plotting/RawFeatur
+eAssociations/associations_across_patchsizes.png used on input line 465.
+(pdftex.def)             Requested size: 1011.77753pt x 722.69823pt.
+ [16 </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureAssociations/expre
+ssion_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/plotting/PCAFeatureA
+ssociations/image_feature_PCs_vs_TFs.png> </Users/fonz/Documents/Projects/GTEx/
+plotting/PCAFeatureAssociations/expression_PCs_vs_image_feature_PCs.png>]
+
+./author.tex:477: LaTeX Error: File `/RawFeatureAssociations/associations_raw_v
+s_retrained' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.477 ...sociations/associations_raw_vs_retrained}
+                                                  
+? 
+./author.tex:477: Emergency stop.
+ ...                                              
+                                                  
+l.477 ...sociations/associations_raw_vs_retrained}
+                                                  
+I could not locate the file with any of these extensions:
+.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 6543 strings out of 493089
+ 105514 string characters out of 6134843
+ 181837 words of memory out of 5000000
+ 9849 multiletter control sequences out of 15000+600000
+ 38276 words of font info for 81 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 59i,8n,94p,2176b,517s stack positions out of 5000i,500n,10000p,200000b,80000s
+./author.tex:477:  ==> Fatal error occurred, no output PDF file produced!

@@ -126,6 +126,17 @@ class NIPS():
         mpl.rcParams['xtick.labelsize'] = label_size
         mpl.rcParams['ytick.labelsize'] = label_size
 
+        import seaborn as sns
+        entry = top_pvs[0]
+        sns.violinplot(entry[2],entry[4])
+        plt.xlabel("{}, {}".format(entry[3][0].decode('utf-8'),entry[3][1].decode('utf-8')), size=8)
+        plt.ylabel(entry[1][0])
+        plt.title("p={:0.1}".format(entry[0]))
+
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/top_pvalues_{key}_single.eps'.format(group=group, key=parameter_key), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/top_pvalues_{key}_single.png'.format(group=group, key=parameter_key), format='png', dpi=100)
+
         f,a = plt.subplots(7,8, figsize=(10,10))
         f.suptitle('Smallest 50 pvalues')
 

@@ -169,5 +169,25 @@ class InflationPvalues():
         plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
         plt.show()
 
+    @staticmethod
+    def all_tf_corrected_pvalues():
+        import seaborn as sns
+        sns.set_style("dark")
+        from limix.plot import qqplot
+
+        print("Loading pvalues")
+        all_tf_corrected_results = pickle.load(open(GTEx_directory + '/results/InflationPvalues/all_tf_corrected_pvalues.pickle', 'rb'))
+        tf_corrected_lamb =  estimate_lambda(all_tf_corrected_results[0].flatten())
+
+        qqplot(all_tf_corrected_results[0].flatten())
+        qqplot(all_tf_corrected_results[1].flatten())
+        plt.title('$\lambda={:0.2f}'.format(tf_corrected_lamb))
+        os.makedirs(GTEx_directory + '/plotting/{}'.format(group), exist_ok=True)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.eps'.format(group=group, name=name), format='eps', dpi=100)
+        plt.savefig(GTEx_directory + '/plotting/{group}/{name}.png'.format(group=group, name=name), format='png', dpi=100)
+        plt.show()
+
+
+
 if __name__ == '__main__':
     eval(group + '().' + name + '()')

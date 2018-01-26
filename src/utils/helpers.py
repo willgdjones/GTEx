@@ -274,13 +274,13 @@ def filter_expression(X, tIDs, M, k):
 
 
 
-def compute_pearsonR(Y, X, parallel=False):
+def compute_pearsonR(Y, X, parallel=False, verbose=False):
     """
     Perform pairwise associations between filt_features and filt_expression.
-    Also computes pvalues for 3 random shuffles.
+    Also computes pvalues for 1 random shuffles.
     """
     # Make sure all features are > 0
-    X[X < 0] = 0
+    # X[X < 0] = 0
 
     N = Y.shape[1]
     M = X.shape[1]
@@ -301,12 +301,10 @@ def compute_pearsonR(Y, X, parallel=False):
 
         if parallel:
 
-            pbar = tqdm(total=N*M)
-
             def perform_pearsonr(idx):
                 i, j = idx
                 R, pv = pearsonr(Y_copy[:, i], X[:, j])
-                pbar.update(1)
+                # pbar.update(1)
 
                 return R, pv
 
@@ -321,12 +319,14 @@ def compute_pearsonR(Y, X, parallel=False):
 
             pool = pathos.pools.ProcessPool(node=32)
             results = pool.map(perform_pearsonr, indicies)
-            pbar.close()
+
             R_mat = np.array([x[0] for x in results]).reshape(N,M)
             pvs = np.array([x[1] for x in parallel_results]).reshape(N,M)
 
         else:
+
             pbar = tqdm(total=N*M)
+
             R_mat = np.zeros((N, M))
             pvs = np.zeros((N, M))
             for i in range(N):
@@ -334,10 +334,11 @@ def compute_pearsonR(Y, X, parallel=False):
                     R, pv = pearsonr(Y_copy[:, i], X[:, j])
                     R_mat[i, j] = R
                     pvs[i, j] = pv
+
                     pbar.update(1)
+
+
             pbar.close()
-
-
         results['Rs_{}'.format(sh)] = R_mat
         results['pvs_{}'.format(sh)] = pvs
 

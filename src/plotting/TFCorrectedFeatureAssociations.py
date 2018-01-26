@@ -86,7 +86,11 @@ class TFCorrectedFeatureAssociations():
 
         colours = ['blue','red']
         for (k, m) in enumerate(MODELS):
-            axes[0].plot(associations_raw_vs_retrained[k], c=colours[k],label=m)
+            if m == 'retrained':
+                factor = 1024
+            elif m == 'raw':
+                factor = 2048
+            axes[0].plot(np.array(associations_raw_vs_retrained[k])/factor, c=colours[k],label=m)
 
         axes[0].legend()
 
