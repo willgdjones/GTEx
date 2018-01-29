@@ -16,8 +16,7 @@ monitor:
 
 download:
 	while IFS= read -r line; do \
-		bsub -M 25000 -R "rusage[mem=20000]" 'python src/preprocessing/download_tissue.py -t \"$$line\"'; \
-		sh src/bash/download_tissues.sh; \
+		bsub -M 25000 -R "rusage[mem=20000]" 'python src/preprocessing/download_tissue.py -t \"$$line\"';
 	done < textfiles/ID_tissue_list.txt;
 
 
