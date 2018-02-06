@@ -68,11 +68,11 @@ For example, the following python code will extract all the final layer features
 
 ```
 import h5py
-with h5py
 filename = 'data/h5py/collected_features.h5py'
 
 with h5py.File(filename) as f:
-    features = f['Lung']['-1']['128']['retrained']['GTEX-ZYY3-0926']['features']
+    features = f['Lung']['-1']['128']['retrained']['GTEX-ZYY3-0926']['features'].value
+# features.shape = (13009, 1024)
 ```
 
 ### 5. Aggregating Features.
@@ -81,6 +81,15 @@ In order to perform the association tests with genotype and expression data, we 
 `/<tissue>/<layer>/<patch_size>/<model>/<aggregation>`
 
 These descriptors are the same as above, `<aggregation>` takes on max, median, and mean.
+
+```
+import h5py
+filename = 'data/h5py/aggregated_features.h5py'
+
+with h5py.File(filename) as f:
+    features = f['Lung']['-1']['128']['retrained']['mean']['ordered_aggregated_features'].value
+# features.shape = (13009, 1024)
+```
 
 At the `<layer>` level, there is also the keys:
 
@@ -95,6 +104,37 @@ These steps are contained in the Jupyter Notebook.
 
 `notebooks/daily/17-11-08-correct-v7-data.ipynb`
 
+### Loading keras model without final relu
+The the version of the model that does not contain the final relu activation is located at: `models/model_id_out.h5`. Within Python, it can be loaded with the keras `load_model` function:
+
+`retrained_feature_model_ident = load_model('models/model_id_out.h5')`
+
 
 ### Contributing
-For future collaborators who would like to continue this project, and make sense of the associations that are present. I would recommend the reading through the notebook above, and replicating the association calculations. They do not take a long time to recompute, and are an instructive exercise. 
+For future collaborators who would like to continue this project, and make sense of the associations that are present, please read the `initial_analysis.ipynb` notebook. The notebook outlines the following sections:
+
+1. Load and prepare data
+    1. Extracting donors that have images
+    2. Extracting donors that have sample attributes
+        * Take log of Ischemic time
+        * Take log of PAX time
+        * Drop duplicate samples and keep the one with highest RIN number
+    3. Extract donors with gene expression.
+    4. Extract raw gene expression (TPM)
+    5. Find the intersection of donors (291 for lung)
+    6. Read in matrix of confounders used for the GTEx eQTL analysis, including genotype PCs and PEER factors.
+    7. Extract the PEER factors of the donors within donor intersection.
+    8. Build the confounding and expression matrices for these donors
+    9. Drop NaNs
+        * Drop any columns that are all Nan
+        * Drop any samples that have any NaNs
+    10. Filter confounders to have variance > 0
+    11. Extract image activations (features) for donors in the donor intersection
+2. Helper functions. These functions are use in the notebook to calculate associations and define the pipeline.
+3. Descriptions. This block explains the method used to regress out confounding factors.
+4. Analysis: outlines the code blocks that define where the actually analysis is done.
+5. Plotting: Plots the results from the code blocks of Analysis    
+6. Some analysis delving deeper into the PEER factors
+7. Associating PEER factors directly to gene expression
+8. Correlating image feature PCs to PEER factors
+9. Comparing the raw vs retrained models
